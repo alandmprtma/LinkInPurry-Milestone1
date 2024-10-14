@@ -1,8 +1,36 @@
+version: '3.8'
+
 services:
   php:
     build:
       context: .
       dockerfile: Dockerfile
-    # TODO
+    container_name: php-container
+    ports:
+      - "8080:80"
+    volumes:
+      - ./php/src:/var/www/html/src
+    networks:
+      - app-network
+    depends_on:
+      - db
+
   db:
-# TODO
+    image: postgres:14
+    container_name: postgres-container
+    environment:
+      POSTGRES_DB: linkinpurry_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: userpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
