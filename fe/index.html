@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Seeker Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Job Finder</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for jobs or companies...">
+                <button>Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Jobs</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <aside class="filters">
+            <h3>Filter</h3>
+            <div class="filter-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="Enter location">
+            </div>
+            <div class="filter-group">
+                <label for="job-type">Job Type</label>
+                <select id="job-type">
+                    <option value="all">All</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="contract">Contract</option>
+                </select>
+            </div>
+            <button class="apply-filters">Apply Filters</button>
+        </aside>
+
+        <section class="job-listings">
+            <div class="sorting">
+                <span>Sort by:</span>
+                <select id="sort-by">
+                    <option value="relevance">Relevance</option>
+                    <option value="date">Newest</option>
+                </select>
+            </div>
+
+            <ul class="job-cards">
+                <li class="job-card">
+                    <h4>Software Engineer</h4>
+                    <p>Company: TechCorp</p>
+                    <p>Location: Jakarta, Indonesia</p>
+                    <button>View Details</button>
+                </li>
+                <li class="job-card">
+                    <h4>Data Analyst</h4>
+                    <p>Company: DataCorp</p>
+                    <p>Location: Bandung, Indonesia</p>
+                    <button>View Details</button>
+                </li>
+                <!-- Additional job listings go here -->
+            </ul>
+
+            <div class="pagination">
+                <button>&laquo; Prev</button>
+                <span>Page 1 of 5</span>
+                <button>Next &raquo;</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Job Finder. All rights reserved.</p>
+    </footer>
+</body>
+</html>
