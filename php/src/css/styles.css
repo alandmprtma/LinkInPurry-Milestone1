@@ -88,12 +88,66 @@ button:hover {
     color: #666;
 }
 
-.container a {
+
+
+/* Style untuk tombol */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5c6bc0;
+    color: white;
     text-decoration: none;
-    color: #5c6bc0;
-    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px; /* Pastikan ukuran font cukup besar */
 }
 
-.container a:hover {
-    color: #3f51b5;
+.btn:hover {
+    background-color: #3f51b5;
 }
+
+/* Tambahkan style untuk tombol dengan warna merah (tombol berbahaya) */
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px; /* Pastikan ukuran font cukup besar */
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+
+/* Style untuk tabel lamaran */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+td a {
+    color: #5c6bc0;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
