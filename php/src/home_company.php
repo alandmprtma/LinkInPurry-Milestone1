@@ -57,7 +57,7 @@ $lowonganList = $stmt->fetchAll();
                     <td><?php echo $lowongan['is_open'] ? 'Terbuka' : 'Tertutup'; ?></td>
                     <td>
                         <!-- Link ke halaman detail lowongan -->
-                        <a href="lowongan_detail.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn">Lihat Detail</a>
+                        <a href="lowongan_detail.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btndetail">Lihat Detail</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -67,8 +67,8 @@ $lowonganList = $stmt->fetchAll();
         <p>Anda belum membuat lowongan pekerjaan.</p>
     <?php endif; ?>
 
-    <a href="buat_lowongan.php" class="btn">Buat Lowongan Baru</a>
-    <a href="auth/logout.php" class="btn">Logout</a>
+    <a href="buat_lowongan.php" class="btn">Buat Lowongan</a>
+    <a href="auth/logout.php" class="btn-danger">Logout</a>
 </div>
 
 </body>

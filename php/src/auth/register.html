@@ -11,11 +11,13 @@
     <div class="login-container">
         <h1>Register</h1>
         <form action="register.php" method="POST" id="registerForm">
-            <label for="role">Daftar sebagai:</label>
-            <select id="role" name="role" required>
-                <option value="jobseeker">Job Seeker</option>
-                <option value="company">Company</option>
-            </select>
+            <div class="role">
+                <label for="role">Daftar sebagai: </label>
+                <select id="role" name="role" required>
+                    <option value="jobseeker">Job Seeker</option>
+                    <option value="company">Company</option>
+                </select>
+            </div>
             
             <input type="text" id="nama" name="nama" placeholder="Nama" required>
             <input type="email" id="email" name="email" placeholder="Email" required>
@@ -25,6 +27,10 @@
             <div class="error" id="error-message"></div>
             <button type="submit">Register</button>
         </form>
+
+        <div class="register-link">
+            <p>Sudah punya akun? <a href="login.html">Login</a></p>
+        </div>
     </div>
 
     <script>

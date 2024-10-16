@@ -61,14 +61,14 @@ if (!$lowongan) {
     <?php if ($lowongan['is_open']): ?>
     <form action="tutup_lowongan.php" method="POST">
         <input type="hidden" name="lowongan_id" value="<?php echo $lowongan['lowongan_id']; ?>">
-        <button type="submit" class="btn-danger">Tutup Lowongan</button>
+        <button type="submit" class="btn">Tutup Lowongan</button>
     </form>
     <?php else: ?>
     <p>Lowongan ini telah ditutup.</p>
     <?php endif; ?>
 
     <a href="edit_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn">Edit Lowongan</a>
-    <a href="home_company.php" class="btn">Kembali ke Home</a>
+    <a href="home_company.php" class="btn">Kembali</a>
 </div>
 
 </body>
