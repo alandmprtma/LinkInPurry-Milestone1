@@ -8,4 +8,10 @@ root
             index.php
             public
                 index.js
+            auth
+                login.html
+                login.php
+                logout.php
+            css
+                styles.css
         php.ini

@@ -1,19 +1,17 @@
 <?php
-$host = 'db'; // Nama service database di docker-compose.yml
-$dbname = 'linkinpurry_db';
-$user = 'user';
-$password = 'userpassword';
+session_start();
 
-$dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$user;password=$password";
-try {
-    // Create a PostgreSQL database connection
-    $conn = new PDO($dsn);
-    
-    // Display a message if connected successfully
-    if($conn) {
-        echo "Connected to the PostgreSQL database successfully!";
+// Cek apakah pengguna sudah login
+if (isset($_SESSION['user_id'])) {
+    // Jika pengguna sudah login, arahkan ke halaman home sesuai role
+    if ($_SESSION['role'] == 'company') {
+        header('Location: home_company.php');
+    } else {
+        header('Location: home_jobseeker.php');
     }
-} catch (PDOException $e) {
-    echo $e->getMessage();
+} else {
+    // Jika belum login, arahkan ke halaman login satu kali
+    header('Location: auth/login.html');
+    exit();  // Penting: Tambahkan exit setelah header untuk menghentikan script
 }
 ?>

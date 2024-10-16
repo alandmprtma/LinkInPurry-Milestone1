@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LinkInPurry</title>
+    <link rel="stylesheet" href="../css/styles.css"> <!-- Menggunakan CSS global -->
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="login.php" method="POST" id="loginForm">
+            <div class="error" id="error-message"></div>
+            <input type="text" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Bagian untuk link Register -->
+        <div class="register-link">
+            <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
