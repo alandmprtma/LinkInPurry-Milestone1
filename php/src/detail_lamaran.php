@@ -62,24 +62,53 @@ if (!$lamaran) {
     <p><strong>Nama Pelamar:</strong> <?php echo htmlspecialchars($lamaran['nama']); ?></p>
     <p><strong>Email Pelamar:</strong> <?php echo htmlspecialchars($lamaran['email']); ?></p>
 
+    <!-- Attachment Lamaran: CV dan Video -->
+    <h3>Attachment Lamaran</h3>
+
+    <?php if (!empty($lamaran['cv_path'])): ?>
+        <p><strong>CV:</strong></p>
+        <!-- Tampilkan CV dalam bentuk embed PDF -->
+        <embed src="<?php echo htmlspecialchars($lamaran['cv_path']); ?>" type="application/pdf" width="100%" height="200px" />
+    <?php else: ?>
+        <p>CV tidak tersedia.</p>
+    <?php endif; ?>
+
+    <?php if (!empty($lamaran['video_path'])): ?>
+        <p><strong>Video Perkenalan:</strong></p>
+        <!-- Tampilkan video perkenalan -->
+        <video width="100%" height="400px" controls>
+            <source src="<?php echo htmlspecialchars($lamaran['video_path']); ?>" type="video/mp4">
+            Browser Anda tidak mendukung pemutar video.
+        </video>
+    <?php else: ?>
+        <p>Video perkenalan tidak tersedia.</p>
+    <?php endif; ?>
+
+    <!-- Status Lamaran -->
     <p><strong>Status Lamaran:</strong> <?php echo htmlspecialchars($lamaran['status']); ?></p>
-    <p><strong>Tanggal Lamaran:</strong> <?php echo htmlspecialchars($lamaran['tanggal_lamaran']); ?></p>
+    <p><strong>Tanggal Lamaran:</strong> <?php echo htmlspecialchars($lamaran['created_at']); ?></p>
 
-    <p><strong>Catatan Pelamar:</strong></p>
-    <p><?php echo nl2br(htmlspecialchars($lamaran['catatan'])); ?></p>
 
-    <!-- Opsi untuk mengubah status lamaran -->
-    <h3>Ubah Status Lamaran</h3>
-    <form action="ubah_status_lamaran.php" method="POST">
-        <input type="hidden" name="lamaran_id" value="<?php echo $lamaran['lamaran_id']; ?>">
-        <label for="status">Status:</label>
-        <select name="status" id="status" required>
-            <option value="diterima" <?php if($lamaran['status'] == 'diterima') echo 'selected'; ?>>Diterima</option>
-            <option value="ditolak" <?php if($lamaran['status'] == 'ditolak') echo 'selected'; ?>>Ditolak</option>
-            <option value="dalam peninjauan" <?php if($lamaran['status'] == 'dalam peninjauan') echo 'selected'; ?>>Dalam Peninjauan</option>
-        </select>
-        <button type="submit" class="btn">Simpan Perubahan</button>
-    </form>
+    <!-- Opsi untuk mengubah status lamaran, hanya jika status waiting -->
+    <?php if ($lamaran['status'] == 'waiting'): ?>
+        <h3>Ubah Status Lamaran</h3>
+        <form action="ubah_status_lamaran.php" method="POST">
+            <input type="hidden" name="lamaran_id" value="<?php echo $lamaran['lamaran_id']; ?>">
+            <label for="status">Status:</label>
+            <select name="status" id="status" required>
+                <option value="diterima" <?php if($lamaran['status'] == 'diterima') echo 'selected'; ?>>Diterima</option>
+                <option value="ditolak" <?php if($lamaran['status'] == 'ditolak') echo 'selected'; ?>>Ditolak</option>
+                <option value="dalam peninjauan" <?php if($lamaran['status'] == 'dalam peninjauan') echo 'selected'; ?>>Dalam Peninjauan</option>
+            </select>
+            <br>
+
+            <!-- Tindak lanjut dalam bentuk rich text (HTML editor) -->
+            <label for="status_reason">Tindak Lanjut/Alasan:</label>
+            <textarea name="status_reason" id="status_reason" rows="4"></textarea>
+
+            <button type="submit" class="btn">Simpan Perubahan</button>
+        </form>
+    <?php endif; ?>
 
     <a href="lowongan_detail.php?lowongan_id=<?php echo $lamaran['lowongan_id']; ?>" class="btn">Kembali ke Detail Lowongan</a>
 </div>
