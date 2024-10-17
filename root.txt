@@ -1,0 +1,17 @@
+root
+    docker-compose.yml
+    Dockerfile
+    README.md
+    php
+        src
+            .htaccess
+            index.php
+            public
+                index.js
+            auth
+                login.html
+                login.php
+                logout.php
+            css
+                styles.css
+        php.ini
