@@ -46,7 +46,8 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <ul class="nav-links">
                 <li><a class="active" href="/"> <img src="assets/home_black.png"> Home</a></li>
-                <li><a class="inactive" href="/jobs"> <img src="assets/suitcase-grey.png"> My Jobs</a></li>
+                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
             </ul>
         </nav>
 
