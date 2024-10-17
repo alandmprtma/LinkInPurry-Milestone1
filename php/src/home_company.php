@@ -21,7 +21,8 @@ try {
 }
 
 // Query untuk mendapatkan daftar lowongan yang dibuat oleh company yang sedang login
-$query = "SELECT * FROM Lowongan WHERE company_id = :company_id";
+
+$query = "SELECT L.*, U.nama AS company_name FROM Lowongan L JOIN Users U ON L.company_id = U.user_id WHERE L.company_id = :company_id";;
 $stmt = $pdo->prepare($query);
 $stmt->execute(['company_id' => $_SESSION['user_id']]);
 $lowonganList = $stmt->fetchAll();
@@ -31,45 +32,108 @@ $lowonganList = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Company</title>
-    <link rel="stylesheet" href="css/styles.css"> <!-- Menggunakan CSS global -->
+    <title>LinkInPurry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles_js.css">
 </head>
 <body>
+        <nav class="navbar">
+            <img class="logo" src="assets/LinkInPurry-crop.png">
+            <div class="search-bar">
+                <div class="icon">
+                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                </div>
+                <input type="text" placeholder="Search">
+            </div>
+            <ul class="nav-links">
+                <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
+                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+            </ul>
+        </nav>
 
-<div class="container">
-    <h1>Welcome, <?php echo $_SESSION['nama']; ?> (Company)</h1>
-    <p>Daftar lowongan yang Anda buat:</p>
+    <main style='align-content: center;'>
+    <aside class='left-aside'>
+    <div class="profile-card">
+        <div class="header">
+        </div>
+        <div class="body">
+            <h3><?php echo $_SESSION['nama']; ?></h3>
+            <p><?php echo $_SESSION['email']; ?></p>
+            <p class="location">Tangerang, Banten</p>
+        </div>
+        <div class="footer">
+            <span>Company</span>
+        </div>
+    </div>
+        <aside class="filters">
+            <h3>Filter</h3>
+            <div class="filter-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="Enter location">
+            </div>
+            <div class="filter-group">
+                <label for="job-type">Job Type</label>
+                <select id="job-type">
+                    <option value="all">All</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="contract">Contract</option>
+                </select>
+            </div>
+            <button class="apply-filters">Apply Filters</button>
+        </aside>
+    </aside>
+<section>
+<div class="card-header">
+    <div class="card-content">
+        <h2>Hi <?php echo $_SESSION['nama'];?>, are you hiring?</h2>
+        <p>Discover free and easy ways to find a great hire, fast!</p>
+    </div>
+    </div>
+    <section class="job-listings">
+    <div class="header">
+        <h2>Top job picks for you</h2>
+        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+    </div>
 
-    <!-- Tampilkan Daftar Lowongan -->
-    <?php if ($lowonganList): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Posisi</th>
-                    <th>Status</th>
-                    <th>Detail Lowongan</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($lowonganList as $lowongan): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($lowongan['posisi']); ?></td>
-                    <td><?php echo $lowongan['is_open'] ? 'Terbuka' : 'Tertutup'; ?></td>
-                    <td>
-                        <!-- Link ke halaman detail lowongan -->
-                        <a href="lowongan_detail.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btndetail">Lihat Detail</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>Anda belum membuat lowongan pekerjaan.</p>
-    <?php endif; ?>
+    <ul class="job-cards">
+        <?php foreach ($lowonganList as $index => $lowongan): ?>
+            <li class="job-card">
+                <h4><?= htmlspecialchars($lowongan['posisi']) ?></h4>
+                <p class="company"><?= htmlspecialchars($lowongan['company_name']) ?></p>
+                <p class="location"><?= htmlspecialchars($lowongan['jenis_lokasi']) ?></p>
+                <span class="promoted"><?= htmlspecialchars($lowongan['jenis_pekerjaan']) ?></span>
+            </li>
 
-    <a href="buat_lowongan.php" class="btn">Buat Lowongan</a>
-    <a href="auth/logout.php" class="btn-danger">Logout</a>
-</div>
+            <!-- Tambahkan horizontal line kecuali untuk item terakhir -->
+            <?php if ($index !== array_key_last($lowonganList)): ?>
+                <li class="line"><hr class="divider" /></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+    </section>
+</section>
+
+        <aside class="job-seeker-guidance">
+            <div class="guidance-card">
+                <h3>Post a free job</h3>
+                <p class="recommendation">Reach top talent effortlessly</p>
+                <div class="guidance-content">
+                    <div class="guidance-text">
+                        <div class="guidance-headline">
+                            <strong style="margin-top:5px;">Find Your Ideal Candidate Today</strong>
+                            <div class="guidance-image">
+                                <img class="" src="assets/candidate.png" alt="Resume Improvement">
+                            </div>
+                        </div>
+                        <p style="margin-top:15px;">Ready to expand your team? Posting a job has never been easier! Share your job listing with a wide audience of qualified candidates looking for opportunities just like yours. With our user-friendly platform, you can customize your job post to attract the best talent, all at no cost to you!</p>
+                        <a href="buat_lowongan.php" class="show-more">Start Posting Now <span>&#8594;</span></a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
 
 </body>
 </html>

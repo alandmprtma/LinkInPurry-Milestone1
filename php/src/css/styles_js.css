@@ -72,10 +72,19 @@ body {
 }
 
 .nav-links img {
-    width: 30px;
+    width: 20px;
     text-align: center;
     transition: 0.3s ease-in-out; /* Efek transisi yang halus */
 }
+
+.nav-links a:hover .home {
+    content: url('../assets/home_black.png');
+}
+
+.nav-links a:hover .logout {
+    content: url('../assets/logout-black.png');
+}
+
 
 .nav-links a:hover .logout {
     content: url('../assets/logout-black.png');
@@ -85,15 +94,6 @@ body {
     content: url('../assets/suitcase-black.png'); /* Ganti dengan gambar hitam saat dihover */
 }
 
-.active {
-    text-decoration: none;
-    color: #000;
-    font-size: 16px;
-    margin-right: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .inactive{
     text-decoration: none;
@@ -116,35 +116,38 @@ body {
     margin-bottom: 5px; /* Jarak antara ikon dan teks */
 }
 
-.nav-links li:first-child a {
-    position: relative;
-    font-weight: bold;
+.nav-links li .current {
+    text-decoration: none;
     color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+
 /* Garis bawah hanya untuk halaman Home */
-.nav-links li:first-child a::after {
+.nav-links li:first-child .current::after {
     content: '';
-    display: block;
     width: 80px; /* Lebar garis bawah */
     height: 2px; /* Tinggi garis bawah */
     background-color: #000;
     margin-top: 5px;
-    position: absolute;
-    bottom: -16px; /* Posisi garis */
-    left: 50%;
-    transform: translateX(-50%);
+    position:absolute;
+    bottom: 0px;
 }
 
 .card-header{
     width: 100%;
-    margin: 2rem auto;
+    margin-bottom: 2rem;
     padding: 2rem;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 /* Card content section */
@@ -179,7 +182,7 @@ main {
     overflow: hidden;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     margin-bottom: 20px; /* Add margin to separate from the filters */
 }
 
@@ -284,12 +287,11 @@ main {
 /* Container for the entire job listings */
 .job-listings {
     width: 100%;
-    margin: 2rem auto;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
-    font-family: Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 /* Header section styling */
@@ -376,7 +378,7 @@ main {
     padding: 1rem;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .guidance-card h3 {
@@ -438,4 +440,112 @@ main {
     width: 30px;
     height: 30px;
     border-radius: 10px;
+}
+
+/* Job Vacancy Form */
+.job-vacancy {
+    position: sticky;
+    top: 100px;
+    width: 60%;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.form-heading {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #0073b1; /* LinkedIn blue */
+    font-weight: bold;
+}
+
+/* Form Group Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    font-size: 16px;
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    border: 1px solid #0073b1; /* Highlight color */
+    outline: none;
+}
+
+.form-textarea {
+    height: 100px; /* You can adjust the height as needed */
+    resize: vertical; /* Allow vertical resizing */
+    font-family: 'Source Sans Pro', sans-serif; /* Set your desired font family */
+    font-size: 16px; /* Set the font size */
+    line-height: 1.5; /* Set line height for better readability */
+    color: #333; /* Set text color */
+    padding: 0.8rem; /* Add padding for better spacing inside the textarea */
+    border: 1px solid #ccc; /* Keep border styling */
+    border-radius: 4px; /* Keep rounded corners */
+    transition: border 0.3s; /* Keep transition for focus effect */
+}
+
+.form-textarea:focus {
+    border: 1px solid #0073b1; /* Highlight border color on focus */
+    outline: none; /* Remove default outline */.button-group {
+    display: flex;
+    justify-content: center; /* Centering the button */
+    margin-top: 1.5rem;
+}
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    justify-content: center; /* Centering the button */
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #0073b1;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #0073b1;
+    border: 1px solid #0073b1;
+}
+
+.btn-primary:hover {
+    background-color: #005582; /* Darker shade for hover */
+}
+
+.btn-secondary:hover {
+    background-color: #e0e0e0; /* Slightly darker for hover */
 }
