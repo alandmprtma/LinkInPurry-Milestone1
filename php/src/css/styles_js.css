@@ -1,0 +1,426 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #f3f2ef;
+    color: #333;
+}
+
+
+
+/* Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    width: full;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    height: 50px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    margin-left: 20px;
+    background-color: #edf3f8;
+    width: 300px; /* Ukuran awal search bar */
+    transition: width 0.4s ease; /* Durasi transisi dan efek */
+}
+
+.search-bar .icon img {
+    width: 20px; /* Ukuran ikon */
+    margin-left: 5px;
+    margin-right: 3px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    flex: 1;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.search-bar input::placeholder {
+    color: #666;
+}
+
+/* Ketika input di-focus, lebar search bar berubah */
+.search-bar:focus-within {
+    width: 450px; /* Lebar setelah focus (250% dari 200px) */
+    border: 2px solid #000;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+}
+
+.nav-links img {
+    width: 30px;
+    text-align: center;
+}
+
+.active {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inactive{
+    text-decoration: none;
+    color: #666;
+    font-size: 16px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-links i {
+    font-size: 24px; /* Ukuran ikon */
+    margin-bottom: 5px; /* Jarak antara ikon dan teks */
+}
+
+.nav-links li:first-child a {
+    position: relative;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Garis bawah hanya untuk halaman Home */
+.nav-links li:first-child a::after {
+    content: '';
+    display: block;
+    width: 80px; /* Lebar garis bawah */
+    height: 2px; /* Tinggi garis bawah */
+    background-color: #000;
+    margin-top: 5px;
+    position: absolute;
+    bottom: -16px; /* Posisi garis */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.card-header{
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Card content section */
+.card-content h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.card-content p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Main layout */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+}
+
+.left-aside{
+    width: 22%;
+}
+
+.profile-card {
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px; /* Add margin to separate from the filters */
+}
+
+.profile-card .header {
+    background-color: #d1d5db;
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-card .header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile-card .body {
+    padding: 15px 20px;
+}
+
+.profile-card .body h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-card .body p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.profile-card .body .location {
+    font-size: 12px;
+    color: #999;
+}
+
+.profile-card .footer {
+    padding: 15px 20px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.profile-card .footer img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.profile-card .footer span {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+.filters {
+    position: sticky;
+    top: 100px;
+    width: 90%;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 2rem;
+}
+
+.filters h3 {
+    margin-bottom: 1rem;
+    color: #0073b1;
+}
+
+.filter-group {
+    margin-bottom: 1rem;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.filter-group input, .filter-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.apply-filters {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #0073b1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Job Listings */
+/* Container for the entire job listings */
+.job-listings {
+    width: 100%;
+    margin: 2rem auto;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Header section styling */
+.header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+.header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header p {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Removing bullet points and padding */
+.job-cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for each job card */
+.job-card {
+    padding: 1.5rem;
+}
+
+.job-card h4 {
+    margin-bottom: 0.3rem;
+    color: #0073b1;
+    font-size: 1.2rem;
+}
+.job-card:hover h4 {
+    text-decoration: underline;
+}
+
+.job-card .company {
+    color: #555;
+    margin-bottom: 0.2rem;
+    font-size: 0.95rem;
+}
+
+.job-card .location {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.promoted {
+    display: block;
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.line{
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Horizontal line between job listings */
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    width: 95%;
+    margin: 0;
+}
+
+
+.job-seeker-guidance {
+    width: 25%;
+    margin-left: 2rem;
+}
+
+.guidance-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.guidance-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.guidance-card .recommendation {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 1rem;
+}
+
+.guidance-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.guidance-text {
+    flex: 1;
+}
+
+.guidance-text strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 16px;
+}
+
+.guidance-text p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.guidance-text .show-more {
+    font-size: 14px;
+    color: #7f00ff;
+    text-decoration: none;
+}
+
+/* Efek hover untuk teks */
+.guidance-text .show-more:hover {
+    font-weight: bold; /* Mengubah menjadi teks tebal */
+    text-decoration: underline; /* Menambahkan garis bawah */
+}
+.guidance-headline {
+    display: flex;
+    font-weight:  bold;
+    justify-content: space-between;
+    background-color: #d1d5db; /* Warna abu-abu */
+    padding: 1rem; /* Tambahkan padding agar isi tidak menyentuh tepi */
+    margin-left: -1rem; /* Menghilangkan margin kiri untuk menyentuh tepi */
+    margin-right: -1rem; /* Menghilangkan margin kanan untuk menyentuh tepi */
+}
+
+.guidance-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+}
