@@ -17,34 +17,44 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
     <link rel="stylesheet" href="css/styles.css"> <!-- Menggunakan CSS global -->
 </head>
 <body>
+    
+<div class="container lowongan-container">
+    <h1 class="lowongan-heading">Buat Lowongan Baru</h1>
+    <form class="lowongan-form" action="simpan_lowongan.php" method="POST">
+        <div class="lowongan-form-group">
+            <label for="posisi" class="lowongan-label">Posisi Pekerjaan:</label>
+            <input type="text" id="posisi" name="posisi" class="lowongan-input" required>
+        </div>
+        
+        <div class="lowongan-form-group">
+            <label for="deskripsi" class="lowongan-label">Deskripsi Pekerjaan:</label>
+            <textarea id="deskripsi" name="deskripsi" class="lowongan-textarea" required></textarea>
+        </div>
 
-<div class="container">
-    <h1>Buat Lowongan Baru</h1>
-    <form action="simpan_lowongan.php" method="POST">
-        <label for="posisi">Posisi Pekerjaan:</label>
-        <input type="text" id="posisi" name="posisi" required>
+        <div class="lowongan-form-group">
+            <label for="jenis_pekerjaan" class="lowongan-label">Jenis Pekerjaan:</label>
+            <select id="jenis_pekerjaan" name="jenis_pekerjaan" class="lowongan-select" required>
+                <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
+                <option value="internship">Internship</option>
+            </select>
+        </div>
 
-        <label for="deskripsi">Deskripsi Pekerjaan:</label>
-        <textarea id="deskripsi" name="deskripsi" required></textarea>
+        <div class="lowongan-form-group">
+            <label for="jenis_lokasi" class="lowongan-label">Jenis Lokasi:</label>
+            <select id="jenis_lokasi" name="jenis_lokasi" class="lowongan-select" required>
+                <option value="on-site">On-site</option>
+                <option value="remote">Remote</option>
+                <option value="hybrid">Hybrid</option>
+            </select>
+        </div>
 
-        <label for="jenis_pekerjaan">Jenis Pekerjaan:</label>
-        <select id="jenis_pekerjaan" name="jenis_pekerjaan" required>
-            <option value="full-time">Full-time</option>
-            <option value="part-time">Part-time</option>
-            <option value="internship">Internship</option>
-        </select>
-
-        <label for="jenis_lokasi">Jenis Lokasi:</label>
-        <select id="jenis_lokasi" name="jenis_lokasi" required>
-            <option value="on-site">On-site</option>
-            <option value="remote">Remote</option>
-            <option value="hybrid">Hybrid</option>
-        </select>
-
-        <button type="submit" class="btn">Simpan Lowongan</button>
+        <button type="submit" class="btn">Simpan</button>
     </form>
-    <a href="home_company.php" class="btn">Kembali ke Home</a>
+    <a href="home_company.php" class="btn">Kembali</a>
 </div>
+
+
 
 </body>
 </html>

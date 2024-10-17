@@ -77,6 +77,7 @@ $lamaranList = $stmtLamaran->fetchAll();
     <?php else: ?>
     <p>Lowongan ini telah ditutup.</p>
     <?php endif; ?>
+    <a href="edit_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn">Edit Lowongan</a>
 
     <!-- Menampilkan Daftar Lamaran -->
     <h2>Daftar Lamaran</h2>
@@ -106,7 +107,7 @@ $lamaranList = $stmtLamaran->fetchAll();
         <p>Belum ada lamaran untuk lowongan ini.</p>
     <?php endif; ?>
 
-    <a href="edit_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn">Edit Lowongan</a>
+    
     <a href="home_company.php" class="btn">Kembali</a>
 
     <!-- Tombol Hapus Lowongan -->

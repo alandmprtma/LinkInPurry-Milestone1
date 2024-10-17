@@ -132,6 +132,55 @@ button:hover {
 }
 
 
+/* Atur styling container untuk form lowongan */
+.lowongan-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Styling untuk heading */
+.lowongan-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Styling form khusus lowongan */
+.lowongan-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Jarak antar elemen di dalam form */
+}
+
+/* Styling untuk div wrapper masing-masing input */
+.lowongan-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling label khusus lowongan */
+.lowongan-label {
+    margin-bottom: 5px;
+}
+
+/* Styling untuk input, textarea, dan select khusus lowongan */
+.lowongan-input,
+.lowongan-textarea,
+.lowongan-select {
+    display: block;   /* Menjadikan input sebagai blok */
+/* Ukuran input */
+    width: 250px;
+    padding: 10px;
+    margin: 10px auto; /* Tambahkan ini agar input sejajar di tengah */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
+
+
 
 
 
