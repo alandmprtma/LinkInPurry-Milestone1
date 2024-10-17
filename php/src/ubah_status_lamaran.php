@@ -20,20 +20,21 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
-// Ambil lowongan_id dari URL
-if (!isset($_GET['lowongan_id'])) {
-    echo "ID Lowongan tidak ditemukan!";
-    exit();
-}
+// Ambil data dari form
+$lamaran_id = $_POST['lamaran_id'];
+$status = $_POST['status'];
 
-$lowongan_id = $_GET['lowongan_id'];
-
-// Hapus lowongan dan semua lamaran terkait
-$query = "DELETE FROM Lowongan WHERE lowongan_id = :lowongan_id AND company_id = :company_id";
+// Update status lamaran di database
+$query = "UPDATE Lamaran SET status = :status WHERE lamaran_id = :lamaran_id AND EXISTS (
+              SELECT 1 FROM Lowongan WHERE Lowongan.lowongan_id = Lamaran.lowongan_id AND company_id = :company_id)";
 $stmt = $pdo->prepare($query);
-$stmt->execute(['lowongan_id' => $lowongan_id, 'company_id' => $_SESSION['user_id']]);
+$stmt->execute([
+    'status' => $status,
+    'lamaran_id' => $lamaran_id,
+    'company_id' => $_SESSION['user_id']
+]);
 
-// Setelah berhasil, arahkan kembali ke halaman home
-header('Location: home_company.php');
+// Setelah berhasil, kembali ke halaman detail lamaran
+header("Location: detail_lamaran.php?lamaran_id=$lamaran_id");
 exit();
 ?>

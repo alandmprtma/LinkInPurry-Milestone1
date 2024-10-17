@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 // Cek apakah pengguna sudah login dan apakah role adalah 'company'
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
     header('Location: auth/login.html');
@@ -22,6 +21,11 @@ try {
 }
 
 // Ambil lowongan_id dari URL
+if (!isset($_GET['lowongan_id'])) {
+    echo "ID Lowongan tidak ditemukan!";
+    exit();
+}
+
 $lowongan_id = $_GET['lowongan_id'];
 
 // Query untuk mendapatkan detail lowongan
@@ -35,7 +39,14 @@ if (!$lowongan) {
     exit();
 }
 
-// Jika lowongan ditemukan, tampilkan detailnya
+// Query untuk mendapatkan daftar lamaran dari lowongan ini
+$queryLamaran = "SELECT Lamaran.lamaran_id, Users.nama, Lamaran.status 
+                 FROM Lamaran 
+                 JOIN Users ON Lamaran.user_id = Users.user_id 
+                 WHERE Lamaran.lowongan_id = :lowongan_id";
+$stmtLamaran = $pdo->prepare($queryLamaran);
+$stmtLamaran->execute(['lowongan_id' => $lowongan_id]);
+$lamaranList = $stmtLamaran->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,8 +78,39 @@ if (!$lowongan) {
     <p>Lowongan ini telah ditutup.</p>
     <?php endif; ?>
 
+    <!-- Menampilkan Daftar Lamaran -->
+    <h2>Daftar Lamaran</h2>
+    <?php if ($lamaranList): ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Pelamar</th>
+                    <th>Status</th>
+                    <th>Detail Lamaran</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($lamaranList as $lamaran): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($lamaran['nama']); ?></td>
+                    <td><?php echo htmlspecialchars($lamaran['status']); ?></td>
+                    <td>
+                        <!-- Link ke halaman detail lamaran -->
+                        <a href="detail_lamaran.php?lamaran_id=<?php echo $lamaran['lamaran_id']; ?>" class="btn">Lihat Detail</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>Belum ada lamaran untuk lowongan ini.</p>
+    <?php endif; ?>
+
     <a href="edit_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn">Edit Lowongan</a>
     <a href="home_company.php" class="btn">Kembali</a>
+
+    <!-- Tombol Hapus Lowongan -->
+    <a href="hapus_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn-danger">Hapus Lowongan</a>
 </div>
 
 </body>
