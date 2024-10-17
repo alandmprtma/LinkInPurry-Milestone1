@@ -3,9 +3,12 @@ Options -Indexes
 # Mengaktifkan mod_rewrite
 RewriteEngine On
 
-# Mengarahkan ke login jika URL yang diminta tidak sesuai
+# Izinkan akses ke file di folder uploads tanpa diarahkan ke login
+RewriteCond %{REQUEST_URI} ^/uploads/ [NC]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Mengarahkan ke login jika URL yang diminta tidak sesuai (jika bukan file atau direktori yang ada)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ auth/login.html [L]
-
-

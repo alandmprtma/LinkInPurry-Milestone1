@@ -42,13 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($_FILES['cv']['tmp_name'], $cv_path);
     }
 
-    // Cek apakah file video perkenalan diunggah (opsional)
-    if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
-        $video_ext = pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION);
-        $video_filename = uniqid() . '.' . $video_ext;
-        $video_path = 'uploads/videos/' . $video_filename;
-        move_uploaded_file($_FILES['video']['tmp_name'], $video_path);
+    if (isset($_FILES['video'])) {
+        if ($_FILES['video']['error'] === UPLOAD_ERR_OK) {
+            // Upload berhasil
+            $video_ext = pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION);
+            $video_filename = uniqid() . '.' . $video_ext;
+            $video_path = 'uploads/videos/' . $video_filename;
+            move_uploaded_file($_FILES['video']['tmp_name'], $video_path);
+        } else {
+            // Menangani error upload
+            echo "Error uploading video: " . $_FILES['video']['error'];
+        }
     }
+    
 
     // Simpan lamaran ke database, status diset otomatis menjadi 'waiting' melalui ENUM application_status
     $query = "INSERT INTO Lamaran (user_id, lowongan_id, cv_path, video_path, created_at)

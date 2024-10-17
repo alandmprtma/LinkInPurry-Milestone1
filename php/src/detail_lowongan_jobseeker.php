@@ -93,8 +93,8 @@ $lamaran = $stmt->fetch();
             <?php endif; ?>
 
             <!-- Tampilkan alasan/tindak lanjut jika ada -->
-            <?php if (!empty($lamaran['alasan'])): ?>
-                <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['alasan']); ?></p>
+            <?php if (!empty($lamaran['status_reason'])): ?>
+                <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['status_reason']); ?></p>
             <?php endif; ?>
 
             <p>You cannot reapply for the same job.</p>
