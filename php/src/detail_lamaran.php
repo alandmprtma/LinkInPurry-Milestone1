@@ -86,7 +86,6 @@ if (!$lamaran) {
 
     <!-- Status Lamaran -->
     <p><strong>Status Lamaran:</strong> <?php echo htmlspecialchars($lamaran['status']); ?></p>
-    <p><strong>Tanggal Lamaran:</strong> <?php echo htmlspecialchars($lamaran['created_at']); ?></p>
 
 
     <!-- Opsi untuk mengubah status lamaran, hanya jika status waiting -->
@@ -96,9 +95,9 @@ if (!$lamaran) {
             <input type="hidden" name="lamaran_id" value="<?php echo $lamaran['lamaran_id']; ?>">
             <label for="status">Status:</label>
             <select name="status" id="status" required>
-                <option value="diterima" <?php if($lamaran['status'] == 'diterima') echo 'selected'; ?>>Diterima</option>
-                <option value="ditolak" <?php if($lamaran['status'] == 'ditolak') echo 'selected'; ?>>Ditolak</option>
-                <option value="dalam peninjauan" <?php if($lamaran['status'] == 'dalam peninjauan') echo 'selected'; ?>>Dalam Peninjauan</option>
+                <option value="accepted" <?php if($lamaran['status'] == 'accepted') echo 'selected'; ?>>Diterima</option>
+                <option value="rejected" <?php if($lamaran['status'] == 'rejected') echo 'selected'; ?>>Ditolak</option>
+                <option value="waiting" <?php if($lamaran['status'] == 'waiting') echo 'selected'; ?>>Dalam Peninjauan</option>
             </select>
             <br>
 
