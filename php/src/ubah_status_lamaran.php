@@ -23,15 +23,19 @@ try {
 // Ambil data dari form
 $lamaran_id = $_POST['lamaran_id'];
 $status = $_POST['status'];
+$status_reason = $_POST['status_reason'];
 
 // Update status lamaran di database
-$query = "UPDATE Lamaran SET status = :status WHERE lamaran_id = :lamaran_id AND EXISTS (
+$query = "UPDATE Lamaran SET status = :status, status_reason = :status_reason
+        WHERE lamaran_id = :lamaran_id AND EXISTS (
               SELECT 1 FROM Lowongan WHERE Lowongan.lowongan_id = Lamaran.lowongan_id AND company_id = :company_id)";
 $stmt = $pdo->prepare($query);
 $stmt->execute([
     'status' => $status,
+    'status_reason' => $status_reason,
     'lamaran_id' => $lamaran_id,
     'company_id' => $_SESSION['user_id']
+    
 ]);
 
 // Setelah berhasil, kembali ke halaman detail lamaran

@@ -84,6 +84,11 @@ $lamaran = $stmt->fetch();
             <h3>Your Application</h3>
             <p>Status: <?php echo htmlspecialchars($lamaran['status']); ?></p>
 
+            <!-- Tampilkan alasan/tindak lanjut jika ada -->
+            <?php if (!empty($lamaran['status_reason'])): ?>
+                <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['status_reason']); ?></p>
+            <?php endif; ?>
+
             <!-- Cek apakah ada lampiran CV atau video perkenalan -->
             <?php if (!empty($lamaran['cv_path'])): ?>
                 <p><a href="<?php echo htmlspecialchars($lamaran['cv_path']); ?>" target="_blank">View your CV</a></p>
@@ -92,10 +97,7 @@ $lamaran = $stmt->fetch();
                 <p><a href="<?php echo htmlspecialchars($lamaran['video_path']); ?>" target="_blank">Watch your introduction video</a></p>
             <?php endif; ?>
 
-            <!-- Tampilkan alasan/tindak lanjut jika ada -->
-            <?php if (!empty($lamaran['status_reason'])): ?>
-                <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['status_reason']); ?></p>
-            <?php endif; ?>
+            
 
             <p>You cannot reapply for the same job.</p>
         <?php endif; ?>
