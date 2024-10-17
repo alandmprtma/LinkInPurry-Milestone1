@@ -99,7 +99,8 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <ul class="job-cards">
         <?php foreach ($lowonganList as $index => $lowongan): ?>
             <li class="job-card">
-                <h4><?= htmlspecialchars($lowongan['posisi']) ?></h4>
+                <!-- Tambahkan link di sekitar nama posisi -->
+                <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($lowongan['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($lowongan['posisi']) ?></a></h4>
                 <p class="company"><?= htmlspecialchars($lowongan['company_name']) ?></p>
                 <p class="location"><?= htmlspecialchars($lowongan['jenis_lokasi']) ?></p>
                 <span class="promoted"><?= htmlspecialchars($lowongan['jenis_pekerjaan']) ?></span>
@@ -111,6 +112,8 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         <?php endforeach; ?>
     </ul>
+
+
     </section>
 </section>
 
