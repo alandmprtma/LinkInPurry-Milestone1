@@ -11,4 +11,7 @@ RewriteRule ^ - [L]
 # Mengarahkan ke login jika URL yang diminta tidak sesuai (jika bukan file atau direktori yang ada)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ auth/login.html [L]
+RewriteRule ^ 404.html [L]
+
+# Menangani halaman 404
+ErrorDocument 404 /404.html
