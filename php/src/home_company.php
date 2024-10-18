@@ -85,7 +85,7 @@ $lowonganList = $stmt->fetchAll();
             <button class="apply-filters">Apply Filters</button>
         </aside>
     </aside>
-<section>
+<section style="width: 38%;">
 <div class="card-header">
     <div class="card-content">
         <h2>Hi <?php echo $_SESSION['nama'];?>, are you hiring?</h2>
@@ -94,14 +94,13 @@ $lowonganList = $stmt->fetchAll();
     </div>
     <section class="job-listings">
     <div class="header">
-        <h2>Top job picks for you</h2>
-        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+        <h2>Posted Jobs</h2>
     </div>
 
     <ul class="job-cards">
         <?php foreach ($lowonganList as $index => $lowongan): ?>
             <li class="vacancy-card">
-        <div class="job-details">
+        <div>
             <h4> <a href="lowongan_detail.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>"><?= htmlspecialchars($lowongan['posisi']) ?></a></h4>
             <p class="company"><?= htmlspecialchars($lowongan['company_name']) ?></p>
             <p class="location"><?= htmlspecialchars($lowongan['jenis_lokasi']) ?></p>
