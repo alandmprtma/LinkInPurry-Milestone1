@@ -1,3 +1,4 @@
+/* Home Company, Jobseek, Tambah Lowongan */
 /* Reset CSS */
 * {
     margin: 0;
@@ -175,6 +176,12 @@ main {
     width: 22%;
 }
 
+.left-aside-lowongan{
+    width: 27%;
+    position: sticky; 
+    top: 120px;
+}
+
 .profile-card {
     width: 90%;
     border: 1px solid #ccc;
@@ -321,9 +328,14 @@ main {
     padding: 0;
 }
 
+.job-card a {
+    color: #0073b1;
+    text-decoration: none;
+}
+
 /* Styling for each job card */
 .job-card {
-    padding: 1.5rem;
+    padding: 0.2rem 1rem;
 }
 
 .job-card h4 {
@@ -346,12 +358,47 @@ main {
     font-size: 0.9rem;
 }
 
+.vacancy-card {
+    display: flex;
+    justify-content: space-between; /* Membuat jarak antara teks dan ikon */
+    align-items: center; /* Menyelaraskan konten secara vertikal */
+    margin: 10px 5px;
+    padding: 0.2rem 1rem;
+}
+
+.vacancy-card a {
+    color: #0073b1;
+    
+    text-decoration: none;
+}
+
 .promoted {
+    margin-top:0px;
     display: block;
     color: #888;
     font-size: 0.85rem;
-    margin-top: 0.5rem;
 }
+
+.vacancy-card h4 {
+    margin-bottom: 0.3rem;
+    color: #0073b1;
+    font-size: 1.2rem;
+}
+.vacancy-card:hover h4 {
+    text-decoration: underline;
+}
+
+.vacancy-card .company {
+    color: #555;
+    margin-bottom: 0.2rem;
+    font-size: 0.95rem;
+}
+
+.vacancy-card .location {
+    color: #888;
+    font-size: 0.9rem;
+}
+
 
 .line{
     display: flex;
@@ -444,9 +491,34 @@ main {
 
 /* Job Vacancy Form */
 .job-vacancy {
-    position: sticky;
-    top: 100px;
+    position: sticky; 
+    top: 115px;
     width: 60%;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.job-details {
+    position: sticky; 
+    top: 115px;
+    width: 100%;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.applicant-list {
+    margin-top:20px;
+    position: sticky; 
+    top: 115px;
+    width: 100%;
     padding: 2rem;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -514,6 +586,17 @@ main {
 }
 }
 
+.delete-icon {
+    color: #666; /* Warna ikon sampah */
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+}
+
+.delete-icon:hover {
+    color: #000; /* Warna ikon saat hover */
+}
+
 /* Button Group */
 .button-group {
     display: flex;
@@ -548,4 +631,10 @@ main {
 
 .btn-secondary:hover {
     background-color: #e0e0e0; /* Slightly darker for hover */
+}
+
+.details-heading {
+    font-size: 1.3rem;
+    color: #0073b1; /* LinkedIn blue */
+    font-weight: bold;
 }

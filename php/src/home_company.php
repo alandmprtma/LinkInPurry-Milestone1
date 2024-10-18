@@ -34,6 +34,7 @@ $lowonganList = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkInPurry</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/styles_js.css">
 </head>
 <body>
@@ -99,12 +100,33 @@ $lowonganList = $stmt->fetchAll();
 
     <ul class="job-cards">
         <?php foreach ($lowonganList as $index => $lowongan): ?>
-            <li class="job-card">
-                <h4><?= htmlspecialchars($lowongan['posisi']) ?></h4>
-                <p class="company"><?= htmlspecialchars($lowongan['company_name']) ?></p>
-                <p class="location"><?= htmlspecialchars($lowongan['jenis_lokasi']) ?></p>
-                <span class="promoted"><?= htmlspecialchars($lowongan['jenis_pekerjaan']) ?></span>
-            </li>
+            <li class="vacancy-card">
+        <div class="job-details">
+            <h4> <a href="lowongan_detail.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>"><?= htmlspecialchars($lowongan['posisi']) ?></a></h4>
+            <p class="company"><?= htmlspecialchars($lowongan['company_name']) ?></p>
+            <p class="location"><?= htmlspecialchars($lowongan['jenis_lokasi']) ?></p>
+            <span class="promoted" style='margin-top:0px'><?= htmlspecialchars($lowongan['jenis_pekerjaan']) ?></span>
+            <p style="font-weight:bold; font-size:14px; color:#666666;">
+                <?php if ($lowongan['is_open']): ?>
+                    <span>Open</span>
+                <?php else: ?>
+                    <span>Closed</span>
+                <?php endif; ?>
+            </p>
+            <?php
+            // Query untuk menghitung jumlah applicants (pelamar)
+            $lowongan_id = $lowongan['lowongan_id'];
+            $stmt = $pdo->prepare("SELECT COUNT(*) AS total_applicants FROM Lamaran WHERE lowongan_id = :lowongan_id");
+            $stmt->execute(['lowongan_id' => $lowongan_id]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $total_applicants = $result['total_applicants'];
+            ?>
+
+            <!-- Menampilkan jumlah applicants -->
+            <p style="font-size:14px; color:#666666;"> <?= htmlspecialchars($total_applicants); ?> applicants</p>
+        </div>
+        <a href="hapus_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>"><i class="fas fa-trash-alt delete-icon"></i></a> <!-- Ikon sampah -->
+    </li>
 
             <!-- Tambahkan horizontal line kecuali untuk item terakhir -->
             <?php if ($index !== array_key_last($lowonganList)): ?>
