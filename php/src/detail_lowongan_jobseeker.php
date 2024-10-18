@@ -53,57 +53,73 @@ $lamaran = $stmt->fetch();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Lowongan - <?php echo htmlspecialchars($lowongan['posisi']); ?></title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles_dlj.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
-<div class="container">
+<nav class="navbar">
+    <img class="logo" src="assets/LinkInPurry-crop.png">
+    <div class="search-bar">
+        <div class="icon">
+            <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
+        </div>
+        <input type="text" placeholder="Search">
+    </div>
+    <ul class="nav-links">
+        <li><a class="inactive" href="/"> <img src="assets/home_black.png"> Home</a></li>
+        <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+    </ul>
+</nav>
+
+<div class="parent-container">
+<div class="job-details-js">
+    <h2><?php echo htmlspecialchars($lowongan['company_name']); ?></h2>
     <h1><?php echo htmlspecialchars($lowongan['posisi']); ?></h1>
+    <h3><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?></h3>
 
-    <!-- Menampilkan Profil Perusahaan -->
-    <section class="company-profile">
-        <h2>Company: <?php echo htmlspecialchars($lowongan['company_name']); ?></h2>
-        <p>Email: <?php echo htmlspecialchars($lowongan['company_email']); ?></p>
-    </section>
 
-    <!-- Menampilkan Deskripsi Lowongan -->
-    <section class="job-description">
-        <h3>Job Description</h3>
-        <p><?php echo htmlspecialchars($lowongan['deskripsi']); ?></p>
-        <p><strong>Job Type:</strong> <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?></p>
-        <p><strong>Location:</strong> <?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?></p>
-    </section>
 
     <!-- Cek apakah job seeker sudah melamar -->
     <section class="application-status">
         <?php if (!$lamaran): ?>
             <p>You have not applied for this position yet.</p>
             <!-- Tombol navigasi ke halaman lamaran -->
-            <a href="apply.php?lowongan_id=<?php echo $lowongan_id; ?>" class="btn">Apply for this Job</a>
+            <form action="apply.php" method="get">
+                <input type="hidden" name="lowongan_id" value="<?php echo htmlspecialchars($lowongan_id); ?>">
+                <button type="submit" class="apply-button">Easy Apply</button>
+            </form>
         <?php else: ?>
-            <h3>Your Application</h3>
-            <p>Status: <?php echo htmlspecialchars($lamaran['status']); ?></p>
+            <p><strong>Status:</strong> <?php echo htmlspecialchars($lamaran['status']); ?></p>
 
             <!-- Tampilkan alasan/tindak lanjut jika ada -->
             <?php if (!empty($lamaran['status_reason'])): ?>
                 <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['status_reason']); ?></p>
             <?php endif; ?>
-
+            <div class="attachment">
             <!-- Cek apakah ada lampiran CV atau video perkenalan -->
             <?php if (!empty($lamaran['cv_path'])): ?>
-                <p><a href="<?php echo htmlspecialchars($lamaran['cv_path']); ?>" target="_blank">View your CV</a></p>
+                <h4 class="cv-link"><a href="<?php echo htmlspecialchars($lamaran['cv_path']); ?>" target="_blank">View your CV</a></h4>
             <?php endif; ?>
             <?php if (!empty($lamaran['video_path'])): ?>
-                <p><a href="<?php echo htmlspecialchars($lamaran['video_path']); ?>" target="_blank">Watch your introduction video</a></p>
+                <h4><a href="<?php echo htmlspecialchars($lamaran['video_path']); ?>" target="_blank">Watch your introduction video</a></h4>
             <?php endif; ?>
-
-            
-
+            </div>
             <p>You cannot reapply for the same job.</p>
+            
         <?php endif; ?>
     </section>
 
-    <a href="home_jobseeker.php" class="btn">Back to Home</a>
+
+</div>
+
+<div class="job-details-a">
+<h1>About the job</h1>
+<p><?php echo htmlspecialchars($lowongan['deskripsi']); ?></p>
+</div>
+
 </div>
 
 </body>

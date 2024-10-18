@@ -1,0 +1,259 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #f3f2ef;
+    color: #333;
+}
+
+
+
+
+/* Navbar */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    width: full;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    height: 50px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    margin-left: 20px;
+    background-color: #edf3f8;
+    width: 300px; /* Ukuran awal search bar */
+    transition: width 0.4s ease; /* Durasi transisi dan efek */
+}
+
+.search-bar .icon img {
+    width: 20px; /* Ukuran ikon */
+    margin-left: 5px;
+    margin-right: 3px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    flex: 1;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.search-bar input::placeholder {
+    color: #666;
+}
+
+/* Ketika input di-focus, lebar search bar berubah */
+.search-bar:focus-within {
+    width: 450px; /* Lebar setelah focus (250% dari 200px) */
+    border: 2px solid #000;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+}
+
+.nav-links img {
+    width: 20px;
+    text-align: center;
+    transition: 0.3s ease-in-out; /* Efek transisi yang halus */
+}
+
+.nav-links a:hover .home {
+    content: url('../assets/home_black.png');
+}
+
+.nav-links a:hover .logout {
+    content: url('../assets/logout-black.png');
+}
+
+
+.nav-links a:hover .logout {
+    content: url('../assets/logout-black.png');
+}
+
+.nav-links a:hover .job {
+    content: url('../assets/suitcase-black.png'); /* Ganti dengan gambar hitam saat dihover */
+}
+
+
+.inactive{
+    text-decoration: none;
+    color: #666;
+    font-size: 16px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease-in-out; /* Menambahkan transisi untuk perubahan warna */
+}
+
+.inactive:hover {
+    color: #000;
+    font-weight: bold;
+}
+
+.nav-links i {
+    font-size: 24px; /* Ukuran ikon */
+    margin-bottom: 5px; /* Jarak antara ikon dan teks */
+}
+
+.nav-links li .current {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Garis bawah hanya untuk halaman Home */
+.nav-links li:first-child .current::after {
+    content: '';
+    width: 80px; /* Lebar garis bawah */
+    height: 2px; /* Tinggi garis bawah */
+    background-color: #000;
+    margin-top: 5px;
+    position:absolute;
+    bottom: 0px;
+}
+
+
+
+/* Job Details */
+.job-details-js {
+    position: sticky; 
+    top: 115px;
+    width: 60%;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.job-details-a {
+    position: sticky; 
+    top: 115px;
+    width: 60%;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.job-details-js h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.job-details-a h1{
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.job-details-js h2 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.job-details-js p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+.job-details-js h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+
+.parent-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 1rem;
+}
+
+.application-status {
+
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.application-status a{
+    color: #0a66c2;
+    text-decoration: none;
+}
+
+.cv-link {
+    margin-bottom: 0.3rem;
+}
+
+
+
+.application-status a:hover{
+    text-decoration: underline;
+}
+
+.apply-button {
+    background-color: #0a66c2; /* Warna biru */
+    color: white; /* Teks putih */
+    border: none; /* Menghilangkan border default */
+    border-radius: 50px; /* Membuat tombol bulat */
+    padding: 10px 20px; /* Padding atas/bawah dan kiri/kanan */
+    font-size: 16px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+    display: flex; /* Flexbox untuk menyusun teks dan ikon */
+    align-items: center; /* Memastikan isi tombol sejajar di tengah */
+    cursor: pointer; /* Kursor menjadi pointer saat hover */
+    transition: background-color 0.3s; /* Transisi untuk efek hover */
+
+    margin-top: 1rem;
+}
+
+.apply-button:hover {
+    background-color: #005a9e; /* Warna saat hover */
+}
+
+.icon {
+    margin-left: 8px; /* Spasi antara teks dan ikon */
+}
+
+.attachment {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
