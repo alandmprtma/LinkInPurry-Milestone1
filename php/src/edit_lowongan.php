@@ -6,6 +6,40 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
     header('Location: auth/login.html');
     exit();
 }
+
+// Koneksi ke database
+$host = 'db'; // Atau localhost jika di luar Docker
+$dbname = 'linkinpurry_db';
+$user = 'user';
+$password = 'userpassword';
+
+try {
+    $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Koneksi ke database gagal: " . $e->getMessage());
+}
+
+// Ambil lowongan_id dari URL
+if (!isset($_GET['lowongan_id'])) {
+    echo "ID Lowongan tidak ditemukan!";
+    exit();
+}
+
+$lowongan_id = $_GET['lowongan_id'];
+
+// Ambil data lowongan dari database
+$sql = "SELECT * FROM lowongan WHERE lowongan_id = :lowongan_id";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['lowongan_id' => $lowongan_id]);
+$lowongan = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Cek apakah data lowongan ditemukan
+if (!$lowongan) {
+    echo "Data lowongan tidak ditemukan!";
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -52,37 +86,38 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
 
 <section class="job-vacancy">
     <div class="container">
-        <h1 class="form-heading">Post a New Job</h1>
-        <form class="job-form" action="simpan_lowongan.php" method="POST">
-            <div class="form-group">
+        <h1 class="form-heading">Edit a Job Listing</h1>
+        <form class="job-form" action="simpan_edit_lowongan.php" method="POST">
+            <input type="hidden" name="lowongan_id" value="<?php echo htmlspecialchars($lowongan['lowongan_id']); ?>">
+            <div class="form-group"> 
                 <label for="posisi" class="form-label">Posisi Pekerjaan:</label>
-                <input type="text" id="posisi" name="posisi" class="form-input" required>
+                <input type="text" id="posisi" name="posisi" class="form-input" value="<?php echo htmlspecialchars($lowongan['posisi']); ?>" required>
             </div>
             
             <div class="form-group">
                 <label for="deskripsi" class="form-label">Deskripsi Pekerjaan:</label>
-                <textarea id="deskripsi" name="deskripsi" class="form-textarea" required></textarea>
+                <textarea id="deskripsi" name="deskripsi" class="form-textarea" required><?php echo htmlspecialchars($lowongan['deskripsi']); ?></textarea>
             </div>
 
             <div class="form-group">
                 <label for="jenis_pekerjaan" class="form-label">Jenis Pekerjaan:</label>
                 <select id="jenis_pekerjaan" name="jenis_pekerjaan" class="form-select" required>
-                    <option value="full-time">Full-time</option>
-                    <option value="part-time">Part-time</option>
-                    <option value="internship">Internship</option>
+                    <option value="full-time" <?php echo ($lowongan['jenis_pekerjaan'] == 'full-time') ? 'selected' : ''; ?>>Full-time</option>
+                    <option value="part-time" <?php echo ($lowongan['jenis_pekerjaan'] == 'part-time') ? 'selected' : ''; ?>>Part-time</option>
+                    <option value="internship" <?php echo ($lowongan['jenis_pekerjaan'] == 'internship') ? 'selected' : ''; ?>>Internship</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="jenis_lokasi" class="form-label">Jenis Lokasi:</label>
                 <select id="jenis_lokasi" name="jenis_lokasi" class="form-select" required>
-                    <option value="on-site">On-site</option>
-                    <option value="remote">Remote</option>
-                    <option value="hybrid">Hybrid</option>
+                    <option value="on-site" <?php echo ($lowongan['jenis_lokasi'] == 'on-site') ? 'selected' : ''; ?>>On-site</option>
+                    <option value="remote" <?php echo ($lowongan['jenis_lokasi'] == 'remote') ? 'selected' : ''; ?>>Remote</option>
+                    <option value="hybrid" <?php echo ($lowongan['jenis_lokasi'] == 'hybrid') ? 'selected' : ''; ?>>Hybrid</option>
                 </select>
             </div>
             <div class="button-group">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
         </form>
     </div>
