@@ -108,24 +108,40 @@ $lamaranList = $stmtLamaran->fetchAll();
             <!-- Menampilkan jumlah applicants -->
             <p style="font-size:14px; color:#666666;"> <?= htmlspecialchars($total_applicants); ?> applicants</p>
         <div style='padding-top: 20px; display: flex; align-items: end; justify-content: flex-end;'>
-            <i class="fas fa-edit delete-icon"></i>
-            <a href="hapus_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>">  <i class="fas fa-trash-alt delete-icon"></i>
-            </a>
+            <a href="edit_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>"> <i class="fas fa-edit delete-icon"></i></a>
+            <?php if ($lowongan['is_open']) : ?>
+                 <!-- Jika status lowongan masih terbuka, tampilkan tombol Lock -->
+                 <form action="tutup_lowongan.php" method="POST" style="display: inline;">
+        <input type="hidden" name="lowongan_id" value="<?php echo $lowongan['lowongan_id']; ?>">
+        <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;" >
+            <i class="fas fa-lock delete-icon"></i>
+        </button>
+    </form>
+            <?php else : ?>
+                <!-- Jika status lowongan sudah ditutup, tampilkan tombol Unlock -->
+            <form action="buka_lowongan.php" method="POST" style="display: inline;">
+                <input type="hidden" name="lowongan_id" value="<?php echo $lowongan['lowongan_id']; ?>">
+                <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;" >
+                    <i class="fas fa-unlock delete-icon"></i>
+                </button>
+            </form>
+            <?php endif; ?>
+            <a href="hapus_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>"> <i class="fas fa-trash-alt delete-icon"></i></a>
         </div>
 
     </div>
 </section>
 <div  class="applicant-list">
-            <h2>Daftar Pelamar</h2>
+            <h2>Applicants List</h2>
 
             <!-- Jika ada pelamar, tampilkan dalam tabel -->
             <?php if ($lamaranList): ?>
                 <table>
                     <thead>
                         <tr>
-                            <th>Nama Pelamar</th>
-                            <th>Status Lamaran</th>
-                            <th>Detail</th>
+                            <th>Applicants Name</th>
+                            <th>Status</th>
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>

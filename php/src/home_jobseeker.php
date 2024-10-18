@@ -7,7 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$host = 'db'; // Atau localhost jika di luar Docker
+// Konfigurasi koneksi database
+$host = 'db'; // Jika menggunakan Docker
 $dbname = 'linkinpurry_db';
 $user = 'user';
 $password = 'userpassword';
@@ -19,13 +20,44 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
-$query = "SELECT L.*, U.nama AS company_name FROM Lowongan L JOIN Users U ON L.company_id = U.user_id WHERE L.is_open = TRUE";
-$stmt = $pdo->prepare($query);
-$stmt->execute();
-$lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Tangkap nilai filter dari URL (GET request)
+$jobType = isset($_GET['job_type']) ? $_GET['job_type'] : 'all';  // Default: 'all'
+$locationType = isset($_GET['location_type']) ? $_GET['location_type'] : 'all';  // Default: 'all'
 
-// Menampilkan UI untuk job seeker
+// Query dasar
+$query = "SELECT L.*, U.nama AS company_name FROM Lowongan L JOIN Users U ON L.company_id = U.user_id WHERE L.is_open = TRUE";
+
+// Array untuk menampung kondisi tambahan dan parameter
+$conditions = [];
+$params = [];
+
+// Tambahkan kondisi filter berdasarkan jobType (jenis_pekerjaan)
+if ($jobType != 'all') {
+    $conditions[] = "L.jenis_pekerjaan = :jobType";
+    $params[':jobType'] = $jobType;
+}
+
+// Tambahkan kondisi filter berdasarkan locationType (jenis_lokasi)
+if ($locationType != 'all') {
+    $conditions[] = "L.jenis_lokasi = :locationType";
+    $params[':locationType'] = $locationType;
+}
+
+// Gabungkan semua kondisi jika ada
+if (!empty($conditions)) {
+    $query .= " AND " . implode(' AND ', $conditions);
+}
+
+// Persiapkan query
+$stmt = $pdo->prepare($query);
+
+// Jalankan query dengan parameter
+$stmt->execute($params);
+
+// Ambil hasil query
+$lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,20 +99,27 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
         <aside class="filters">
             <h3>Filter</h3>
+            <form method="GET" action="home_jobseeker.php">
             <div class="filter-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" placeholder="Enter location">
+            <label for="location-type">Location Type</label>
+            <select id="location-type" name="location_type">
+                <option value="all">All</option>
+                <option value="on-site" <?= (isset($_GET['location_type']) && $_GET['location_type'] == 'on-site') ? 'selected' : '' ?>>On-site</option>
+                <option value="hybrid" <?= (isset($_GET['location_type']) && $_GET['location_type'] == 'hybrid') ? 'selected' : '' ?>>Hybrid</option>
+                <option value="remote" <?= (isset($_GET['location_type']) && $_GET['location_type'] == 'remote') ? 'selected' : '' ?>>Remote</option>
+            </select>
             </div>
             <div class="filter-group">
                 <label for="job-type">Job Type</label>
-                <select id="job-type">
-                    <option value="all">All</option>
-                    <option value="full-time">Full-time</option>
-                    <option value="part-time">Part-time</option>
-                    <option value="contract">Contract</option>
-                </select>
-            </div>
+                    <select id="job-type" name="job_type">
+                        <option value="all">All</option>
+                        <option value="full-time" <?= (isset($_GET['job_type']) && $_GET['job_type'] == 'full-time') ? 'selected' : '' ?>>Full-time</option>
+                        <option value="part-time" <?= (isset($_GET['job_type']) && $_GET['job_type'] == 'part-time') ? 'selected' : '' ?>>Part-time</option>
+                        <option value="internship" <?= (isset($_GET['job_type']) && $_GET['job_type'] == 'internship') ? 'selected' : '' ?>>Internship</option>
+                    </select>
+             </div>
             <button class="apply-filters">Apply Filters</button>
+        </form>
         </aside>
     </aside>
 <section>

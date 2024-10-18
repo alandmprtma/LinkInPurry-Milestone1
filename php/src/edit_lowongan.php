@@ -86,7 +86,10 @@ if (!$lowongan) {
 
 <section class="job-vacancy">
     <div class="container">
+    <div class="form-header">
         <h1 class="form-heading">Edit a Job Listing</h1>
+        <a href="lowongan_detail.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn btn-secondary">Back</a>
+    </div>
         <form class="job-form" action="simpan_edit_lowongan.php" method="POST">
             <input type="hidden" name="lowongan_id" value="<?php echo htmlspecialchars($lowongan['lowongan_id']); ?>">
             <div class="form-group"> 
