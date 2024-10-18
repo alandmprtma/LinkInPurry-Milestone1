@@ -125,7 +125,7 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <section>
 <div class="card-header">
     <div class="card-content">
-        <h2>Hi Aland Mulia, are you looking for work?</h2>
+        <h2>Hi <?php echo $_SESSION['nama']; ?>, are you looking for work?</h2>
         <p>Explore new opportunities and get closer to your dream career!</p>
     </div>
     </div>
