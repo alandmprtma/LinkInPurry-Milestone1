@@ -1,6 +1,6 @@
 /* Style untuk body dan kontainer login */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
@@ -48,7 +48,7 @@ button {
     display: block;
     margin: 0 auto;
     padding: 10px;
-    background-color: #5c6bc0;
+    background-color: #0a66c2;
     color: white;
     border: none;
     border-radius: 5px;
@@ -56,7 +56,7 @@ button {
 }
 
 button:hover {
-    background-color: #3f51b5;
+    background-color: #005a9e;
 }
 
 .error {
@@ -77,13 +77,13 @@ button:hover {
 }
 
 .register-link a {
-    color: #5c6bc0;
+    color: #0a66c2;
     text-decoration: none;
 }
 
 .register-link a:hover {
     text-decoration: underline;
-    color: #3f51b5;
+    color: #005a9e;
 }
 
 /* Style untuk halaman home */
@@ -108,7 +108,7 @@ button:hover {
 .btn {
     display: block;
     padding: 10px 20px;
-    background-color: #5c6bc0;
+    background-color: #0a66c2;
     margin: 10px auto;
     color: white;
     width: 100px;
@@ -121,7 +121,7 @@ button:hover {
 .btndetail {
     display: block;
     padding: 5px 10px;
-    background-color: #5c6bc0;
+    background-color: #0a66c2;
     margin: 0px auto;
     color: white;
     width: 100px;
@@ -185,7 +185,7 @@ button:hover {
 
 
 .btn:hover {
-    background-color: #3f51b5;
+    background-color: #005a9e;
 }
 
 /* Tambahkan style untuk tombol dengan warna merah (tombol berbahaya) */
@@ -230,7 +230,7 @@ th {
 }
 
 td a {
-    color: #5c6bc0;
+    color: #0a66c2;
 }
 
 td a:hover {

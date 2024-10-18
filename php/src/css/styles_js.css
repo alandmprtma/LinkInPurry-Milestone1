@@ -261,7 +261,7 @@ main {
 
 .filters h3 {
     margin-bottom: 1rem;
-    color: #0073b1;
+    color: #0a66c2;
 }
 
 .filter-group {
@@ -329,18 +329,18 @@ main {
 }
 
 .job-card a {
-    color: #0073b1;
+    color: #0a66c2;
     text-decoration: none;
 }
 
 /* Styling for each job card */
 .job-card {
-    padding: 0.2rem 1rem;
+    padding: 1rem;
 }
 
 .job-card h4 {
     margin-bottom: 0.3rem;
-    color: #0073b1;
+    color: #0a66c2;
     font-size: 1.2rem;
 }
 .job-card:hover h4 {
@@ -367,7 +367,7 @@ main {
 }
 
 .vacancy-card a {
-    color: #0073b1;
+    color: #0a66c2;
     
     text-decoration: none;
 }
@@ -381,7 +381,7 @@ main {
 
 .vacancy-card h4 {
     margin-bottom: 0.3rem;
-    color: #0073b1;
+    color: #0a66c2;
     font-size: 1.2rem;
 }
 .vacancy-card:hover h4 {
@@ -530,7 +530,7 @@ main {
 .form-heading {
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
-    color: #0073b1; /* LinkedIn blue */
+    color: #0a66c2; /* LinkedIn blue */
     font-weight: bold;
 }
 
@@ -560,7 +560,7 @@ main {
 .form-input:focus,
 .form-textarea:focus,
 .form-select:focus {
-    border: 1px solid #0073b1; /* Highlight color */
+    border: 1px solid #0a66c2; /* Highlight color */
     outline: none;
 }
 
@@ -578,7 +578,7 @@ main {
 }
 
 .form-textarea:focus {
-    border: 1px solid #0073b1; /* Highlight border color on focus */
+    border: 1px solid #0a66c2; /* Highlight border color on focus */
     outline: none; /* Remove default outline */.button-group {
     display: flex;
     justify-content: center; /* Centering the button */
@@ -615,14 +615,14 @@ main {
 }
 
 .btn-primary {
-    background-color: #0073b1;
+    background-color: #0a66c2;
     color: white;
 }
 
 .btn-secondary {
     background-color: #f0f0f0;
-    color: #0073b1;
-    border: 1px solid #0073b1;
+    color: #0a66c2;
+    border: 1px solid #0a66c2;
 }
 
 .btn-primary:hover {
@@ -635,7 +635,7 @@ main {
 
 .details-heading {
     font-size: 1.3rem;
-    color: #0073b1; /* LinkedIn blue */
+    color: #0a66c2; /* LinkedIn blue */
     font-weight: bold;
 }
 
