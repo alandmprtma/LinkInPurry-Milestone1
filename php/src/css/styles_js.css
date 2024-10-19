@@ -290,6 +290,10 @@ main {
     cursor: pointer;
 }
 
+.apply-filters:hover {
+    background-color: #005a9e;
+}
+
 /* Job Listings */
 /* Container for the entire job listings */
 .job-listings {

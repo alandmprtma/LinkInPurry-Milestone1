@@ -73,27 +73,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply for Job</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles_a.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+<script src="public/dropzone.js"></script>
 <body>
 
+<nav class="navbar">
+    <img class="logo" src="assets/LinkInPurry-crop.png">
+    <div class="search-bar">
+        <div class="icon">
+            <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
+        </div>
+        <input type="text" placeholder="Search">
+    </div>
+    <ul class="nav-links">
+        <li><a class="inactive" href="/"> <img src="assets/home_black.png"> Home</a></li>
+        <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+    </ul>
+</nav>
+
 <div class="container">
+    <div class="apply-job-js">
     <h1>Apply for Job</h1>
-    <form action="apply.php?lowongan_id=<?= htmlspecialchars($lowongan_id); ?>" method="POST" enctype="multipart/form-data">
+    <form class="form-apply" action="apply.php?lowongan_id=<?= htmlspecialchars($lowongan_id); ?>" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="cv">Upload CV (PDF only):</label>
-            <input type="file" name="cv" id="cv" accept=".pdf" required>
+            <div id="cv-drop-area" class="drop-area">
+                <p>Drag & Drop your CV here or click to upload</p>
+                <input type="file" name="cv" id="cv" accept=".pdf" required hidden>
+            </div>
         </div>
 
         <div class="form-group">
             <label for="video">Upload Introduction Video (Optional, MP4 only):</label>
-            <input type="file" name="video" id="video" accept="video/mp4">
+            <div id="video-drop-area" class="drop-area">
+                <p>Drag & Drop your video here or click to upload</p>
+                <input type="file" name="video" id="video" accept="video/mp4" hidden>
+            </div>
         </div>
-
-        <button type="submit" class="btn">Submit Application</button>
+        <button class="apply-button" type="submit" class="btn">Submit Application</button>
     </form>
 
-    <a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($lowongan_id); ?>" class="btn">Back to Job Details</a>
+    
 </div>
 
 </body>
