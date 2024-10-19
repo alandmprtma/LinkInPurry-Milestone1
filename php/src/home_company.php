@@ -20,13 +20,69 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
-// Query untuk mendapatkan daftar lowongan yang dibuat oleh company yang sedang login
+$jobType = isset($_GET['job_type']) ? $_GET['job_type'] : 'all';  // Default: 'all'
+$locationType = isset($_GET['location_type']) ? $_GET['location_type'] : 'all';  // Default: 'all'
+$sortCategory = isset($_GET['sort_category']) ? $_GET['sort_category'] : 'none';  // Default: 'none'
+$sortOrder = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'none';  // Default: 'none'
+$searchKeyword = isset($_GET['search_keyword']) ? $_GET['search_keyword'] : '';
 
-$query = "SELECT L.*, U.nama AS company_name FROM Lowongan L JOIN Users U ON L.company_id = U.user_id WHERE L.company_id = :company_id";;
+
+// Query untuk mendapatkan daftar lowongan yang dibuat oleh company yang sedang login
+$query = "SELECT L.*, U.nama AS company_name 
+          FROM Lowongan L 
+          JOIN Users U ON L.company_id = U.user_id 
+          WHERE L.company_id = :company_id";
+
+// Array to store conditions and parameters
+$conditions = [];
+$params = [':company_id' => $_SESSION['user_id']];  // Initialize with company_id
+
+// Add job type filter
+if ($jobType != 'all') {
+    $conditions[] = "L.jenis_pekerjaan = :jobType";
+    $params[':jobType'] = $jobType;
+}
+
+// Add location type filter
+if ($locationType != 'all') {
+    $conditions[] = "L.jenis_lokasi = :locationType";
+    $params[':locationType'] = $locationType;
+}
+
+// Add search keyword filter
+if (!empty($searchKeyword)) {
+    $conditions[] = "(L.posisi ILIKE :searchKeyword)";
+    $params[':searchKeyword'] = '%' . $searchKeyword . '%';
+}
+
+// Add conditions to the query
+if (!empty($conditions)) {
+    $query .= " AND " . implode(' AND ', $conditions);
+}
+
+// Sorting logic
+switch ($sortCategory) {
+    case 'name':
+        $orderByField = 'L.posisi';
+        break;
+    case 'availability':
+        $orderByField = 'L.is_open';
+        break;
+    default:
+        $orderByField = '';
+        break;
+}
+
+if ($orderByField && $sortOrder != 'none') {
+    $query .= " ORDER BY $orderByField " . ($sortOrder == 'asc' ? 'ASC' : 'DESC');
+}
+
+// Prepare and execute the query
 $stmt = $pdo->prepare($query);
-$stmt->execute(['company_id' => $_SESSION['user_id']]);
+$stmt->execute($params);  // Pass all parameters here
 $lowonganList = $stmt->fetchAll();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,12 +96,18 @@ $lowonganList = $stmt->fetchAll();
 <body>
         <nav class="navbar">
             <img class="logo" src="assets/LinkInPurry-crop.png">
+            <form method="GET" action="home_company.php">
             <div class="search-bar">
                 <div class="icon">
-                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
-                <input type="text" placeholder="Search">
+                <div class="search-bar-container">
+                <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['user_id'];?>">
+                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                <div id="autocomplete-results" class="autocomplete-results"></div>
+                </div>
             </div>
+            </form>
             <ul class="nav-links">
                 <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
                 <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
@@ -69,20 +131,43 @@ $lowonganList = $stmt->fetchAll();
     </div>
         <aside class="filters">
             <h3>Filter</h3>
-            <div class="filter-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" placeholder="Enter location">
-            </div>
-            <div class="filter-group">
-                <label for="job-type">Job Type</label>
-                <select id="job-type">
+            <form method="GET" action="home_company.php">
+                <div class="filter-group">
+                <label for="location-type">Location Type</label>
+                <select id="location-type" name="location_type">
                     <option value="all">All</option>
-                    <option value="full-time">Full-time</option>
-                    <option value="part-time">Part-time</option>
-                    <option value="contract">Contract</option>
+                    <option value="on-site" <?= (isset($_GET['location_type']) && $_GET['location_type'] == 'on-site') ? 'selected' : '' ?>>On-site</option>
+                    <option value="hybrid" <?= (isset($_GET['location_type']) && $_GET['location_type'] == 'hybrid') ? 'selected' : '' ?>>Hybrid</option>
+                    <option value="remote" <?= (isset($_GET['location_type']) && $_GET['location_type'] == 'remote') ? 'selected' : '' ?>>Remote</option>
                 </select>
+                </div>
+                <div class="filter-group">
+                    <label for="job-type">Job Type</label>
+                        <select id="job-type" name="job_type">
+                            <option value="all">All</option>
+                            <option value="full-time" <?= (isset($_GET['job_type']) && $_GET['job_type'] == 'full-time') ? 'selected' : '' ?>>Full-time</option>
+                            <option value="part-time" <?= (isset($_GET['job_type']) && $_GET['job_type'] == 'part-time') ? 'selected' : '' ?>>Part-time</option>
+                            <option value="internship" <?= (isset($_GET['job_type']) && $_GET['job_type'] == 'internship') ? 'selected' : '' ?>>Internship</option>
+                        </select>
+                </div>
+                <div class="filter-group">
+        <label for="sort-category">Sort By</label>
+        <select id="sort-category" name="sort_category">
+            <option value="none" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'none') ? 'selected' : '' ?>>None</option>
+            <option value="name" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'name') ? 'selected' : '' ?>>Name</option>
+            <option value="availability" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'availability') ? 'selected' : '' ?>>Availability</option>
+        </select>
             </div>
+                <div class="filter-group">
+                    <label for="sort-order">Order By</label>
+                    <select id="sort-order" name="sort_order">
+                        <option value="none" <?= (isset($_GET['sort_order']) && $_GET['sort_order'] == 'none') ? 'selected' : '' ?>>None</option>
+                        <option value="asc" <?= (isset($_GET['sort_order']) && $_GET['sort_order'] == 'asc') ? 'selected' : '' ?>>Ascending</option>
+                        <option value="desc" <?= (isset($_GET['sort_order']) && $_GET['sort_order'] == 'desc') ? 'selected' : '' ?>>Descending</option>
+                    </select>
+                </div>
             <button class="apply-filters">Apply Filters</button>
+            </form>
         </aside>
     </aside>
 <section style="width: 38%;">
@@ -155,6 +240,6 @@ $lowonganList = $stmt->fetchAll();
             </div>
         </aside>
     </main>
-
+    <script src="public/autocomplete_h.js"></script>
 </body>
 </html>
