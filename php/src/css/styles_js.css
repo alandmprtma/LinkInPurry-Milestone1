@@ -54,6 +54,7 @@ body {
     flex: 1;
     background-color: transparent;
     font-size: 16px;
+    width: 100%;
 }
 
 .search-bar input::placeholder {
@@ -673,4 +674,91 @@ table td a.btn:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+
+}.search-bar-container {
+    position: relative; /* Penting agar autocomplete bisa diposisikan relatif terhadap search bar */
+    width: 100%;
+}
+
+/* Style untuk kotak autocomplete */
+.autocomplete-results {
+    position: absolute;
+    top: 100%; /* Menempatkan autocomplete tepat di bawah search bar */
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none; /* Hilangkan garis atas agar terlihat terhubung dengan search bar */
+    z-index: 1000;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style untuk setiap item dalam autocomplete */
+.autocomplete-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Style saat item di-hover */
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style untuk ikon pencarian di kiri */
+.autocomplete-item .icon {
+    margin-right: 10px;
+    color: #666;
+}
+
+/* Style untuk bagian teks */
+.autocomplete-item .autocomplete-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style untuk nama utama (teks tebal) */
+.autocomplete-item .autocomplete-text .main-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+
+/* Style untuk deskripsi tambahan (teks kecil) */
+.autocomplete-item .autocomplete-text .sub-text {
+    font-size: 14px;
+    color: #888;
+    font-weight: 400;
+}
+
+/* Menghapus dekorasi link */
+.autocomplete-item a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+/* Style untuk tombol 'See All Results' */
+.see-all-results-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #0073b1; /* Warna biru seperti LinkedIn */
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 0 4px 4px; /* Menghubungkan dengan kontainer autocomplete */
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect untuk tombol */
+.see-all-results-btn:hover {
+    background-color: #005582; /* Biru yang lebih gelap saat di-hover */
 }

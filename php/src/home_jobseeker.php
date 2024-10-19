@@ -23,6 +23,9 @@ try {
 // Tangkap nilai filter dari URL (GET request)
 $jobType = isset($_GET['job_type']) ? $_GET['job_type'] : 'all';  // Default: 'all'
 $locationType = isset($_GET['location_type']) ? $_GET['location_type'] : 'all';  // Default: 'all'
+$sortCategory = isset($_GET['sort_category']) ? $_GET['sort_category'] : 'none';  // Default: 'none'
+$sortOrder = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'none';  // Default: 'none'
+$searchKeyword = isset($_GET['search_keyword']) ? $_GET['search_keyword'] : '';
 
 // Query dasar
 $query = "SELECT L.*, U.nama AS company_name FROM Lowongan L JOIN Users U ON L.company_id = U.user_id WHERE L.is_open = TRUE";
@@ -43,9 +46,32 @@ if ($locationType != 'all') {
     $params[':locationType'] = $locationType;
 }
 
+if (!empty($searchKeyword)) {
+    $conditions[] = "(L.posisi ILIKE :searchKeyword OR U.nama ILIKE :searchKeyword)";
+    $params[':searchKeyword'] = '%' . $searchKeyword . '%';  // Tambahkan wildcard untuk pencarian
+}
+
 // Gabungkan semua kondisi jika ada
 if (!empty($conditions)) {
     $query .= " AND " . implode(' AND ', $conditions);
+}
+
+// Tentukan field yang akan digunakan untuk sorting berdasarkan sortCategory
+switch ($sortCategory) {
+    case 'name':
+        $orderByField = 'L.posisi';  // Mengurutkan berdasarkan nama pekerjaan
+        break;
+    case 'availability':
+        $orderByField = 'L.is_open';  // Mengurutkan berdasarkan ketersediaan pekerjaan
+        break;
+    default:
+        $orderByField = '';  // Jika tidak ada, biarkan kosong
+        break;
+}
+
+// Tentukan arah sorting berdasarkan sortOrder (asc atau desc)
+if ($orderByField && $sortOrder != 'none') {
+    $query .= " ORDER BY $orderByField " . ($sortOrder == 'asc' ? 'ASC' : 'DESC');
 }
 
 // Persiapkan query
@@ -70,12 +96,17 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
         <nav class="navbar">
             <img class="logo" src="assets/LinkInPurry-crop.png">
+            <form method="GET" action="home_jobseeker.php">
             <div class="search-bar">
                 <div class="icon">
-                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
-                <input type="text" placeholder="Search">
+                <div class="search-bar-container">
+                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                <div id="autocomplete-results" class="autocomplete-results"></div>
+                </div>
             </div>
+            </form>
             <ul class="nav-links">
                 <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
                 <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
@@ -118,7 +149,23 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <option value="internship" <?= (isset($_GET['job_type']) && $_GET['job_type'] == 'internship') ? 'selected' : '' ?>>Internship</option>
                     </select>
              </div>
-            <button class="apply-filters">Apply Filters</button>
+             <div class="filter-group">
+    <label for="sort-category">Sort By</label>
+    <select id="sort-category" name="sort_category">
+        <option value="none" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'none') ? 'selected' : '' ?>>None</option>
+        <option value="name" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'name') ? 'selected' : '' ?>>Name</option>
+        <option value="availability" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'availability') ? 'selected' : '' ?>>Availability</option>
+    </select>
+        </div>
+            <div class="filter-group">
+                <label for="sort-order">Order By</label>
+                <select id="sort-order" name="sort_order">
+                    <option value="none" <?= (isset($_GET['sort_order']) && $_GET['sort_order'] == 'none') ? 'selected' : '' ?>>None</option>
+                    <option value="asc" <?= (isset($_GET['sort_order']) && $_GET['sort_order'] == 'asc') ? 'selected' : '' ?>>Ascending</option>
+                    <option value="desc" <?= (isset($_GET['sort_order']) && $_GET['sort_order'] == 'desc') ? 'selected' : '' ?>>Descending</option>
+                </select>
+            </div>
+        <button class="apply-filters">Apply Filters</button>
         </form>
         </aside>
     </aside>
@@ -143,6 +190,13 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p class="company"><?= htmlspecialchars($lowongan['company_name']) ?></p>
                 <p class="location"><?= htmlspecialchars($lowongan['jenis_lokasi']) ?></p>
                 <span class="promoted"><?= htmlspecialchars($lowongan['jenis_pekerjaan']) ?></span>
+                <p style="font-weight:bold; font-size:14px; color:#666666;">
+                    <?php if ($lowongan['is_open']): ?>
+                        <span>Open</span>
+                    <?php else: ?>
+                        <span>Closed</span>
+                    <?php endif; ?>
+                </p>
             </li>
 
             <!-- Tambahkan horizontal line kecuali untuk item terakhir -->
@@ -176,5 +230,53 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </aside>
     </main>
 
+
+   
 </body>
 </html>
+
+<script>
+function searchAutocomplete() {
+    const query = document.getElementById('search_keyword').value;
+    console.log("searchAutocomplete triggered");
+    if (query.length > 2) {  // Mulai pencarian jika panjang input > 2 karakter
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "autocomplete_search.php?query=" + query, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const results = JSON.parse(xhr.responseText);
+                let autocompleteResults = document.getElementById('autocomplete-results');
+                autocompleteResults.innerHTML = '';  // Kosongkan hasil sebelumnya
+                console.log(results);
+                // Tampilkan maksimal 3 hasil
+                results.forEach(result => {
+                    const item = document.createElement('div');
+                    item.classList.add('autocomplete-item');
+                    item.innerHTML = `
+                        <a href="detail_lowongan_jobseeker.php?lowongan_id=${result.lowongan_id}">
+                            <div class="icon">
+                               <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon" width="15">
+                            </div>
+                            <div class="autocomplete-text">
+                                <span class="main-text">${result.posisi}</span>
+                                <span class="sub-text">${result.company_name}</span>
+                            </div>
+                        </a>`;
+                    autocompleteResults.appendChild(item);
+                });
+                if (autocompleteResults.childElementCount > 0) {
+                    const seeAllButton = document.createElement('button');
+                    seeAllButton.type = 'submit';  // Setel type sebagai 'button' agar tidak mengirim form
+                    seeAllButton.classList.add('see-all-results-btn');
+                    seeAllButton.id = 'seeAllResultsBtn';
+                    seeAllButton.innerText = 'See All Results';
+                    autocompleteResults.appendChild(seeAllButton);
+                }
+            }
+        };
+        xhr.send();
+    } else {
+        document.getElementById('autocomplete-results').innerHTML = '';  // Kosongkan hasil jika input kurang dari 3 karakter
+    }
+}
+</script>
