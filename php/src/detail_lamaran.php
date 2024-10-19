@@ -60,12 +60,11 @@ if (!$lamaran) {
 
 <nav class="navbar">
     <img class="logo" src="assets/LinkInPurry-crop.png">
-        <input type="text" placeholder="Search">
     </div>
     <ul class="nav-links">
         <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
         <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png">Log Out</a></li>
     </ul>
 </nav>
 <main style='align-content: center;'>
