@@ -98,12 +98,14 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <img class="logo" src="assets/LinkInPurry-crop.png">
             <form method="GET" action="home_jobseeker.php">
             <div class="search-bar">
-                    <div class="icon">
-                        <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
-                    </div>
-                    <input type="text" name="search_keyword" id="search_keyword" placeholder="Search by position or company" onkeyup="searchAutocomplete()" autocomplete="off">
-                    <div id="autocomplete-results" class="autocomplete-results"></div> <!-- Container untuk hasil autocomplete -->
+                <div class="icon">
+                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
+                <div class="search-bar-container">
+                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                <div id="autocomplete-results" class="autocomplete-results"></div>
+                </div>
+            </div>
             </form>
             <ul class="nav-links">
                 <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
@@ -228,13 +230,15 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </aside>
     </main>
 
+
+   
 </body>
 </html>
 
 <script>
 function searchAutocomplete() {
     const query = document.getElementById('search_keyword').value;
-
+    console.log("searchAutocomplete triggered");
     if (query.length > 2) {  // Mulai pencarian jika panjang input > 2 karakter
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "autocomplete_search.php?query=" + query, true);
@@ -243,16 +247,31 @@ function searchAutocomplete() {
                 const results = JSON.parse(xhr.responseText);
                 let autocompleteResults = document.getElementById('autocomplete-results');
                 autocompleteResults.innerHTML = '';  // Kosongkan hasil sebelumnya
-
+                console.log(results);
                 // Tampilkan maksimal 3 hasil
                 results.forEach(result => {
                     const item = document.createElement('div');
                     item.classList.add('autocomplete-item');
-                    item.innerHTML = `<a href="detail_lowongan_jobseeker.php?lowongan_id=${result.lowongan_id}">
-                        <strong>${result.posisi}</strong> at ${result.company_name}
-                    </a>`;
+                    item.innerHTML = `
+                        <a href="detail_lowongan_jobseeker.php?lowongan_id=${result.lowongan_id}">
+                            <div class="icon">
+                               <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon" width="15">
+                            </div>
+                            <div class="autocomplete-text">
+                                <span class="main-text">${result.posisi}</span>
+                                <span class="sub-text">${result.company_name}</span>
+                            </div>
+                        </a>`;
                     autocompleteResults.appendChild(item);
                 });
+                if (autocompleteResults.childElementCount > 0) {
+                    const seeAllButton = document.createElement('button');
+                    seeAllButton.type = 'submit';  // Setel type sebagai 'button' agar tidak mengirim form
+                    seeAllButton.classList.add('see-all-results-btn');
+                    seeAllButton.id = 'seeAllResultsBtn';
+                    seeAllButton.innerText = 'See All Results';
+                    autocompleteResults.appendChild(seeAllButton);
+                }
             }
         };
         xhr.send();
