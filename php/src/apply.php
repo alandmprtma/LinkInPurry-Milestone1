@@ -82,12 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <nav class="navbar">
     <img class="logo" src="assets/LinkInPurry-crop.png">
-    <div class="search-bar">
-        <div class="icon">
-            <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
-        </div>
-        <input type="text" placeholder="Search">
-    </div>
     <ul class="nav-links">
         <li><a class="inactive" href="/"> <img src="assets/home_black.png"> Home</a></li>
         <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>

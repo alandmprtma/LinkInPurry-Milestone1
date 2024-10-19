@@ -38,41 +38,7 @@ body {
     height: 50px;
 }
 
-.search-bar {
-    display: flex;
-    align-items: center;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    margin-left: 20px;
-    background-color: #edf3f8;
-    width: 300px; /* Ukuran awal search bar */
-    transition: width 0.4s ease; /* Durasi transisi dan efek */
-}
 
-.search-bar .icon img {
-    width: 20px; /* Ukuran ikon */
-    margin-left: 5px;
-    margin-right: 3px;
-}
-
-.search-bar input {
-    border: none;
-    outline: none;
-    padding: 10px;
-    flex: 1;
-    background-color: transparent;
-    font-size: 16px;
-}
-
-.search-bar input::placeholder {
-    color: #666;
-}
-
-/* Ketika input di-focus, lebar search bar berubah */
-.search-bar:focus-within {
-    width: 450px; /* Lebar setelah focus (250% dari 200px) */
-    border: 2px solid #000;
-}
 
 .nav-links {
     display: flex;
