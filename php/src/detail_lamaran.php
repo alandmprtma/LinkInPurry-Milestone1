@@ -59,13 +59,7 @@ if (!$lamaran) {
 <body>
 
 <nav class="navbar">
-
-
     <img class="logo" src="assets/LinkInPurry-crop.png">
-    <div class="search-bar">
-        <div class="icon">
-            <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
-        </div>
         <input type="text" placeholder="Search">
     </div>
     <ul class="nav-links">
