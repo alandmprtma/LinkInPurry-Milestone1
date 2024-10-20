@@ -11,18 +11,30 @@ try {
     $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Koneksi ke database gagal: " . $e->getMessage());
+    // Jika gagal terhubung, kirim respon JSON dengan pesan error
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Koneksi ke database gagal']);
+    exit();
 }
 
-// Mengambil data dari form
-$email = $_POST['email'];
+// Validasi input
+$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $password_input = $_POST['password'];
+
+// Validasi email
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Format email tidak valid']);
+    exit();
+}
 
 // Query untuk mendapatkan pengguna berdasarkan email
 $query = "SELECT * FROM Users WHERE email = :email";
 $stmt = $pdo->prepare($query);
 $stmt->execute(['email' => $email]);
 $user = $stmt->fetch();
+
+header('Content-Type: application/json');
 
 if ($user && password_verify($password_input, $user['password'])) {
     // Jika login berhasil, buat session
@@ -31,16 +43,9 @@ if ($user && password_verify($password_input, $user['password'])) {
     $_SESSION['role'] = $user['role'];
     $_SESSION['nama'] = $user['nama'];
 
-    // Redirect ke halaman yang sesuai berdasarkan role
-    if ($user['role'] == 'company') {
-        header('Location: ../home_company.php'); // Halaman untuk company
-    } else {
-        header('Location: ../home_jobseeker.php'); // Halaman untuk job seeker
-    }
-    exit();
+    // Kirim respon JSON berhasil dengan role
+    echo json_encode(['success' => true, 'role' => $user['role']]);
 } else {
-    // Jika login gagal
-    echo "<p style='color:red;text-align:center;'>Email atau password salah!</p>";
-    echo "<a href='login.html'>Kembali ke Login</a>";
+    // Jika login gagal, kirim respon JSON gagal
+    echo json_encode(['success' => false, 'message' => 'Email atau password salah']);
 }
-?>
