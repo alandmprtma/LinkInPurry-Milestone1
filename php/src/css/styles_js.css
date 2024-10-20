@@ -661,7 +661,7 @@ table th {
 
 table td a.btn {
     text-decoration: none;
-    color: #007bff;
+    color: #0a66c2;
     font-weight: bold;
 }
 
@@ -747,7 +747,7 @@ table td a.btn:hover {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #0073b1; /* Warna biru seperti LinkedIn */
+    background-color: #0a66c2;
     color: white;
     text-align: center;
     font-size: 16px;
@@ -761,4 +761,41 @@ table td a.btn:hover {
 /* Hover effect untuk tombol */
 .see-all-results-btn:hover {
     background-color: #005582; /* Biru yang lebih gelap saat di-hover */
+}
+
+
+.pagination {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination a {
+    display: inline-block;
+    color: #0a66c2;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0 5px;
+    background-color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #005582;
+    color: #fff;
+}
+
+.pagination a.active {
+    background-color: #0a66c2;
+    color: #fff;
+    border-color: #0a66c2;
+}
+
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
+    border-color: #ddd;
 }

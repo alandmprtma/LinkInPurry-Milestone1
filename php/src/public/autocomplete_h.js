@@ -1,6 +1,13 @@
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
 function searchAutocomplete() {
     const query = document.getElementById('search_keyword').value;
-    const company_id = document.getElementById('company_id').value;
     console.log("searchAutocomplete triggered");
     if (query.length > 2) {  // Mulai pencarian jika panjang input > 2 karakter
         const xhr = new XMLHttpRequest();
@@ -16,7 +23,7 @@ function searchAutocomplete() {
                     const item = document.createElement('div');
                     item.classList.add('autocomplete-item');
                     item.innerHTML = `
-                        <a href="detail_lowongan_jobseeker.php?lowongan_id=${result.lowongan_id}">
+                        <a href="lowongan_detail.php?lowongan_id=${result.lowongan_id}">
                             <div class="icon">
                                <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon" width="15">
                             </div>
@@ -41,3 +48,6 @@ function searchAutocomplete() {
         document.getElementById('autocomplete-results').innerHTML = '';  // Kosongkan hasil jika input kurang dari 3 karakter
     }
 }
+
+const searchInput = document.getElementById('search_keyword');
+searchInput.addEventListener('keyup', debounce(searchAutocomplete, 500)); 

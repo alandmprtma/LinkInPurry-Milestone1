@@ -31,7 +31,7 @@ if (isset($_GET['query'])) {
               FROM Lowongan L 
               JOIN Users U ON L.company_id = U.user_id 
               WHERE (L.posisi ILIKE :searchKeyword OR U.nama ILIKE :searchKeyword) 
-              AND L.is_open = TRUE AND L.company_id = :company_id
+              AND L.company_id = :company_id
               LIMIT 3";
 
     $stmt = $pdo->prepare($query);

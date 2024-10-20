@@ -20,6 +20,11 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
+// Pagination
+$perPage = 3; // Jumlah lowongan per halaman
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Halaman saat ini
+$offset = ($page - 1) * $perPage; // Hitung offset untuk SQL
+
 // Tangkap nilai filter dari URL (GET request)
 $jobType = isset($_GET['job_type']) ? $_GET['job_type'] : 'all';  // Default: 'all'
 $locationType = isset($_GET['location_type']) ? $_GET['location_type'] : 'all';  // Default: 'all'
@@ -27,8 +32,43 @@ $sortCategory = isset($_GET['sort_category']) ? $_GET['sort_category'] : 'none';
 $sortOrder = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'none';  // Default: 'none'
 $searchKeyword = isset($_GET['search_keyword']) ? $_GET['search_keyword'] : '';
 
+// Query dasar untuk menghitung total lowongan (tanpa batasan company_id)
+$totalQuery = "SELECT COUNT(*) FROM Lowongan L where 1 = 1";
+
+// Array untuk menampung kondisi tambahan dan parameter
+$totalConditions = [];
+$totalParams = [];
+
+// Tambahkan filter berdasarkan jenis pekerjaan (jobType)
+if ($jobType != 'all') {
+    $totalConditions[] = "L.jenis_pekerjaan = :jobType";
+    $totalParams[':jobType'] = $jobType;
+}
+
+// Tambahkan filter berdasarkan jenis lokasi (locationType)
+if ($locationType != 'all') {
+    $totalConditions[] = "L.jenis_lokasi = :locationType";
+    $totalParams[':locationType'] = $locationType;
+}
+
+// Tambahkan filter pencarian berdasarkan keyword (searchKeyword)
+if (!empty($searchKeyword)) {
+    $totalConditions[] = "(L.posisi ILIKE :searchKeyword OR L.company_id IN (SELECT U.user_id FROM Users U WHERE U.nama ILIKE :searchKeyword))";
+    $totalParams[':searchKeyword'] = '%' . $searchKeyword . '%';
+}
+
+// Gabungkan semua kondisi jika ada
+if (!empty($totalConditions)) {
+    $totalQuery .= " AND " . implode(' AND ', $totalConditions);
+}
+
+// Persiapkan query untuk menghitung total lowongan
+$totalStmt = $pdo->prepare($totalQuery);
+$totalStmt->execute($totalParams);
+$totalLowongan = $totalStmt->fetchColumn();
+
 // Query dasar
-$query = "SELECT L.*, U.nama AS company_name FROM Lowongan L JOIN Users U ON L.company_id = U.user_id WHERE L.is_open = TRUE";
+$query = "SELECT L.*, U.nama AS company_name FROM Lowongan L JOIN Users U ON L.company_id = U.user_id";
 
 // Array untuk menampung kondisi tambahan dan parameter
 $conditions = [];
@@ -64,6 +104,9 @@ switch ($sortCategory) {
     case 'availability':
         $orderByField = 'L.is_open';  // Mengurutkan berdasarkan ketersediaan pekerjaan
         break;
+    case 'recency':  // Tambahkan case untuk recency
+        $orderByField = 'L.lowongan_id';  // Menggunakan lowongan_id untuk sorting berdasarkan urutan
+        break;
     default:
         $orderByField = '';  // Jika tidak ada, biarkan kosong
         break;
@@ -81,7 +124,20 @@ $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 
 // Ambil hasil query
-$lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Tambahkan LIMIT dan OFFSET untuk pagination
+$query .= " LIMIT :perPage OFFSET :offset";
+$params[':perPage'] = $perPage;
+$params[':offset'] = $offset;
+
+// Prepare and execute the query
+$stmt = $pdo->prepare($query);
+$stmt->execute($params);
+$lowonganList = $stmt->fetchAll();
+
+// Hitung total halaman
+$totalPages = ceil($totalLowongan / $perPage);
 ?>
 
 <!DOCTYPE html>
@@ -155,6 +211,7 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <option value="none" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'none') ? 'selected' : '' ?>>None</option>
         <option value="name" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'name') ? 'selected' : '' ?>>Name</option>
         <option value="availability" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'availability') ? 'selected' : '' ?>>Availability</option>
+        <option value="recency" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'recency') ? 'selected' : '' ?>>Recency</option>
     </select>
         </div>
             <div class="filter-group">
@@ -208,6 +265,41 @@ $lowonganList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     </section>
+     <!-- Pagination -->
+     <div id="pagination" class="pagination">
+            <?php if ($totalPages > 1): ?>
+                <?php if ($page > 1): ?>
+                    <!-- Tombol << mundur 2 halaman -->
+                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">«</a>
+                <?php endif; ?>
+
+                <!-- Tombol halaman pertama -->
+                <a href="?page=1&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == 1 ? 'active' : '' ?>">1</a>
+
+                <!-- Jika halaman lebih dari 3, tampilkan ... setelah halaman 1 -->
+                <?php if ($page > 3): ?>
+                    <span>...</span>
+                <?php endif; ?>
+
+                <!-- Tombol halaman di sekitar halaman saat ini -->
+                <?php for ($i = max(2, $page - 1); $i <= min($totalPages - 1, $page + 1); $i++): ?>
+                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+                <?php endfor; ?>
+
+                <!-- Jika halaman saat ini lebih dari 3 halaman sebelum halaman terakhir, tampilkan ... sebelum halaman terakhir -->
+                <?php if ($page < $totalPages - 2): ?>
+                    <span>...</span>
+                <?php endif; ?>
+
+                <!-- Tombol halaman terakhir -->
+                <a href="?page=<?= $totalPages ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == $totalPages ? 'active' : '' ?>"><?= $totalPages ?></a>
+
+                <!-- Tombol >> lompat 2 halaman -->
+                <?php if ($page < $totalPages): ?>
+                    <a href="?page=<?= min($totalPages, $page + 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">»</a>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
 </section>
 
         <aside class="job-seeker-guidance">

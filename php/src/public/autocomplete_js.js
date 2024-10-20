@@ -1,3 +1,11 @@
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
 function searchAutocomplete() {
     const query = document.getElementById('search_keyword').value;
     console.log("searchAutocomplete triggered");
@@ -41,3 +49,6 @@ function searchAutocomplete() {
         document.getElementById('autocomplete-results').innerHTML = '';  // Kosongkan hasil jika input kurang dari 3 karakter
     }
 }
+
+const searchInput = document.getElementById('search_keyword');
+searchInput.addEventListener('keyup', debounce(searchAutocomplete, 500)); 
