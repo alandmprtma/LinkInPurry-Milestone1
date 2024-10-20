@@ -1,49 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - LinkInPurry</title>
-    <link rel="stylesheet" href="../css/styles.css"> <!-- Menggunakan CSS global -->
-</head>
-<body>
-
-    <div class="login-container">
-        <h1>Register</h1>
-        <form action="register.php" method="POST" id="registerForm">
-            <div class="role">
-                <label for="role">Daftar sebagai: </label>
-                <select id="role" name="role" required>
-                    <option value="jobseeker">Job Seeker</option>
-                    <option value="company">Company</option>
-                </select>
+<html style="height: 100%;display: flex; justify-content: center; align-items: center;">
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body style="overflow: hidden;">
+        <div class="background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -100; background-color: #b3dfff;">
+        </div>   
+        <div id="selection" style="position: absolute; left: 0; top: 0; height: 100%; width: 100%;  display: flex; justify-content: center;">
+            <div class="choice-box" style="display: flex; flex-direction: column; width: 50dvw; justify-content: center;">
+                <h1>Welcome! Are you a</h1>
+                <div class="choice-button-container" style="display: flex; flex-direction: row;">
+                    <button href="#" id="buttonA" class="big-round-button" style="height: 20vw; width: 20vw; margin: 5% 5% 5% 5%; border-radius: 20vw; border:0; cursor: pointer">JobSeeker</button>
+                    <button href="#" id="buttonB" class="big-round-button" style="height: 20vw; width: 20vw; margin: 5% 5% 5% 5%; border-radius: 20vw; border:0; cursor: pointer">Company</button>
+                </div>
             </div>
-            
-            <input type="text" id="nama" name="nama" placeholder="Nama" required>
-            <input type="email" id="email" name="email" placeholder="Email" required>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
-
-            <div class="error" id="error-message"></div>
-            <button type="submit">Register</button>
-        </form>
-
-        <div class="register-link">
-            <p>Sudah punya akun? <a href="login.html">Login</a></p>
         </div>
-    </div>
-
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-
-            if (password !== confirmPassword) {
-                document.getElementById('error-message').innerText = "Password dan Konfirmasi Password tidak cocok!";
-                event.preventDefault(); // Mencegah pengiriman form jika ada error
+        <div id="information" style="position: absolute; left: 0; bottom: -100%; height: 100%; width: 100%;  display: flex; justify-content: center;">
+            <div class="choice-box" style="display: flex; flex-direction: column; width: 50dvw; justify-content: center;">
+                <h1 id="splashtext">One step away!</h1>
+                <form id="userinfo" style="display: flex; flex-direction: column;">
+                    <label>Full name</label>
+                    <input type="text" id="fullname" style="height: 25px; margin: 2% 0 2% 0;">
+                    <label>E-mail</label>
+                    <input type="text" id="email" style="height: 25px; margin: 2% 0 2% 0;">
+                    <label>Password</label>
+                    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                        <input type="password" id="password" style="height: 25px; width: 75%; margin: 2% 0 2% 0;">
+                        Show password<input type="checkbox">
+                    </span>
+                    <label>Confirm password</label>
+                    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                        <input type="password" id="confirmpassword" style="height: 25px; margin: 2% 0 2% 0;">
+                        Show password<input type="checkbox">
+                        <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                    <label id="password_report" style="visibility: hidden; padding: 1vw ;border: 4vw; border-radius: 1vw; background-color: red; color: white;">Password is incorrect!</label>
+                    <button id="submit" style="height: 5vw;" disabled> Submit! </button>
+                </form>
+                <h1>Back</h1>
+            </div>
+        </div>
+        
+        
+        <script async defer>
+            window.onbeforeunload = function () {
+                window.scrollTo(0,0);
             }
-        });
-    </script>
 
-</body>
+            var buttonA = document.getElementById("buttonA");
+            var buttonB = document.getElementById("buttonB");
+            var splashtext = document.getElementById("splashtext");
+            var selection = document.getElementById("selection");
+            var information = document.getElementById("information");
+            var selectedType = "None";
+
+
+            function funcA() {
+                console.log("TestA");
+                splashtext.textContent = "One step away from opportunities!";
+                information.scrollIntoView({behavior: "smooth"});   
+                selectedType = "jobseeker"
+            }
+
+            function funcB() {
+                console.log("TestB");
+                splashtext.textContent = "One step away from meeting potential!";
+                information.scrollIntoView({behavior: "smooth"});
+                selectedType = "company"
+            }
+
+            buttonA.addEventListener("click",funcA);
+            buttonB.addEventListener("click",funcB);
+
+
+            //INPUT RELATED
+            var namebox = document.getElementById("fullname");
+            var emailbox = document.getElementById("email")
+            var firstPassword = document.getElementById("password");
+            var checkPassword = document.getElementById("confirmpassword");
+            var passwordReport = document.getElementById("password_report");
+            
+            function checkpasswordCorrect(){
+                var password1 = firstPassword.value;
+                var password2 = checkPassword.value;
+                console.log("change");
+                if (password1 == password2){
+                    passwordReport.style.visibility = "hidden";
+                    return true
+                }
+                else{
+                    passwordReport.style.visibility = "visible";
+                    return false
+                }
+                //RETURN TRUE IF PASSWORD 1 IS THE SAME AS PASSWORD 2
+                //ELSE RETURN FALSE 
+            }
+
+            firstPassword.addEventListener("input",checkpasswordCorrect);
+            checkPassword.addEventListener("input", checkpasswordCorrect);
+        
+            function checkEmail(email){
+                const emailRegexCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]+$/;
+                return emailRegexCheck.test(email);    
+            }
+
+            function submit(){
+                var xmlh = new XMLHttpRequest();
+                xmlh.open('POST', '../auth/register.php');
+                xmlh.onreadystatechange = function() {
+                    if (xmlh.readyState == 4 && xmlh.status == 200){
+                        //Report success
+                        console.log("testlmao");
+                        const ajaxrespone = JSON.parse(xmlh.response);  //xmlh.response
+                        console.log(ajaxrespone);
+
+                        //IF SUCCESS GO TO LOGIN
+                    }
+                };
+
+                const nama = namebox.value;
+                const email = emailbox.value;
+                const pass = password.value;
+
+                xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xmlh.send("role="+selectedType+"&nama="+nama+"&email="+email+"&password="+pass);
+            }
+
+        </script>
+    </body>
 </html>
