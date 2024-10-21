@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     if ($nama != NULL && $email != NULL && $password != NULL){
 
         try {
-            if (!preg_match('/^[\w-\.]+@([\w-]+\.)+[\w-]+$/',$email)){
+            if (!preg_match('/^[\w\-\.]+@([\w\-]+\.)+[\w\-]+$/',$email)){
                 $retval["Reason"] = "Bad email!";
             }
             else{
@@ -46,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $retval["Reason"] = "Email already exists!";
                 }
             else{
-                /*
                 // Jika email belum terdaftar, masukkan ke database
                 $query = "INSERT INTO Users (email, password, role, nama) VALUES (:email, :password, :role, :nama)";
                 $stmt = $pdo->prepare($query);
@@ -56,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     'role' => $role,
                     'nama' => $nama
                 ]);
-                */
                 $retval["Success"] = TRUE;
                 }
             }

@@ -34,11 +34,14 @@
                     </span>
                     <label>Confirm password</label>
                     <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                        <input type="password" id="confirmpassword" style="height: 25px; margin: 2% 0 2% 0;">
+                        <input type="password" id="confirmpassword"  style="height: 25px; width: 75%; margin: 2% 0 2% 0;">
                         Show password<input type="checkbox">
-                        <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                    </span>
+
+                    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                     <label id="password_report" style="visibility: hidden; padding: 1vw ;border: 4vw; border-radius: 1vw; background-color: red; color: white;">Password is incorrect!</label>
-                    <button id="submit" style="height: 5vw;" disabled> Submit! </button>
+                    <button type="button" id="submit_data" style="height: 5vw;" disabled> Submit! </button>
+                    </span>
                 </form>
                 <h1>Back</h1>
             </div>
@@ -56,6 +59,7 @@
             var selection = document.getElementById("selection");
             var information = document.getElementById("information");
             var selectedType = "None";
+            var goodPassword = false;
 
 
             function funcA() {
@@ -89,14 +93,12 @@
                 console.log("change");
                 if (password1 == password2){
                     passwordReport.style.visibility = "hidden";
-                    return true
+                    goodPassword = true
                 }
                 else{
                     passwordReport.style.visibility = "visible";
-                    return false
+                    goodPassword = false
                 }
-                //RETURN TRUE IF PASSWORD 1 IS THE SAME AS PASSWORD 2
-                //ELSE RETURN FALSE 
             }
 
             firstPassword.addEventListener("input",checkpasswordCorrect);
@@ -107,17 +109,52 @@
                 return emailRegexCheck.test(email);    
             }
 
+            //upload check
+
+            var uploadButton = document.getElementById("submit_data");
+
+            function canUpload(){
+                if (namebox.value != "" && emailbox != "" && firstPassword != "" && checkPassword != "" && goodPassword){
+                    uploadButton.disabled = false;
+                    return true;
+                }
+                else{
+                    uploadButton.disabled = true;
+                    return false;
+                }
+            }
+            namebox.addEventListener("input",canUpload);
+            emailbox.addEventListener("input",canUpload);
+            firstPassword.addEventListener("input",canUpload);
+            checkPassword.addEventListener("input",canUpload);
+
+            uploadButton.addEventListener("click",submit)
+
             function submit(){
+                if (canUpload()){
                 var xmlh = new XMLHttpRequest();
                 xmlh.open('POST', '../auth/register.php');
                 xmlh.onreadystatechange = function() {
                     if (xmlh.readyState == 4 && xmlh.status == 200){
                         //Report success
                         console.log("testlmao");
-                        const ajaxrespone = JSON.parse(xmlh.response);  //xmlh.response
-                        console.log(ajaxrespone);
+                        try {
+                            const ajaxrespone = JSON.parse(xmlh.response);
+                            console.log(ajaxrespone);  
+
+                            if (ajaxrespone["Success"] = true){
+                                window.location.href = "auth/login.html";
+                            }
+                        } catch (error) {
+                            console.warn(xmlh.response);
+                        }
+                          //xmlh.response
+                        
 
                         //IF SUCCESS GO TO LOGIN
+                    }
+                    else{
+                        //console.log("fail?");
                     }
                 };
 
@@ -127,6 +164,10 @@
 
                 xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xmlh.send("role="+selectedType+"&nama="+nama+"&email="+email+"&password="+pass);
+                }
+                else{
+                    console.error("Nice try!");
+                }
             }
 
         </script>
