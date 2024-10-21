@@ -317,7 +317,7 @@ $totalPages = ceil($totalLowongan / $perPage);
                                 <img class="" src="assets/candidate.png" alt="Resume Improvement">
                             </div>
                         </div>
-                        <p style="margin-top:15px;">Ready to expand your team? Posting a job has never been easier! Share your job listing with a wide audience of qualified candidates looking for opportunities just like yours. With our user-friendly platform, you can customize your job post to attract the best talent, all at no cost to you!</p>
+                        <p style="margin-top:15px; text-align:justify;">Ready to expand your team? Posting a job has never been easier! Share your job listing with a wide audience of qualified candidates looking for opportunities just like yours. With our user-friendly platform, you can customize your job post to attract the best talent, all at no cost to you!</p>
                         <a href="buat_lowongan.php" class="show-more">Start Posting Now <span>&#8594;</span></a>
                     </div>
                 </div>

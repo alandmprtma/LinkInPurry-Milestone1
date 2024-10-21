@@ -2,7 +2,7 @@
 session_start();
 
 // Cek apakah pengguna sudah login
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])|| $_SESSION['role'] !== 'jobseeker') {
     header('Location: auth/login.html');
     exit();
 }
@@ -325,7 +325,7 @@ $totalPages = ceil($totalLowongan / $perPage);
                                 <img class="" src="assets/resume.png" alt="Resume Improvement">
                             </div>
                         </div>
-                        <p style="margin-top:15px;">Explore our curated guide of expert-led courses, such as how to improve your resume and grow your network, to help you land your next opportunity.</p>
+                        <p style="margin-top:15px; text-align:justify;">Explore our curated guide of expert-led courses, such as how to improve your resume and grow your network, to help you land your next opportunity.</p>
                         <a href="#" class="show-more">Show more <span>&#8594;</span></a>
                     </div>
                 </div>

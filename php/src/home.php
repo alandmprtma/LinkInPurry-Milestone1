@@ -2,8 +2,15 @@
 session_start();
 
 // Cek apakah pengguna sudah login
-if (!isset($_SESSION['user_id'])) {
-    header('Location: auth/login.html');
+// Redirect jika pengguna memiliki role 'jobseeker'
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'jobseeker') {
+    header('Location: home_jobseeker.php');
+    exit();
+}
+
+// Redirect jika pengguna memiliki role 'company'
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'company') {
+    header('Location: home_company.php');
     exit();
 }
 
@@ -146,42 +153,61 @@ $totalPages = ceil($totalLowongan / $perPage);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkInPurry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles_js.css">
 </head>
 <body>
-        <nav class="navbar">
-            <img class="logo" src="assets/LinkInPurry-crop.png">
-            <form method="GET" action="home_jobseeker.php">
+    <nav class="navbar">
+        <img class="logo" src="assets/LinkInPurry-crop.png">
+        
+        <form method="GET" action="home.php" class="search-form">
             <div class="search-bar">
                 <div class="icon">
-                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
                 <div class="search-bar-container">
-                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
-                <div id="autocomplete-results" class="autocomplete-results"></div>
+                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                    <div id="autocomplete-results" class="autocomplete-results"></div>
                 </div>
             </div>
-            </form>
-            <ul class="nav-links">
-                <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
-                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
-                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
-            </ul>
-        </nav>
+        </form>
 
+        <!-- Hamburger menu for mobile -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links" id="nav-links">
+            <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
+            <li>
+        <a class="inactive" href="/auth/register.html">
+            <i class="fa fa-user-plus"></i> Register
+        </a>
+        </li>
+        <li>
+        <a class="inactive" href="auth/login.html">
+            <i class="fas fa-sign-in-alt"></i> Log In
+        </a>
+        </li>
+        </ul>
+    </nav>
     <main style='align-content: center;'>
     <aside class='left-aside'>
     <div class="profile-card">
         <div class="header">
+        <div class="avatar">
+            <img src="assets/incognito.png" alt="Avatar">
+        </div>
         </div>
         <div class="body">
-            <h3><?php echo $_SESSION['nama']; ?></h3>
-            <p><?php echo $_SESSION['email']; ?></p>
-            <p class="location">Tangerang, Banten</p>
+            <h3>Unauthorized User</h3>
+            <p>Email not available</p>
+            <p class="location">Location unknown</p>
         </div>
         <div class="footer">
-            <span>Job Seeker</span>
+            <span>Incognito Mode</span>
         </div>
     </div>
         <aside class="filters">
@@ -229,8 +255,8 @@ $totalPages = ceil($totalLowongan / $perPage);
 <section>
 <div class="card-header">
     <div class="card-content">
-        <h2>Hi <?php echo $_SESSION['nama']; ?>, are you looking for work?</h2>
-        <p>Explore new opportunities and get closer to your dream career!</p>
+        <h2>Hi there, are you hiring / looking for work?</h2>
+        <p>Discover exciting opportunities, connect with potential employers, and take a step towards your ideal career!</p>
     </div>
     </div>
     <section class="job-listings">
@@ -303,21 +329,29 @@ $totalPages = ceil($totalLowongan / $perPage);
 </section>
 
         <aside class="job-seeker-guidance">
-            <div class="guidance-card">
-                <h3>Job seeker guidance</h3>
-                <p class="recommendation">Recommended based on your activity</p>
-                <div class="guidance-content">
-                    <div class="guidance-text">
-                        <div class="guidance-headline">
-                            <strong style="margin-top:5px;">I want to improve my resume</strong>
-                            <div class="guidance-image">
-                                <img class="" src="assets/resume.png" alt="Resume Improvement">
-                            </div>
+        <div class="guidance-card">
+        <h3>Join Our Community</h3>
+        <p class="recommendation">Unlock new opportunities</p>
+            <div class="guidance-content">
+                <div class="guidance-text">
+                    <div class="guidance-headline">
+                        <strong style="margin-top:5px;">Ready to take your career to the next level?</strong>
+                        <div class="guidance-image">
+                            <img class="" src="assets/resume.png" alt="Career Guidance">
                         </div>
-                        <p style="margin-top:15px;">Explore our curated guide of expert-led courses, such as how to improve your resume and grow your network, to help you land your next opportunity.</p>
-                        <a href="#" class="show-more">Show more <span>&#8594;</span></a>
                     </div>
+                    <p style="margin-top:15px; text-align:justify;">
+                        Sign up today to access tailored job recommendations, expert resources to improve your resume, and valuable networking opportunities. Whether you're a job seeker looking to land your dream role or a company seeking top talent, our platform connects you with the right resources.
+                    </p>
+                    <a href="auth/register.html" class="show-more">Register Now <span>&#8594;</span></a>
                 </div>
+            </div>
+        </div>
+            <div class="footer-section" style="margin-top: 20px; text-align: center;">
+                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
+                <span style="font-size: 14px; margin-left: 8px;">
+                    LinkedInPurry Corporation © 2024
+                </span>
             </div>
         </aside>
     </main>
@@ -326,3 +360,10 @@ $totalPages = ceil($totalLowongan / $perPage);
     <script src="public/autocomplete_js.js"></script>
 </body>
 </html>
+
+<script>
+    document.getElementById('hamburger-menu').addEventListener('click', function() {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('active');
+    });
+</script>
