@@ -155,6 +155,9 @@ $totalPages = ceil($totalLowongan / $perPage);
                 </div>
             </div>
             </form>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+           </div>
             <ul class="nav-links">
                 <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
                 <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
@@ -220,7 +223,7 @@ $totalPages = ceil($totalLowongan / $perPage);
             </form>
         </aside>
     </aside>
-<section style="width: 38%;">
+<section>
 <div class="card-header">
     <div class="card-content">
         <h2>Hi <?php echo $_SESSION['nama'];?>, are you hiring?</h2>
@@ -319,8 +322,24 @@ $totalPages = ceil($totalLowongan / $perPage);
                     </div>
                 </div>
             </div>
+            <div class="footer-section" style="margin-top: 20px; text-align: center;">
+                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
+                <span style="font-size: 14px; margin-left: 8px;">
+                    LinkedInPurry Corporation © 2024
+                </span>
+            </div>
         </aside>
     </main>
     <script src="public/autocomplete_h.js"></script>
 </body>
 </html>
+
+<script>
+const hamburgerMenu = document.getElementById('hamburger-menu');
+const navLinks = document.querySelector('.nav-links');
+
+hamburgerMenu.addEventListener('click', () => {
+    navLinks.classList.toggle('active'); // Toggle class untuk menampilkan atau menyembunyikan nav links
+});
+
+</script>

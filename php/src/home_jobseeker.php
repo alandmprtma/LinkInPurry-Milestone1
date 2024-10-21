@@ -146,30 +146,38 @@ $totalPages = ceil($totalLowongan / $perPage);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkInPurry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles_js.css">
 </head>
 <body>
-        <nav class="navbar">
-            <img class="logo" src="assets/LinkInPurry-crop.png">
-            <form method="GET" action="home_jobseeker.php">
+    <nav class="navbar">
+        <img class="logo" src="assets/LinkInPurry-crop.png">
+        
+        <form method="GET" action="home_jobseeker.php" class="search-form">
             <div class="search-bar">
                 <div class="icon">
-                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
                 <div class="search-bar-container">
-                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
-                <div id="autocomplete-results" class="autocomplete-results"></div>
+                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                    <div id="autocomplete-results" class="autocomplete-results"></div>
                 </div>
             </div>
-            </form>
-            <ul class="nav-links">
-                <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
-                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
-                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
-            </ul>
-        </nav>
+        </form>
 
+        <!-- Hamburger menu for mobile -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links" id="nav-links">
+            <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
+            <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+            <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+        </ul>
+    </nav>
     <main style='align-content: center;'>
     <aside class='left-aside'>
     <div class="profile-card">
@@ -322,6 +330,12 @@ $totalPages = ceil($totalLowongan / $perPage);
                     </div>
                 </div>
             </div>
+            <div class="footer-section" style="margin-top: 20px; text-align: center;">
+                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
+                <span style="font-size: 14px; margin-left: 8px;">
+                    LinkedInPurry Corporation © 2024
+                </span>
+            </div>
         </aside>
     </main>
 
@@ -329,3 +343,10 @@ $totalPages = ceil($totalLowongan / $perPage);
     <script src="public/autocomplete_js.js"></script>
 </body>
 </html>
+
+<script>
+    document.getElementById('hamburger-menu').addEventListener('click', function() {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('active');
+    });
+</script>
