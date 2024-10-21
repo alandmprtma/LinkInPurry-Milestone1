@@ -188,18 +188,8 @@ body {
 }
 
 @media (max-width: 400px) {
-    .navbar .search-form {
-        margin: 0px auto;
-    }
-
-    .search-bar {
-        width: 180px;
-        margin: 0px;
-    }
-
-
-    .search-bar:focus-within {
-        width: 220px;
+    .form .search-form{
+        margin: 0px 0px 0px 0px;
     }
 }
 
@@ -660,61 +650,6 @@ main {
     justify-content: center; /* Centering the button */
     margin-top: 1.5rem;
 }
-}
-
-@media (max-width: 768px) {
-    main {
-        display: flex;
-        flex-direction: column; /* Atur default column untuk menjaga struktur vertikal pada layar kecil */
-        align-items: center;
-    }
-
-    /* Urutkan elemen utama menjadi satu baris */
-    .left-aside, .job-seeker-guidance, section {
-        flex: 1; /* Buat setiap elemen memiliki lebar yang sama */
-        display: flex;
-        flex-direction: column;
-        margin: 10px; /* Tambahkan jarak antar elemen */
-    }
-
-    /* Buat elemen-elemen dalam satu baris pada lebar layar <= 768px */
-
-    .left-aside {
-        position: static; 
-        display: flex;
-        justify-content: center; /* Horizontal alignment */
-        align-items: center;   
-    }
-
-    /* Atur aside dan section untuk memiliki lebar penuh pada mobile */
-    .left-aside, .job-seeker-guidance, section {
-        width: 100%;
-    }
-
-    .filters {
-        width: 100%; /* Pastikan elemen filters memenuhi lebar pada layar kecil */
-        margin: 0 auto;
-    }
-
-    /* Sesuaikan elemen lain di dalam section agar tetap responsif */
-    .job-listings {
-        width: 100%;
-        transform: translateX(-10px);
-    }
-
-    .card-header, .job-cards {
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    
-    /* Pagination responsif */
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-        width: 100%;
-    }
 }
 
 .delete-icon {
