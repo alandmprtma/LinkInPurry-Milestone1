@@ -190,24 +190,37 @@ main {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: 'Source Sans Pro', sans-serif;
-    margin-bottom: 20px; /* Add margin to separate from the filters */
+    margin-bottom: 20px;
+    position: relative; /* Needed for the avatar's absolute positioning */
 }
 
 .profile-card .header {
-    background-color: #d1d5db;
+    background-color: #e3e7ea; /* Slightly lighter background */
     padding: 20px;
     text-align: center;
+    position: relative; /* Position relative to contain the avatar */
+    padding: 30px 20px 20px 20px;
 }
 
-.profile-card .header img {
-    width: 50px;
-    height: 50px;
+.profile-card .avatar {
+    width: 80px; /* Adjust size based on your preference */
+    height: 80px;
     border-radius: 50%;
-    margin-bottom: 10px;
+    position: absolute;
+    bottom: -40px; /* Push half of the avatar below the header */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid white; /* Optional: add a border to separate from the body */
+}
+
+.profile-card .avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 .profile-card .body {
-    padding: 15px 20px;
+    padding: 35px 20px 15px 20px;
 }
 
 .profile-card .body h3 {
@@ -233,12 +246,7 @@ main {
     border-top: 1px solid #ccc;
     display: flex;
     align-items: center;
-}
-
-.profile-card .footer img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+    justify-content: center;
 }
 
 .profile-card .footer span {

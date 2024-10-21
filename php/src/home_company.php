@@ -34,9 +34,38 @@ $searchKeyword = isset($_GET['search_keyword']) ? $_GET['search_keyword'] : '';
 
 // Query untuk mendapatkan total lowongan
 $totalQuery = "SELECT COUNT(*) FROM Lowongan L WHERE L.company_id = :company_id";
+
+$conditions = [];
+$params = [':company_id' => $_SESSION['user_id']];
+
+// Add job type filter
+if ($jobType != 'all') {
+    $conditions[] = "L.jenis_pekerjaan = :jobType";
+    $params[':jobType'] = $jobType;
+}
+
+// Add location type filter
+if ($locationType != 'all') {
+    $conditions[] = "L.jenis_lokasi = :locationType";
+    $params[':locationType'] = $locationType;
+}
+
+// Add search keyword filter
+if (!empty($searchKeyword)) {
+    $conditions[] = "(L.posisi ILIKE :searchKeyword)";
+    $params[':searchKeyword'] = '%' . $searchKeyword . '%';
+}
+
+// Add conditions to the query for total count
+if (!empty($conditions)) {
+    $totalQuery .= " AND " . implode(' AND ', $conditions);
+}
+
+// Execute the total query with filters
 $totalStmt = $pdo->prepare($totalQuery);
-$totalStmt->execute([':company_id' => $_SESSION['user_id']]);
+$totalStmt->execute($params);
 $totalLowongan = $totalStmt->fetchColumn();
+
 
 // Query untuk mendapatkan daftar lowongan
 $query = "SELECT L.*, U.nama AS company_name 
@@ -137,6 +166,9 @@ $totalPages = ceil($totalLowongan / $perPage);
     <aside class='left-aside'>
     <div class="profile-card">
         <div class="header">
+        <div class="avatar">
+            <img src="assets/company.jpg" alt="Avatar">
+        </div>
         </div>
         <div class="body">
             <h3><?php echo $_SESSION['nama']; ?></h3>

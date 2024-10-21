@@ -132,6 +132,9 @@ if (!$lamaran) {
 <aside class="job-seeker-guidance">
 <div class="profile-card" style="width: 100%;" >
         <div class="header">
+        <div class="avatar">
+            <img src="assets/company.jpg" alt="Avatar">
+        </div>
         </div>
         <div class="body">
             <h3><?php echo $_SESSION['nama']; ?></h3>

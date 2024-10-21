@@ -30,6 +30,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
 <aside class='left-aside-lowongan'>
     <div class="profile-card" >
         <div class="header">
+        <div class="avatar">
+            <img src="assets/company.jpg" alt="Avatar">
+        </div>
         </div>
         <div class="body">
             <h3><?php echo $_SESSION['nama']; ?></h3>

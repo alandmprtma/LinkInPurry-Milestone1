@@ -174,6 +174,8 @@ main {
 }
 
 .left-aside{
+    position: sticky;
+    top: 118px;
     width: 22%;
 }
 
@@ -191,24 +193,37 @@ main {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: 'Source Sans Pro', sans-serif;
-    margin-bottom: 20px; /* Add margin to separate from the filters */
+    margin-bottom: 20px;
+    position: relative; /* Needed for the avatar's absolute positioning */
 }
 
 .profile-card .header {
-    background-color: #d1d5db;
+    background-color: #e3e7ea; /* Slightly lighter background */
     padding: 20px;
     text-align: center;
+    position: relative; /* Position relative to contain the avatar */
+    padding: 30px 20px 20px 20px;
 }
 
-.profile-card .header img {
-    width: 50px;
-    height: 50px;
+.profile-card .avatar {
+    width: 80px; /* Adjust size based on your preference */
+    height: 80px;
     border-radius: 50%;
-    margin-bottom: 10px;
+    position: absolute;
+    bottom: -40px; /* Push half of the avatar below the header */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid white; /* Optional: add a border to separate from the body */
+}
+
+.profile-card .avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 .profile-card .body {
-    padding: 15px 20px;
+    padding: 35px 20px 15px 20px;
 }
 
 .profile-card .body h3 {
@@ -234,12 +249,7 @@ main {
     border-top: 1px solid #ccc;
     display: flex;
     align-items: center;
-}
-
-.profile-card .footer img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+    justify-content: center;
 }
 
 .profile-card .footer span {
@@ -253,7 +263,7 @@ main {
     top: 100px;
     width: 90%;
     background-color: #fff;
-    padding: 1rem;
+    padding: 0.75rem; /* Reduced padding to shrink height */
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -261,29 +271,29 @@ main {
 }
 
 .filters h3 {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem; /* Reduced margin below heading */
     color: #0a66c2;
 }
 
 .filter-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Reduced space between filter groups */
 }
 
 .filter-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem; /* Reduced space below label */
 }
 
 .filter-group input, .filter-group select {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.4rem; /* Reduced padding in input fields */
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 .apply-filters {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.4rem; /* Reduced button padding */
     background-color: #0a66c2;
     color: white;
     border: none;
@@ -294,7 +304,6 @@ main {
 .apply-filters:hover {
     background-color: #005a9e;
 }
-
 /* Job Listings */
 /* Container for the entire job listings */
 .job-listings {

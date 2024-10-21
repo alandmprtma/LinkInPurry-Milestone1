@@ -174,9 +174,6 @@ $totalPages = ceil($totalLowongan / $perPage);
     <aside class='left-aside'>
     <div class="profile-card">
         <div class="header">
-        <div class="avatar">
-            <img src="assets/job-seeker-rem.png" alt="Avatar">
-        </div>
         </div>
         <div class="body">
             <h3><?php echo $_SESSION['nama']; ?></h3>
