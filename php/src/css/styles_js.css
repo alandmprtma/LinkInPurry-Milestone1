@@ -115,6 +115,16 @@ body {
     align-items: center;
 }
 
+.nav-links li:first-child .current::after {
+    content: '';
+    width: 80px; /* Lebar garis bawah */
+    height: 2px; /* Tinggi garis bawah */
+    background-color: #000;
+    margin-top: 5px;
+    position:absolute;
+    bottom: 0px;
+}
+
 .hamburger-menu {
     display: none; /* Show hamburger menu on mobile */
     font-size: 24px;
@@ -126,6 +136,11 @@ body {
 
 /* Hide the nav-links and show hamburger on mobile */
 @media (max-width: 768px) {
+    .nav-links li:first-child .current::after {
+        display: none;
+    }
+    
+
     .nav-links {
         display: none; /* Hide navigation links */
         flex-direction: column;
@@ -190,6 +205,10 @@ body {
 @media (max-width: 400px) {
     .navbar .search-form {
         margin: 0px auto;
+    }
+
+    .nav-links li:first-child .current::after {
+        display: none;
     }
 
     .search-bar {
