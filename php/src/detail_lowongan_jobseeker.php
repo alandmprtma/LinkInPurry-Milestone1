@@ -31,15 +31,12 @@ $lowongan_id = $_GET['lowongan_id'];
 // Query untuk mendapatkan detail lowongan dan profil perusahaan
 $query = "SELECT L.*, U.nama AS company_name, U.email AS company_email FROM Lowongan L
           JOIN Users U ON L.company_id = U.user_id
-          WHERE L.lowongan_id = :lowongan_id AND L.is_open = TRUE";
+          WHERE L.lowongan_id = :lowongan_id";
 $stmt = $pdo->prepare($query);
 $stmt->execute(['lowongan_id' => $lowongan_id]);
 $lowongan = $stmt->fetch();
 
-if (!$lowongan) {
-    echo "<p>Lowongan tidak ditemukan atau sudah ditutup.</p>";
-    exit();
-}
+$is_open = $lowongan['is_open'];
 
 // Hanya cek lamaran jika pengguna sudah login
 $lamaran = false;
@@ -81,32 +78,36 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Cek apakah user login -->
     <section class="application-status">
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <?php if (!$lamaran): ?>
-                <p>You have not applied for this position yet.</p>
-                <!-- Tombol navigasi ke halaman lamaran -->
-                <form action="apply.php" method="get">
-                    <input type="hidden" name="lowongan_id" value="<?php echo htmlspecialchars($lowongan_id); ?>">
-                    <button type="submit" class="apply-button">Easy Apply</button>
-                </form>
-            <?php else: ?>
-                <p><strong>Status:</strong> <?php echo htmlspecialchars($lamaran['status']); ?></p>
-                <?php if (!empty($lamaran['status_reason'])): ?>
-                    <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['status_reason']); ?></p>
+        <?php if ($is_open): ?>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if (!$lamaran): ?>
+                    <p>You have not applied for this position yet.</p>
+                    <!-- Tombol navigasi ke halaman lamaran -->
+                    <form action="apply.php" method="get">
+                        <input type="hidden" name="lowongan_id" value="<?php echo htmlspecialchars($lowongan_id); ?>">
+                        <button type="submit" class="apply-button">Easy Apply</button>
+                    </form>
+                <?php else: ?>
+                    <p><strong>Status:</strong> <?php echo htmlspecialchars($lamaran['status']); ?></p>
+                    <?php if (!empty($lamaran['status_reason'])): ?>
+                        <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['status_reason']); ?></p>
+                    <?php endif; ?>
+                    <div class="attachment">
+                        <?php if (!empty($lamaran['cv_path'])): ?>
+                            <h4 class="cv-link"><a href="<?php echo htmlspecialchars($lamaran['cv_path']); ?>" target="_blank">View your CV</a></h4>
+                        <?php endif; ?>
+                        <?php if (!empty($lamaran['video_path'])): ?>
+                            <h4><a href="<?php echo htmlspecialchars($lamaran['video_path']); ?>" target="_blank">Watch your introduction video</a></h4>
+                        <?php endif; ?>
+                    </div>
+                    <p>You cannot reapply for the same job.</p>
                 <?php endif; ?>
-                <div class="attachment">
-                    <?php if (!empty($lamaran['cv_path'])): ?>
-                        <h4 class="cv-link"><a href="<?php echo htmlspecialchars($lamaran['cv_path']); ?>" target="_blank">View your CV</a></h4>
-                    <?php endif; ?>
-                    <?php if (!empty($lamaran['video_path'])): ?>
-                        <h4><a href="<?php echo htmlspecialchars($lamaran['video_path']); ?>" target="_blank">Watch your introduction video</a></h4>
-                    <?php endif; ?>
-                </div>
-                <p>You cannot reapply for the same job.</p>
+            <?php else: ?>
+                <p>You need to login to apply for this job.</p>
+                <button class="apply-button" disabled>Easy Apply</button>
             <?php endif; ?>
         <?php else: ?>
-            <!-- Jika user belum login -->
-            <p>You need to login to apply for this job.</p>
+            <p>This job position has been closed.</p>
             <button class="apply-button" disabled>Easy Apply</button>
         <?php endif; ?>
     </section>
