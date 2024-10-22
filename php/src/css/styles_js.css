@@ -962,3 +962,10 @@ table td a.btn:hover {
 .drop-area.dragover {
     background-color: #f0f0f0;
 }
+
+.attachment-images img {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    max-width: 200px;
+}

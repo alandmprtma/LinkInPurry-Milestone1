@@ -28,6 +28,11 @@ if (!isset($_GET['lowongan_id'])) {
 
 $lowongan_id = $_GET['lowongan_id'];
 
+$queryAttachments = "SELECT file_path FROM AttachmentLowongan WHERE lowongan_id = :lowongan_id";
+$stmtAttachments = $pdo->prepare($queryAttachments);
+$stmtAttachments->execute(['lowongan_id' => $lowongan_id]);
+$attachments = $stmtAttachments->fetchAll();
+
 // Query untuk mendapatkan detail lowongan
 $query = "SELECT * FROM Lowongan WHERE lowongan_id = :lowongan_id AND company_id = :company_id";
 $stmt = $pdo->prepare($query);
@@ -79,6 +84,14 @@ $lamaranList = $stmtLamaran->fetchAll();
         <li class="line" style="padding-bottom: 10px"><hr class="divider" /></li>
         <h2 ><?php echo htmlspecialchars($lowongan['posisi']); ?></h2>
         <h4 style='color: #666;'><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?></h4>
+        <div class="attachments">
+            <h3>Job Attachments:</h3>
+            <div class="attachment-images">
+                <?php foreach ($attachments as $attachment): ?>
+                    <img src="<?php echo htmlspecialchars($attachment['file_path']); ?>" alt="Job Image" style="max-width: 200px; margin-right: 10px;">
+                <?php endforeach; ?>
+            </div>
+        </div>
         <p style="font-size:14px; color:#666666; margin-top:15px;">
             <span><strong>Created At:</strong> <?php echo htmlspecialchars(substr($lowongan['created_at'], 0, 19)); ?></span><br>
             <span><strong>Updated At:</strong> <?php echo htmlspecialchars(substr($lowongan['updated_at'], 0, 19)); ?></span>
