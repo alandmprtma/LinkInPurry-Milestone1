@@ -145,7 +145,7 @@ body {
 
 /* Job Details */
 .job-details-js {
-    position: sticky; 
+
     top: 115px;
     width: 60%;
     padding: 2rem;
@@ -157,7 +157,7 @@ body {
 }
 
 .job-details-a {
-    position: sticky; 
+
     top: 115px;
     width: 60%;
     padding: 2rem;
