@@ -49,7 +49,11 @@ if (!$lowongan) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Lowongan</title>
     <link rel="stylesheet" href="css/styles_js.css"> <!-- Menggunakan CSS global -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css" integrity="sha512-ggYQiYwuFFyThzEv6Eo6g/uPLis4oUynsE88ovEde5b2swycOh9SlAI8FL/cL2AkGGNnWADPXcX2UnPIJS2ozw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<script src="public/quil-text.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js" ></script>
 <body>
 
 <nav class="navbar">
@@ -94,7 +98,8 @@ if (!$lowongan) {
             
             <div class="form-group">
                 <label for="deskripsi" class="form-label">Deskripsi Pekerjaan:</label>
-                <textarea id="deskripsi" name="deskripsi" class="form-textarea" required><?php echo htmlspecialchars($lowongan['deskripsi']); ?></textarea>
+                <div id="editor" style="height: 200px;"><?php echo $lowongan['deskripsi']; ?></div> <!-- Div untuk Quill -->
+                <input type="hidden" name="deskripsi" id="deskripsi"> <!-- Hidden input untuk menyimpan konten dari Quill -->
             </div>
 
             <div class="form-group">

@@ -596,7 +596,6 @@ main {
 }
 
 .job-details {
-    position: sticky; 
     top: 115px;
     width: 100%;
     padding: 2rem;
