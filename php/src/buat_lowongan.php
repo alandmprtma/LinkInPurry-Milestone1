@@ -61,19 +61,19 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
         <h1 class="form-heading">Post a New Job</h1>
         <form class="job-form" action="simpan_lowongan.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="posisi" class="form-label">Posisi Pekerjaan:</label>
+                <label for="posisi" class="form-label">Job Position:</label>
                 <input type="text" id="posisi" name="posisi" class="form-input" required>
             </div>
             
             <div class="form-group">
-                <label for="deskripsi" class="form-label">Deskripsi Pekerjaan:</label>
+                <label for="deskripsi" class="form-label">Job Description:</label>
                 <div id="editor" style="height: 200px;"></div> <!-- Div untuk Quill -->
                 <input type="hidden" name="deskripsi" id="deskripsi"> <!-- Hidden input untuk menyimpan konten dari Quill -->
             </div>
 
 
             <div class="form-group">
-                <label for="jenis_pekerjaan" class="form-label">Jenis Pekerjaan:</label>
+                <label for="jenis_pekerjaan" class="form-label">Job Type:</label>
                 <select id="jenis_pekerjaan" name="jenis_pekerjaan" class="form-select" required>
                     <option value="full-time">Full-time</option>
                     <option value="part-time">Part-time</option>
@@ -82,7 +82,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
             </div>
 
             <div class="form-group">
-                <label for="jenis_lokasi" class="form-label">Jenis Lokasi:</label>
+                <label for="jenis_lokasi" class="form-label">Location Type:</label>
                 <select id="jenis_lokasi" name="jenis_lokasi" class="form-select" required>
                     <option value="on-site">On-site</option>
                     <option value="remote">Remote</option>
