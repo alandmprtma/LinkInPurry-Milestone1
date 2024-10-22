@@ -92,7 +92,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
                 <label for="image">Upload Image:</label>
                 <div id="image-drop-area" class="drop-area">
                     <p>Drag & Drop your Image here or click to upload</p>
-                    <input type="file" name="attachments[]" id="image" accept=".jpeg, .jpg, .png" multiple required hidden>
+                    <input type="file" name="attachments[]" id="image" accept=".jpeg, .jpg, .png" multiple hidden>
                 </div>
             </div>
 
