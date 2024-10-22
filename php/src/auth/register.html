@@ -1,165 +1,188 @@
 <!DOCTYPE html>
-<html style="height: 100%;display: flex; justify-content: center; align-items: center;">
-    <head>
-        <meta charset="utf-8">
-        <title>Login</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body style="overflow: hidden;">
-        <div class="background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -100; background-color: #b3dfff;">
-        </div>   
-        <div id="selection" style="position: absolute; left: 0; top: 0; height: 100%; width: 100%;  display: flex; justify-content: center;">
-            <div class="choice-box" style="display: flex; flex-direction: column; width: 50dvw; justify-content: center;">
-                <h1>Welcome! Are you a</h1>
-                <div class="choice-button-container" style="display: flex; flex-direction: row;">
-                    <button href="#" id="buttonA" class="big-round-button" style="height: 20vw; width: 20vw; margin: 5% 5% 5% 5%; border-radius: 20vw; border:0; cursor: pointer">JobSeeker</button>
-                    <button href="#" id="buttonB" class="big-round-button" style="height: 20vw; width: 20vw; margin: 5% 5% 5% 5%; border-radius: 20vw; border:0; cursor: pointer">Company</button>
-                </div>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+</head>
+
+<body>
+    <div class="background1"></div>
+    <div class="selection" id="selection">
+        <div class="centerbox">
+            <h1>Welcome! Are you a</h1>
+            <div class="choice-button-container">
+                <button href="#" id="buttonA" class="big-round-button">
+                    JobSeeker</button>
+                <button href="#" id="buttonB" class="big-round-button"
+                    >Company</button>
             </div>
         </div>
-        <div id="information" style="position: absolute; left: 0; bottom: -100%; height: 100%; width: 100%;  display: flex; justify-content: center;">
-            <div class="choice-box" style="display: flex; flex-direction: column; width: 50dvw; justify-content: center;">
-                <h1 id="splashtext">One step away!</h1>
-                <form id="userinfo" style="display: flex; flex-direction: column;">
-                    <label>Full name</label>
-                    <input type="text" id="fullname" style="height: 25px; margin: 2% 0 2% 0;">
-                    <label>E-mail</label>
-                    <input type="text" id="email" style="height: 25px; margin: 2% 0 2% 0;">
-                    <label>Password</label>
-                    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                        <input type="password" id="password" style="height: 25px; width: 75%; margin: 2% 0 2% 0;">
-                        Show password<input type="checkbox">
-                    </span>
-                    <label>Confirm password</label>
-                    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                        <input type="password" id="confirmpassword"  style="height: 25px; width: 75%; margin: 2% 0 2% 0;">
-                        Show password<input type="checkbox">
-                    </span>
+    </div>
+    <div class="information" id="information">
+        <div class="reportbox information-top success" hidden style="position: absolute; top: 5%;">This is a reportbox</div>
+        <div class="centerbox">
+            <h1 id="splashtext">One step away!</h1>
+            <form id="userinfo">
+                <label>Full name</label>
+                <input class="input-box" type="text" id="fullname">
+                <label>E-mail</label>
+                <input class="input-box" type="text" id="email">
+                <label>Password</label>
+                <span>
+                    <input class="input-box" type="password" id="password">
+                    <span class="show_password">Show password<input id="password_visible" type="checkbox"></span>
+                </span>
+                <label>Confirm password</label>
+                <span>
+                    <input class="input-box" type="password" id="confirmpassword">
+                    <span class="show_password">Show password<input id="checkpassword_visible" type="checkbox"></span>
+                </span>
+                <span>
+                    <label class="reportbox fail" id="password_report" hidden>
+                        Password is incorrect!</label>
+                </span>
+                <button type="button" class="submit_data" id="submit_data" disabled> Submit! </button>
+            </form>
 
-                    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                    <label id="password_report" style="visibility: hidden; padding: 1vw ;border: 4vw; border-radius: 1vw; background-color: red; color: white;">Password is incorrect!</label>
-                    </span>
-                    <button type="button" id="submit_data" style="height: 5vw;" disabled> Submit! </button>
-                </form>
-                
-                <h1>Back</h1>
-            </div>
+            <h1>Back</h1>
         </div>
-        
-        
-        <script async defer>
-            window.onbeforeunload = function () {
-                window.scrollTo(0,0);
+    </div>
+
+
+    <script async defer>
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+
+        var buttonA = document.getElementById("buttonA");
+        var buttonB = document.getElementById("buttonB");
+        var splashtext = document.getElementById("splashtext");
+        var selection = document.getElementById("selection");
+        var information = document.getElementById("information");
+        var selectedType = "None";
+        var goodPassword = false;
+
+
+        function funcA() {
+            console.log("TestA");
+            splashtext.textContent = "One step away from opportunities!";
+            information.scrollIntoView({ behavior: "smooth" });
+            selectedType = "jobseeker"
+        }
+
+        function funcB() {
+            console.log("TestB");
+            splashtext.textContent = "One step away from meeting potential!";
+            information.scrollIntoView({ behavior: "smooth" });
+            selectedType = "company"
+        }
+
+        buttonA.addEventListener("click", funcA);
+        buttonB.addEventListener("click", funcB);
+
+
+        //INPUT RELATED
+        var namebox = document.getElementById("fullname");
+        var emailbox = document.getElementById("email")
+        var firstPassword = document.getElementById("password");
+        var checkPassword = document.getElementById("confirmpassword");
+        var passwordReport = document.getElementById("password_report");
+
+        function checkpasswordCorrect() {
+            var password1 = firstPassword.value;
+            var password2 = checkPassword.value;
+            console.log("change");
+            if (password1 == password2) {
+                passwordReport.hidden = true;
+                goodPassword = true
             }
-
-            var buttonA = document.getElementById("buttonA");
-            var buttonB = document.getElementById("buttonB");
-            var splashtext = document.getElementById("splashtext");
-            var selection = document.getElementById("selection");
-            var information = document.getElementById("information");
-            var selectedType = "None";
-            var goodPassword = false;
-
-
-            function funcA() {
-                console.log("TestA");
-                splashtext.textContent = "One step away from opportunities!";
-                information.scrollIntoView({behavior: "smooth"});   
-                selectedType = "jobseeker"
+            else {
+                passwordReport.hidden = false;
+                goodPassword = false
             }
+        }
 
-            function funcB() {
-                console.log("TestB");
-                splashtext.textContent = "One step away from meeting potential!";
-                information.scrollIntoView({behavior: "smooth"});
-                selectedType = "company"
+        firstPassword.addEventListener("input", checkpasswordCorrect);
+        checkPassword.addEventListener("input", checkpasswordCorrect);
+
+        function checkEmail(email) {
+            const emailRegexCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]+$/;
+            return emailRegexCheck.test(email);
+        }
+
+        document.getElementById("password_visible").addEventListener("change", function () {
+            if (this.checked) {
+                firstPassword.type = 'text';
             }
-
-            buttonA.addEventListener("click",funcA);
-            buttonB.addEventListener("click",funcB);
-
-
-            //INPUT RELATED
-            var namebox = document.getElementById("fullname");
-            var emailbox = document.getElementById("email")
-            var firstPassword = document.getElementById("password");
-            var checkPassword = document.getElementById("confirmpassword");
-            var passwordReport = document.getElementById("password_report");
-            
-            function checkpasswordCorrect(){
-                var password1 = firstPassword.value;
-                var password2 = checkPassword.value;
-                console.log("change");
-                if (password1 == password2){
-                    passwordReport.style.visibility = "hidden";
-                    goodPassword = true
-                }
-                else{
-                    passwordReport.style.visibility = "visible";
-                    goodPassword = false
-                }
+            else {
+                firstPassword.type = 'password';
             }
+        })
 
-            firstPassword.addEventListener("input",checkpasswordCorrect);
-            checkPassword.addEventListener("input", checkpasswordCorrect);
-        
-            function checkEmail(email){
-                const emailRegexCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]+$/;
-                return emailRegexCheck.test(email);    
+        document.getElementById("checkpassword_visible").addEventListener("change", function () {
+            if (this.checked) {
+                checkPassword.type = 'text';
             }
-
-            //upload check
-
-            var uploadButton = document.getElementById("submit_data");
-
-            function canUpload(){
-                if (namebox.value != "" && emailbox != "" && firstPassword != "" && checkPassword != "" && goodPassword){
-                    uploadButton.disabled = false;
-                    return true;
-                }
-                else{
-                    uploadButton.disabled = true;
-                    return false;
-                }
+            else {
+                checkPassword.type = 'password';
             }
-            namebox.addEventListener("input",canUpload);
-            emailbox.addEventListener("input",canUpload);
-            firstPassword.addEventListener("input",canUpload);
-            checkPassword.addEventListener("input",canUpload);
+        })
 
-            uploadButton.addEventListener("click",submit)
+        //upload check
 
-            function submit(){
-                if (canUpload()){
+        var uploadButton = document.getElementById("submit_data");
+
+        function canUpload() {
+            if (namebox.value != "" && emailbox != "" && firstPassword != "" && checkPassword != "" && goodPassword) {
+                uploadButton.disabled = false;
+                return true;
+            }
+            else {
+                uploadButton.disabled = true;
+                return false;
+            }
+        }
+        namebox.addEventListener("input", canUpload);
+        emailbox.addEventListener("input", canUpload);
+        firstPassword.addEventListener("input", canUpload);
+        checkPassword.addEventListener("input", canUpload);
+
+        uploadButton.addEventListener("click", submit)
+
+        function submit() {
+            if (canUpload()) {
                 var xmlh = new XMLHttpRequest();
                 xmlh.open('POST', '../auth/register.php');
-                xmlh.onreadystatechange = function() {
-                    if (xmlh.readyState == 4 && xmlh.status == 200){
+                xmlh.onreadystatechange = function () {
+                    if (xmlh.readyState == 4 && xmlh.status == 200) {
                         //Report success
                         console.log("testlmao");
                         try {
                             const ajaxrespone = JSON.parse(xmlh.response);
-                            console.log(ajaxrespone);  
+                            console.log(ajaxrespone);
 
-                            if (ajaxrespone["Success"] == true){
-                                setTimeout(function(){
+                            if (ajaxrespone["Success"] == true) {
+                                setTimeout(function () {
                                     window.location.href = "../login.html";
-                                },3000);
+                                }, 3000);
                             }
-                            else{
+                            else {
                                 console.warn("Failure");
                             }
                         } catch (error) {
                             console.warn(xmlh.response);
                         }
-                          //xmlh.response
-                        
+                        //xmlh.response
+
 
                         //IF SUCCESS GO TO LOGIN
                     }
-                    else{
+                    else {
                         //console.log("fail?");
                     }
                 };
@@ -169,13 +192,27 @@
                 const pass = password.value;
 
                 xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xmlh.send("role="+selectedType+"&nama="+nama+"&email="+email+"&password="+pass);
-                }
-                else{
-                    console.error("Nice try!");
-                }
+                xmlh.send("role=" + selectedType + "&nama=" + nama + "&email=" + email + "&password=" + pass);
             }
+            else {
+                console.error("Nice try!");
+            }
+        }
 
-        </script>
-    </body>
+        function report(success, reason) {
+            if (success == true) {
+
+            }
+            else {
+
+            }
+        }
+
+        function hide_report() {
+
+        }
+
+    </script>
+</body>
+
 </html>
