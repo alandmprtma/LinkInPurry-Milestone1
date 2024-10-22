@@ -93,9 +93,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Company</title>
     <link rel="stylesheet" href="../css/riwayat_lamaran.css">
+    <link rel="stylesheet" href="css/styles_dl.css"> <!-- Menggunakan CSS global -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </head>
 <body>
+
+<nav class="navbar">
+            <img class="logo" src="assets/LinkInPurry-crop.png">
+            <form method="GET" action="home_company.php">
+            <div class="search-bar">
+                <div class="icon">
+                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                </div>
+                <div class="search-bar-container">
+                <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['user_id'];?>">
+                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                <div id="autocomplete-results" class="autocomplete-results"></div>
+                </div>
+            </div>
+            </form>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+           </div>
+            <ul class="nav-links">
+                <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
+                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+            </ul>
+        </nav>
+
 <div class="">
     <div class="container">
         <ul>
