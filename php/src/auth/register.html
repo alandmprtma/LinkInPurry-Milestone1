@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -28,16 +29,21 @@
         <div class="reportbox information-top success" hidden style="position: absolute; top: 5%;">This is a reportbox</div>
         <div class="centerbox">
             <h1 id="splashtext">One step away!</h1>
+            <label class="reg_backbutton" onclick="returnto_pick()"> &#60; Back</label>
+            <br>
             <form id="userinfo">
                 <label>Full name</label>
                 <input class="input-box" type="text" id="fullname">
+                <br>
                 <label>E-mail</label>
                 <input class="input-box" type="text" id="email">
+                <br>
                 <label>Password</label>
                 <span>
                     <input class="input-box" type="password" id="password">
                     <span class="show_password">Show password<input id="password_visible" type="checkbox"></span>
                 </span>
+                <br>
                 <label>Confirm password</label>
                 <span>
                     <input class="input-box" type="password" id="confirmpassword">
@@ -49,171 +55,39 @@
                 </span>
                 <button type="button" class="submit_data" id="submit_data" disabled> Submit! </button>
             </form>
+        </div>
+    </div>
+    <div class="corpo-information" id="corpo-information">
+        <div class="centerbox">
+            <b>One more step</b>
+            <label class="reg_backbutton" onclick="returnto_info()"> &#60; Back</label>
+            <label>Location</label>
+            <input class="input-box" type="text" id="location">
+            <br>
+            <!-- Create the editor container -->
+            <label>About</label>
+            <div id="editor">
+                <p>Hello World!</p>
+                <p>Some initial <strong>bold</strong> text</p>
+                <p><br /></p>
+            </div>
+            
+            <!-- Include the Quill library -->
+            <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+            
+            <!-- Initialize Quill editor -->
+            <script>
+                const quill = new Quill('#editor', {
+                theme: 'snow'
+                });
+            </script>
 
-            <h1>Back</h1>
+            <button type="button" class="submit_data" id="submit_data_corpo" disabled> Submit! </button>
         </div>
     </div>
 
 
-    <script async defer>
-        window.onbeforeunload = function () {
-            window.scrollTo(0, 0);
-        }
-
-        var buttonA = document.getElementById("buttonA");
-        var buttonB = document.getElementById("buttonB");
-        var splashtext = document.getElementById("splashtext");
-        var selection = document.getElementById("selection");
-        var information = document.getElementById("information");
-        var selectedType = "None";
-        var goodPassword = false;
-
-
-        function funcA() {
-            console.log("TestA");
-            splashtext.textContent = "One step away from opportunities!";
-            information.scrollIntoView({ behavior: "smooth" });
-            selectedType = "jobseeker"
-        }
-
-        function funcB() {
-            console.log("TestB");
-            splashtext.textContent = "One step away from meeting potential!";
-            information.scrollIntoView({ behavior: "smooth" });
-            selectedType = "company"
-        }
-
-        buttonA.addEventListener("click", funcA);
-        buttonB.addEventListener("click", funcB);
-
-
-        //INPUT RELATED
-        var namebox = document.getElementById("fullname");
-        var emailbox = document.getElementById("email")
-        var firstPassword = document.getElementById("password");
-        var checkPassword = document.getElementById("confirmpassword");
-        var passwordReport = document.getElementById("password_report");
-
-        function checkpasswordCorrect() {
-            var password1 = firstPassword.value;
-            var password2 = checkPassword.value;
-            console.log("change");
-            if (password1 == password2) {
-                passwordReport.hidden = true;
-                goodPassword = true
-            }
-            else {
-                passwordReport.hidden = false;
-                goodPassword = false
-            }
-        }
-
-        firstPassword.addEventListener("input", checkpasswordCorrect);
-        checkPassword.addEventListener("input", checkpasswordCorrect);
-
-        function checkEmail(email) {
-            const emailRegexCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]+$/;
-            return emailRegexCheck.test(email);
-        }
-
-        document.getElementById("password_visible").addEventListener("change", function () {
-            if (this.checked) {
-                firstPassword.type = 'text';
-            }
-            else {
-                firstPassword.type = 'password';
-            }
-        })
-
-        document.getElementById("checkpassword_visible").addEventListener("change", function () {
-            if (this.checked) {
-                checkPassword.type = 'text';
-            }
-            else {
-                checkPassword.type = 'password';
-            }
-        })
-
-        //upload check
-
-        var uploadButton = document.getElementById("submit_data");
-
-        function canUpload() {
-            if (namebox.value != "" && emailbox != "" && firstPassword != "" && checkPassword != "" && goodPassword) {
-                uploadButton.disabled = false;
-                return true;
-            }
-            else {
-                uploadButton.disabled = true;
-                return false;
-            }
-        }
-        namebox.addEventListener("input", canUpload);
-        emailbox.addEventListener("input", canUpload);
-        firstPassword.addEventListener("input", canUpload);
-        checkPassword.addEventListener("input", canUpload);
-
-        uploadButton.addEventListener("click", submit)
-
-        function submit() {
-            if (canUpload()) {
-                var xmlh = new XMLHttpRequest();
-                xmlh.open('POST', '../auth/register.php');
-                xmlh.onreadystatechange = function () {
-                    if (xmlh.readyState == 4 && xmlh.status == 200) {
-                        //Report success
-                        console.log("testlmao");
-                        try {
-                            const ajaxrespone = JSON.parse(xmlh.response);
-                            console.log(ajaxrespone);
-
-                            if (ajaxrespone["Success"] == true) {
-                                setTimeout(function () {
-                                    window.location.href = "../login.html";
-                                }, 3000);
-                            }
-                            else {
-                                console.warn("Failure");
-                            }
-                        } catch (error) {
-                            console.warn(xmlh.response);
-                        }
-                        //xmlh.response
-
-
-                        //IF SUCCESS GO TO LOGIN
-                    }
-                    else {
-                        //console.log("fail?");
-                    }
-                };
-
-                const nama = namebox.value;
-                const email = emailbox.value;
-                const pass = password.value;
-
-                xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xmlh.send("role=" + selectedType + "&nama=" + nama + "&email=" + email + "&password=" + pass);
-            }
-            else {
-                console.error("Nice try!");
-            }
-        }
-
-        function report(success, reason) {
-            if (success == true) {
-
-            }
-            else {
-
-            }
-        }
-
-        function hide_report() {
-
-        }
-
-    </script>
+    <script async defer src="../public/register.js"></script>
 </body>
 
 </html>

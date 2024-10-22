@@ -25,7 +25,7 @@ body {
     height: 10dvh;
     padding: 0 1.5%;
     padding-right: 0;
-    font-size: 150%;
+    font-size: 100%;
     box-sizing: border-box; /* Include padding in the element's width */
 }
 
