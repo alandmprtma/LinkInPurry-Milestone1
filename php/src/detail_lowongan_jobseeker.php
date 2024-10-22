@@ -110,7 +110,7 @@ if (isset($_SESSION['user_id'])) {
                 <?php else: ?>
                     <p><strong>Status:</strong> <?php echo htmlspecialchars($lamaran['status']); ?></p>
                     <?php if (!empty($lamaran['status_reason'])): ?>
-                        <p><strong>Reason/Next Step:</strong> <?php echo htmlspecialchars($lamaran['status_reason']); ?></p>
+                        <p><strong>Reason/Next Step:</strong> <?php echo $lamaran['status_reason']; ?></p>
                     <?php endif; ?>
                     <div class="attachment">
                         <?php if (!empty($lamaran['cv_path'])): ?>

@@ -833,3 +833,10 @@ main {
 .btn-secondary:hover {
     background-color: #e0e0e0; /* Slightly darker for hover */
 }
+
+#editor {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
