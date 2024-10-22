@@ -55,7 +55,12 @@ if (!$lamaran) {
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/styles_dl.css"> <!-- Menggunakan CSS global -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css" integrity="sha512-ggYQiYwuFFyThzEv6Eo6g/uPLis4oUynsE88ovEde5b2swycOh9SlAI8FL/cL2AkGGNnWADPXcX2UnPIJS2ozw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
+<script src="public/quil-text-status.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js" ></script>
+
 <body>
 
 <nav class="navbar">
@@ -122,7 +127,8 @@ if (!$lamaran) {
 
                 <!-- Tindak lanjut dalam bentuk rich text (HTML editor) -->
                 <label for="status_reason">Follow-Up / Reasons:</label>
-                <textarea name="status_reason" id="status_reason" rows="4"></textarea>
+                    <div id="editor" style="height: 200px;"></div> <!-- Div untuk Quill -->
+                    <input type="hidden" name="status_reason" id="status_reason"> <!-- Hidden input untuk menyimpan konten dari Quill -->
                 <div style='display: flex; align-items: end; justify-content: flex-end;'>
                     <button type="submit" class="btn">Save</button>
                 </div>
