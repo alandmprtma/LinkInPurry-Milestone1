@@ -16,6 +16,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
     <title>Buat Lowongan Baru</title>
     <link rel="stylesheet" href="css/styles_js.css"> <!-- Menggunakan CSS global -->
 </head>
+<script src="public/dropzone-image.js"></script>
 <body>
 
 <nav class="navbar">
@@ -48,7 +49,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
 <section class="job-vacancy">
     <div class="container">
         <h1 class="form-heading">Post a New Job</h1>
-        <form class="job-form" action="simpan_lowongan.php" method="POST">
+        <form class="job-form" action="simpan_lowongan.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="posisi" class="form-label">Posisi Pekerjaan:</label>
                 <input type="text" id="posisi" name="posisi" class="form-input" required>
@@ -76,6 +77,15 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
                     <option value="hybrid">Hybrid</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="image">Upload Image:</label>
+                <div id="image-drop-area" class="drop-area">
+                    <p>Drag & Drop your Image here or click to upload</p>
+                    <input type="file" name="attachments[]" id="image" accept=".jpeg, .jpg, .png" multiple required hidden>
+                </div>
+            </div>
+
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>

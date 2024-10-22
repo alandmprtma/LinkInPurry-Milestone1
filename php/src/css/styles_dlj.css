@@ -257,3 +257,9 @@ body {
     margin-bottom: 1rem;
 }
 
+.attachment-images img {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    max-width: 200px;
+}
