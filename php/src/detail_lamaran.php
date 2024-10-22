@@ -64,16 +64,30 @@ if (!$lamaran) {
 <body>
 
 <nav class="navbar">
-    <img class="logo" src="assets/LinkInPurry-crop.png">
-    </div>
-    <ul class="nav-links">
-        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-        <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png">Log Out</a></li>
-    </ul>
-</nav>
+            <img class="logo" src="assets/LinkInPurry-crop.png">
+            <form method="GET" action="home_company.php">
+            <div class="search-bar">
+                <div class="icon">
+                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                </div>
+                <div class="search-bar-container">
+                <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['user_id'];?>">
+                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                <div id="autocomplete-results" class="autocomplete-results"></div>
+                </div>
+            </div>
+            </form>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+           </div>
+            <ul class="nav-links">
+                <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
+                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+            </ul>
+        </nav>
 <main style='align-content: center;'>
-<section style='width:60%'>
+<section class="section-left">
 <section class="job-details">
     <div class="container">
     <div class="form-header">
@@ -168,9 +182,24 @@ if (!$lamaran) {
                     </div>
                 </div>
             </div>
+            <div class="footer-section" style="margin-top: 20px; text-align: center;">
+                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
+                <span style="font-size: 14px; margin-left: 8px;">
+                    LinkedInPurry Corporation © 2024
+                </span>
+            </div>
         </aside>
 <main>
 
 
 </body>
 </html>
+<script>
+const hamburgerMenu = document.getElementById('hamburger-menu');
+const navLinks = document.querySelector('.nav-links');
+
+hamburgerMenu.addEventListener('click', () => {
+    navLinks.classList.toggle('active'); // Toggle class untuk menampilkan atau menyembunyikan nav links
+});
+
+</script>
