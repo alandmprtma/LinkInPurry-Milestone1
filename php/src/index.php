@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
     }
 } else {
     // Jika belum login, arahkan ke halaman login satu kali
-    header('Location: auth/login.html');
+    header('Location: auth/index.html');
     exit();  // Penting: Tambahkan exit setelah header untuk menghentikan script
 }
 ?>
