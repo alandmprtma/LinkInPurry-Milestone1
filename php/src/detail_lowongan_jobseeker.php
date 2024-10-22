@@ -38,6 +38,13 @@ $lowongan = $stmt->fetch();
 
 $is_open = $lowongan['is_open'];
 
+// Query untuk mendapatkan gambar attachment yang terkait dengan lowongan
+$queryAttachments = "SELECT file_path FROM AttachmentLowongan WHERE lowongan_id = :lowongan_id";
+$stmtAttachments = $pdo->prepare($queryAttachments);
+$stmtAttachments->execute(['lowongan_id' => $lowongan_id]);
+$attachments = $stmtAttachments->fetchAll();
+
+
 // Hanya cek lamaran jika pengguna sudah login
 $lamaran = false;
 if (isset($_SESSION['user_id'])) {
@@ -75,10 +82,20 @@ if (isset($_SESSION['user_id'])) {
     <h2><?php echo htmlspecialchars($lowongan['company_name']); ?></h2>
     <h1><?php echo htmlspecialchars($lowongan['posisi']); ?></h1>
     <h3><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?></h3>
+    <div class="attachments">
+        <h3>Job Attachments:</h3>
+        <div class="attachment-images">
+            <?php foreach ($attachments as $attachment): ?>
+                <img src="<?php echo htmlspecialchars($attachment['file_path']); ?>" alt="Job Image" style="max-width: 200px; margin-right: 10px;">
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    
     <p style="font-size:14px; color:#666666; margin-top:15px;">
             <span><strong>Created At:</strong> <?php echo htmlspecialchars(substr($lowongan['created_at'], 0, 19)); ?></span><br>
             <span><strong>Updated At:</strong> <?php echo htmlspecialchars(substr($lowongan['updated_at'], 0, 19)); ?></span>
-        </p>
+    </p>
     <!-- Cek apakah user login -->
     <section class="application-status">
         <?php if ($is_open): ?>
