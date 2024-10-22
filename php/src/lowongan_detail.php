@@ -3,7 +3,7 @@ session_start();
 
 // Cek apakah pengguna sudah login dan apakah role adalah 'company'
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
-    header('Location: auth/login.html');
+    header('Location: auth/index.html');
     exit();
 }
 
