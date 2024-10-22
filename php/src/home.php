@@ -187,7 +187,7 @@ $totalPages = ceil($totalLowongan / $perPage);
         </a>
         </li>
         <li>
-        <a class="inactive" href="auth/login.html">
+        <a class="inactive" href="auth/index.html">
             <i class="fas fa-sign-in-alt"></i> Log In
         </a>
         </li>

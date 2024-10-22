@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+html, body {
+    overflow: hidden; /* Mencegah scroll pada seluruh halaman */
+    height: 100%; /* Mengatur tinggi body untuk memenuhi viewport */
+}
+
+body {
+    background-color: #f7f9fa;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 50px;
+    overflow: hidden; /* Mencegah konten melebihi batas container */
+}
+
+.left-section {
+    flex: 1;
+}
+
+.logo {
+    width: 150px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 20px 0;
+    color: #333;
+}
+
+.buttons {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.login-btn {
+    background-color: #0066cc;
+    color: white;
+}
+
+.register-btn {
+    background-color: white;
+    color: #0066cc;
+    border: 1px solid #0066cc;
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.illustration {
+    width: 100%; /* Atur agar gambar mengisi lebar parent */
+    height: auto; /* Menjaga rasio aspek gambar */
+    max-width: 700px; /* Kontrol lebar maksimum */
+    max-height: 100vh; /* Kontrol tinggi maksimum */
+    position: absolute;
+    bottom: 0; /* Sesuaikan posisi jika diperlukan */
+    right: -50px; /* Sesuaikan posisi jika diperlukan */
+    z-index: -1; /* Menempatkan gambar di belakang konten */
+}
+
+/* Guest Button Styling */
+.guest-btn {
+    background-color: #f1f1f1; /* Light gray background */
+    color: #333; /* Dark text */
+    border: 1px solid #ccc; /* Light border */
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Space between icon and text */
+}
+
+.guest-btn i {
+    font-size: 18px; /* Size of the Font Awesome icon */
+}
+
+/* Hover Effect for Guest Button */
+.guest-btn:hover {
+    background-color: #e0e0e0; /* Darken slightly on hover */
+}
