@@ -135,7 +135,7 @@ if (isset($_SESSION['user_id'])) {
 
 <div class="job-details-a">
 <h1>About the job</h1>
-<p><?php echo htmlspecialchars($lowongan['deskripsi']); ?></p>
+<p><?php echo $lowongan['deskripsi']; ?></p>
 </div>
 
 </div>
