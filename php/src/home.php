@@ -212,7 +212,7 @@ $totalPages = ceil($totalLowongan / $perPage);
     </div>
         <aside class="filters">
             <h3>Filter</h3>
-            <form method="GET" action="home_jobseeker.php">
+            <form method="GET" action="home.php">
             <div class="filter-group">
             <label for="location-type">Location Type</label>
             <select id="location-type" name="location_type">
