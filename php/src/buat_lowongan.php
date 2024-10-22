@@ -3,7 +3,7 @@ session_start();
 
 // Cek apakah pengguna sudah login dan apakah role adalah 'company'
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
-    header('Location: auth/login.html');
+    header('Location: auth/index.html');
     exit();
 }
 ?>
@@ -14,9 +14,16 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Lowongan Baru</title>
-    <link rel="stylesheet" href="css/styles_js.css"> <!-- Menggunakan CSS global -->
+    <link rel="stylesheet" href="css/styles_js.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css" integrity="sha512-ggYQiYwuFFyThzEv6Eo6g/uPLis4oUynsE88ovEde5b2swycOh9SlAI8FL/cL2AkGGNnWADPXcX2UnPIJS2ozw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
+
 <script src="public/dropzone-image.js"></script>
+<script src="public/quil-text.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js" ></script>
+
+
 <body>
 
 <nav class="navbar">
@@ -57,8 +64,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
             
             <div class="form-group">
                 <label for="deskripsi" class="form-label">Deskripsi Pekerjaan:</label>
-                <textarea id="deskripsi" name="deskripsi" class="form-textarea" required></textarea>
+                <div id="editor" style="height: 200px;"></div> <!-- Div untuk Quill -->
+                <input type="hidden" name="deskripsi" id="deskripsi"> <!-- Hidden input untuk menyimpan konten dari Quill -->
             </div>
+
 
             <div class="form-group">
                 <label for="jenis_pekerjaan" class="form-label">Jenis Pekerjaan:</label>

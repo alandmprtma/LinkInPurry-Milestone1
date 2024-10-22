@@ -3,7 +3,7 @@ session_start();
 
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])|| $_SESSION['role'] !== 'jobseeker') {
-    header('Location: auth/login.html');
+    header('Location: auth/index.html');
     exit();
 }
 

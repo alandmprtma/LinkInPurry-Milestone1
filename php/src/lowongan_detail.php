@@ -3,7 +3,7 @@ session_start();
 
 // Cek apakah pengguna sudah login dan apakah role adalah 'company'
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
-    header('Location: auth/login.html');
+    header('Location: auth/index.html');
     exit();
 }
 
@@ -84,7 +84,7 @@ $lamaranList = $stmtLamaran->fetchAll();
             <span><strong>Updated At:</strong> <?php echo htmlspecialchars(substr($lowongan['updated_at'], 0, 19)); ?></span>
         </p>
         <h3 style='padding-top: 20px;'>About the job</h3>
-        <p  style='padding-top: 20px; text-align:justify;'><?php echo htmlspecialchars($lowongan['deskripsi']); ?></p>
+        <p  style='padding-top: 20px; text-align:justify;'><?php echo $lowongan['deskripsi']; ?></p>
         <p style="font-weight:bold; font-size:14px; color:#666666; margin-top:15px;">
                 <?php if ($lowongan['is_open']): ?>
                     <span>Open</span>
