@@ -969,3 +969,51 @@ table td a.btn:hover {
     margin: 5px;
     max-width: 200px;
 }
+
+/* Styling URL / tautan */
+.attachment-link {
+    color: #0a66c2; /* Warna biru standar untuk tautan */
+    text-decoration: none; /* Hilangkan garis bawah default */
+
+}
+
+.attachment-link:hover {
+    text-decoration: underline; /* Tampilkan garis bawah saat dihover */
+}
+
+/* Styling untuk checkbox */
+.delete-checkbox {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Styling untuk label atau teks yang dekat checkbox */
+.checkbox-label {
+    font-size: 14px;
+    margin-left: 30px;
+    cursor: pointer; /* Agar ketika klik label, checkbox juga bisa terpilih */
+}
+
+
+
+/* Mengatur tata letak list attachment */
+.attachment-list {
+    list-style-type: none; /* Hilangkan bullet pada list */
+    padding: 0;
+}
+
+.attachment-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.attachment-link {
+    margin-right: 10px; /* Beri jarak antara tautan dan checkbox */
+}
+
+.delete-checkbox {
+    margin-right: 5px; /* Jarak antara checkbox dan label "Delete" */
+}

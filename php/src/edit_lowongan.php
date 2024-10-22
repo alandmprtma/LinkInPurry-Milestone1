@@ -26,6 +26,7 @@ if (!isset($_GET['lowongan_id'])) {
     exit();
 }
 
+
 $lowongan_id = $_GET['lowongan_id'];
 
 // Ambil data lowongan dari database
@@ -52,8 +53,11 @@ if (!$lowongan) {
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css" integrity="sha512-ggYQiYwuFFyThzEv6Eo6g/uPLis4oUynsE88ovEde5b2swycOh9SlAI8FL/cL2AkGGNnWADPXcX2UnPIJS2ozw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
+<script src="public/dropzone-image.js"></script>
 <script src="public/quil-text.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js" ></script>
+
 <body>
 
 <nav class="navbar">
@@ -89,7 +93,7 @@ if (!$lowongan) {
         <h1 class="form-heading">Edit a Job Listing</h1>
         <a href="lowongan_detail.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>" class="btn btn-secondary">Back</a>
     </div>
-        <form class="job-form" action="simpan_edit_lowongan.php" method="POST">
+        <form class="job-form" action="simpan_edit_lowongan.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="lowongan_id" value="<?php echo htmlspecialchars($lowongan['lowongan_id']); ?>">
             <div class="form-group"> 
                 <label for="posisi" class="form-label">Posisi Pekerjaan:</label>
@@ -119,6 +123,44 @@ if (!$lowongan) {
                     <option value="hybrid" <?php echo ($lowongan['jenis_lokasi'] == 'hybrid') ? 'selected' : ''; ?>>Hybrid</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="image">Upload New Images:</label>
+                <div id="image-drop-area" class="drop-area">
+                    <p>Drag & Drop your Image here or click to upload</p>
+                    <input type="file" name="attachments[]" id="image" accept=".jpeg, .jpg, .png" multiple hidden>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="existing_attachments" class="form-label">Existing Attachments:</label>
+                <div class="attachment-list">
+                    <?php
+                    // Ambil data attachment yang terkait dengan lowongan
+                    $sql = "SELECT * FROM AttachmentLowongan WHERE lowongan_id = :lowongan_id";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(['lowongan_id' => $lowongan_id]);
+                    $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    if ($attachments) {
+                        foreach ($attachments as $attachment) {
+                            $file_url = htmlspecialchars($attachment['file_path']);
+                            $file_name = basename($file_url); // Dapatkan nama file dari path
+                            echo '<li>
+                                    <a href="' . $file_url . '" target="_blank" class="attachment-link">' . $file_name . '</a>
+                                    <label class="checkbox-label">Delete</label>
+                                    <input type="checkbox" name="delete_attachments[]" value="' . $attachment['attachment_id'] . '" class="delete-checkbox">
+                                    
+                                </li>';
+                        }
+                    } else {
+                        echo '<li>No attachments found.</li>';
+                    }
+                    ?>
+                </div>
+            </div>
+
+
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
