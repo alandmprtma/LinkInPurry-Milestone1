@@ -40,7 +40,7 @@ if (!$lowongan) {
 }
 
 // Query untuk mendapatkan daftar lamaran dari lowongan ini
-$queryLamaran = "SELECT Lamaran.lamaran_id, Users.nama, Lamaran.status 
+$queryLamaran = "SELECT Lamaran.lamaran_id, Users.nama, Lamaran.status, Lamaran.created_at
                  FROM Lamaran 
                  JOIN Users ON Lamaran.user_id = Users.user_id 
                  WHERE Lamaran.lowongan_id = :lowongan_id";
@@ -79,6 +79,10 @@ $lamaranList = $stmtLamaran->fetchAll();
         <li class="line" style="padding-bottom: 10px"><hr class="divider" /></li>
         <h2 ><?php echo htmlspecialchars($lowongan['posisi']); ?></h2>
         <h4 style='color: #666;'><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?></h4>
+        <p style="font-size:14px; color:#666666; margin-top:15px;">
+            <span><strong>Created At:</strong> <?php echo htmlspecialchars(substr($lowongan['created_at'], 0, 19)); ?></span><br>
+            <span><strong>Updated At:</strong> <?php echo htmlspecialchars(substr($lowongan['updated_at'], 0, 19)); ?></span>
+        </p>
         <h3 style='padding-top: 20px;'>About the job</h3>
         <p  style='padding-top: 20px; text-align:justify;'><?php echo htmlspecialchars($lowongan['deskripsi']); ?></p>
         <p style="font-weight:bold; font-size:14px; color:#666666; margin-top:15px;">
@@ -133,6 +137,7 @@ $lamaranList = $stmtLamaran->fetchAll();
                         <tr>
                             <th>Applicants Name</th>
                             <th>Status</th>
+                            <th>Applied At</th>
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -141,6 +146,7 @@ $lamaranList = $stmtLamaran->fetchAll();
                             <tr>
                                 <td><?php echo htmlspecialchars($lamaran['nama']); ?></td>
                                 <td><?php echo htmlspecialchars($lamaran['status']); ?></td>
+                                <td><?php echo htmlspecialchars(substr($lamaran['created_at'], 0, 19)); ?></td>
                                 <td>
                                     <!-- Link ke halaman detail lamaran -->
                                     <a href="detail_lamaran.php?lamaran_id=<?php echo $lamaran['lamaran_id']; ?>" class="btn">Lihat Detail</a>

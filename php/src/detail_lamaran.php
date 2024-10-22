@@ -76,6 +76,7 @@ if (!$lamaran) {
     <a href="lowongan_detail.php?lowongan_id=<?php echo $lamaran['lowongan_id']; ?>" class="btn btn-secondary">Back</a>
     </div>
         <h4 style='color: #666;'><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lamaran['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lamaran['jenis_pekerjaan']); ?></h4>
+        <h5 style='color: #666;'>Applied At: <?php echo htmlspecialchars(date('F d, Y H:i', strtotime($lamaran['created_at']))); ?></h5>
         <li class="line" style="padding-bottom: 8px; padding-top: 12px;"><hr class="divider" /></li>
         <h2  style='font-size: 20px; color: #333;'>Contact Info</h2>
         <h3  style='font-size: 16px; color: #333; margin-top: 5px;'><?php echo htmlspecialchars($lamaran['nama']); ?></h3>

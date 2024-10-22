@@ -105,7 +105,7 @@ switch ($sortCategory) {
         $orderByField = 'L.is_open';  // Mengurutkan berdasarkan ketersediaan pekerjaan
         break;
     case 'recency':  // Tambahkan case untuk recency
-        $orderByField = 'L.lowongan_id';  // Menggunakan lowongan_id untuk sorting berdasarkan urutan
+        $orderByField = 'L.updated_at';  // Menggunakan lowongan_id untuk sorting berdasarkan urutan
         break;
     default:
         $orderByField = '';  // Jika tidak ada, biarkan kosong

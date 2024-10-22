@@ -75,7 +75,10 @@ if (isset($_SESSION['user_id'])) {
     <h2><?php echo htmlspecialchars($lowongan['company_name']); ?></h2>
     <h1><?php echo htmlspecialchars($lowongan['posisi']); ?></h1>
     <h3><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?></h3>
-
+    <p style="font-size:14px; color:#666666; margin-top:15px;">
+            <span><strong>Created At:</strong> <?php echo htmlspecialchars(substr($lowongan['created_at'], 0, 19)); ?></span><br>
+            <span><strong>Updated At:</strong> <?php echo htmlspecialchars(substr($lowongan['updated_at'], 0, 19)); ?></span>
+        </p>
     <!-- Cek apakah user login -->
     <section class="application-status">
         <?php if ($is_open): ?>

@@ -107,6 +107,9 @@ switch ($sortCategory) {
     case 'availability':
         $orderByField = 'L.is_open';
         break;
+    case 'recency':  // Tambahkan case untuk recency
+        $orderByField = 'L.updated_at';  // Menggunakan lowongan_id untuk sorting berdasarkan urutan
+        break;
     default:
         $orderByField = '';
         break;
@@ -209,6 +212,7 @@ $totalPages = ceil($totalLowongan / $perPage);
             <option value="none" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'none') ? 'selected' : '' ?>>None</option>
             <option value="name" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'name') ? 'selected' : '' ?>>Name</option>
             <option value="availability" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'availability') ? 'selected' : '' ?>>Availability</option>
+            <option value="recency" <?= (isset($_GET['sort_category']) && $_GET['sort_category'] == 'recency') ? 'selected' : '' ?>>Recency</option>
         </select>
             </div>
                 <div class="filter-group">
