@@ -115,6 +115,16 @@ body {
     align-items: center;
 }
 
+.nav-links li:first-child .current::after {
+    content: '';
+    width: 80px; /* Lebar garis bawah */
+    height: 2px; /* Tinggi garis bawah */
+    background-color: #000;
+    margin-top: 5px;
+    position:absolute;
+    bottom: 0px;
+}
+
 .hamburger-menu {
     display: none; /* Show hamburger menu on mobile */
     font-size: 24px;
@@ -126,6 +136,11 @@ body {
 
 /* Hide the nav-links and show hamburger on mobile */
 @media (max-width: 768px) {
+    .nav-links li:first-child .current::after {
+        display: none;
+    }
+    
+
     .nav-links {
         display: none; /* Hide navigation links */
         flex-direction: column;
@@ -188,8 +203,22 @@ body {
 }
 
 @media (max-width: 400px) {
-    .form .search-form{
-        margin: 0px 0px 0px 0px;
+    .navbar .search-form {
+        margin: 0px auto;
+    }
+
+    .nav-links li:first-child .current::after {
+        display: none;
+    }
+
+    .search-bar {
+        width: 180px;
+        margin: 0px;
+    }
+
+
+    .search-bar:focus-within {
+        width: 220px;
     }
 }
 
@@ -233,7 +262,6 @@ main {
 
 .left-aside-lowongan{
     width: 27%;
-    position: sticky; 
     top: 120px;
 }
 
@@ -557,7 +585,6 @@ main {
 
 /* Job Vacancy Form */
 .job-vacancy {
-    position: sticky; 
     top: 115px;
     width: 60%;
     padding: 2rem;
@@ -569,7 +596,6 @@ main {
 }
 
 .job-details {
-    position: sticky; 
     top: 115px;
     width: 100%;
     padding: 2rem;
@@ -650,6 +676,73 @@ main {
     justify-content: center; /* Centering the button */
     margin-top: 1.5rem;
 }
+}
+
+.section-left {
+    width:60%;
+}
+
+@media (max-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column; /* Atur default column untuk menjaga struktur vertikal pada layar kecil */
+        align-items: center;
+    }
+
+    .section-left {
+        width:100%;
+    }
+    /* Urutkan elemen utama menjadi satu baris */
+    .job-seeker-guidance, section {
+        flex: 1; /* Buat setiap elemen memiliki lebar yang sama */
+        display: flex;
+        flex-direction: column;
+        margin: 10px; /* Tambahkan jarak antar elemen */
+    }
+
+    .job-details{
+        width: 100% !important;
+        margin: 0px;
+    }
+
+    /* Buat elemen-elemen dalam satu baris pada lebar layar <= 768px */
+
+    .left-aside {
+        position: static; 
+        display: flex;
+        justify-content: center; /* Horizontal alignment */
+        align-items: center;   
+    }
+
+    /* Atur aside dan section untuk memiliki lebar penuh pada mobile */
+    .left-aside, .job-seeker-guidance, section {
+        width: 100%;
+    }
+
+    .filters {
+        width: 100%; /* Pastikan elemen filters memenuhi lebar pada layar kecil */
+        margin: 0 auto;
+    }
+
+    /* Sesuaikan elemen lain di dalam section agar tetap responsif */
+    .job-listings {
+        width: 100%;
+        transform: translateX(-10px);
+    }
+
+    .card-header, .job-cards {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    
+    /* Pagination responsif */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        width: 100%;
+    }
 }
 
 .delete-icon {
@@ -859,4 +952,80 @@ table td a.btn:hover {
     pointer-events: none;
     color: #ccc;
     border-color: #ddd;
+}
+
+
+.drop-area {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    display: flex;
+    align-items: center;   /* Vertikal */
+    justify-content: center; /* Horizontal */
+    height: 150px; /* Atur tinggi area drop */
+}
+
+.drop-area.dragover {
+    background-color: #f0f0f0;
+}
+
+.attachment-images img {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    max-width: 200px;
+}
+
+/* Styling URL / tautan */
+.attachment-link {
+    color: #0a66c2; /* Warna biru standar untuk tautan */
+    text-decoration: none; /* Hilangkan garis bawah default */
+
+}
+
+.attachment-link:hover {
+    text-decoration: underline; /* Tampilkan garis bawah saat dihover */
+}
+
+/* Styling untuk checkbox */
+.delete-checkbox {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Styling untuk label atau teks yang dekat checkbox */
+.checkbox-label {
+    font-size: 14px;
+    margin-left: 30px;
+    cursor: pointer; /* Agar ketika klik label, checkbox juga bisa terpilih */
+}
+
+
+
+/* Mengatur tata letak list attachment */
+.attachment-list {
+    list-style-type: none; /* Hilangkan bullet pada list */
+    padding: 0;
+}
+
+.attachment-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.attachment-link {
+    margin-right: 10px; /* Beri jarak antara tautan dan checkbox */
+}
+
+.delete-checkbox {
+    margin-right: 5px; /* Jarak antara checkbox dan label "Delete" */
 }
