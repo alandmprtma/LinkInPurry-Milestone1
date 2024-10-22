@@ -39,7 +39,7 @@ if (!isset($_GET['user_id'])) {
 $wanted_id = $_GET['user_id'];
 
 // Query untuk mendapatkan detail lamaran
-$query ="SELECT u.nama, c.*
+$query ="SELECT u.nama as nama, c.*
          FROM users AS u, companydetail AS c
          WHERE u.user_id = :wanted_user AND u.user_id = c.user_id";
 $stmt = $pdo->prepare($query);
@@ -52,7 +52,6 @@ if (!$profile) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,20 +59,27 @@ if (!$profile) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Company</title>
     <link rel="stylesheet" href="../css/styles.css"> <!-- Menggunakan CSS global -->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </head>
-<body style="flex-direction: column; justify-content: flex-start; width: 100%;">
-<div class="nameplate" style="background-color: #D9D9D9; width: 80%; padding: 5% 10% 5% 10%;">
-    <img style="width: 10dvw; height: 10dvw;" src="../test.png">
-    <h1><?php echo htmlspecialchars($profile['nama']);?></h1>
-    <strong>Lokasi:</strong> <?php echo htmlspecialchars($profile['lokasi']);?>
-</div>
-<div class="container">
-    <p><strong>About</strong></p>
-    <p><?php echo htmlspecialchars($profile['about']);?></p>
-</div>
-<div class="container">
-    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-</div>
+<body style="flex-direction: column; justify-content: flex-start; width: 100%; background-color: #EFEFEF;">
+    <div class="box" style=" width: 80% ;border: 10%; border-radius: 1dvw; margin: 1%; background-color: white; box-shadow: 0px 0px 5px;">
+        <div class="nameplate" style="background-color: #D9D9D9; width: 80%; padding: 5% 10% 5% 10%; border-top-left-radius: inherit; border-top-right-radius: inherit;">
+        <!-- <img style="width: 10dvw; height: 10dvw; transform: translateY(90%);" src="../test.png"> -->
+        </div>
+        <div class="text-content" style="padding: 5%;">
+            <h1><?php echo $profile["nama"]?></h1>
+            <i class="fa-solid fa-location-dot"></i> <?php echo $profile["lokasi"]?>
+        </div>
+    </div>
+    <div class="box" style="width: 80% ;border: 10%; border-radius: 1dvw; margin: 1%; background-color: white; box-shadow: 0px 0px 5px;">
+        <div class="text-content" style="padding: 5%;">
+            <h1>About</h1>
+            <p><?php echo $profile["about"]?></p>
+        </div>
 
+    </div>
+    <div class="deadspace" style="height: 5%;">
+        <hr>
+    </div>
 </body>
 </html>
