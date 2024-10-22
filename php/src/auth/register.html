@@ -40,9 +40,10 @@
 
                     <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                     <label id="password_report" style="visibility: hidden; padding: 1vw ;border: 4vw; border-radius: 1vw; background-color: red; color: white;">Password is incorrect!</label>
-                    <button type="button" id="submit_data" style="height: 5vw;" disabled> Submit! </button>
                     </span>
+                    <button type="button" id="submit_data" style="height: 5vw;" disabled> Submit! </button>
                 </form>
+                
                 <h1>Back</h1>
             </div>
         </div>
@@ -142,8 +143,13 @@
                             const ajaxrespone = JSON.parse(xmlh.response);
                             console.log(ajaxrespone);  
 
-                            if (ajaxrespone["Success"] = true){
-                                window.location.href = "auth/login.html";
+                            if (ajaxrespone["Success"] == true){
+                                setTimeout(function(){
+                                    window.location.href = "../login.html";
+                                },3000);
+                            }
+                            else{
+                                console.warn("Failure");
                             }
                         } catch (error) {
                             console.warn(xmlh.response);
