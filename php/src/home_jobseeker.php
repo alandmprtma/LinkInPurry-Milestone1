@@ -471,27 +471,7 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
 
 
     <script src="public/autocomplete_js.js"></script>
+    <script src="public/hamburgermenu.js"></script>
+    <script src="public/searchdebounce.js"></script>
 </body>
 </html>
-
-<script>
-    document.getElementById('hamburger-menu').addEventListener('click', function() {
-        const navLinks = document.getElementById('nav-links');
-        navLinks.classList.toggle('active');
-    });
-
-    let timeout;
-
-    function handleSearchInput(event) {
-
-        searchAutocomplete(); // Jalankan autocomplete tanpa delay
-        querySearch(); // Atur debounce untuk pencarian utama
-        timeout = setTimeout(() => {
-            document.getElementById('search-form').submit();
-        }, 2500);
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            document.getElementById('search-form').submit();
-        }
-    }
-</script>
