@@ -20,6 +20,7 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
+
 // Pagination
 $perPage = 3; // Jumlah lowongan per halaman
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Halaman saat ini
@@ -138,6 +139,70 @@ $lowonganList = $stmt->fetchAll();
 
 // Hitung total halaman
 $totalPages = ceil($totalLowongan / $perPage);
+
+// REKOMENDASI
+
+// Ambil jenis pekerjaan yang paling sering dilamar oleh user
+$queryJobType = "
+    SELECT l.jenis_pekerjaan, COUNT(*) AS jumlah
+    FROM Lamaran la
+    JOIN Lowongan l ON la.lowongan_id = l.lowongan_id
+    WHERE la.user_id = :user_id
+    GROUP BY l.jenis_pekerjaan
+    ORDER BY jumlah DESC
+    LIMIT 1
+";
+
+$stmtJobType = $pdo->prepare($queryJobType);
+$stmtJobType->execute(['user_id' => $_SESSION['user_id']]);
+$jobTypeRec = $stmtJobType->fetch(PDO::FETCH_ASSOC);
+
+// Jika ada jenis pekerjaan, rekomendasikan pekerjaan dengan jenis yang sama
+if ($jobTypeRec) {
+    $queryRekomendasi = "
+        SELECT L.*, U.nama AS company_name
+        FROM Lowongan L
+        JOIN Users U ON L.company_id = U.user_id
+        WHERE L.jenis_pekerjaan = :jenis_pekerjaan
+        AND L.is_open = TRUE
+        ORDER BY L.created_at DESC
+        LIMIT 5
+    ";
+
+    $stmtRekomendasi = $pdo->prepare($queryRekomendasi);
+    $stmtRekomendasi->execute(['jenis_pekerjaan' => $jobTypeRec['jenis_pekerjaan']]);
+    $rekomendasiList = $stmtRekomendasi->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Jika pengguna belum melamar pekerjaan, rekomendasikan pekerjaan terbaru
+    $queryRekomendasi = "
+        SELECT L.*, U.nama AS company_name
+        FROM Lowongan L
+        JOIN Users U ON L.company_id = U.user_id
+        WHERE L.is_open = TRUE
+        ORDER BY L.created_at DESC
+        LIMIT 5
+    ";
+
+    $stmtRekomendasi = $pdo->query($queryRekomendasi);
+    $rekomendasiList = $stmtRekomendasi->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Cari lowongan trending berdasarkan jumlah pelamar dalam 7 hari terakhir
+$queryTrending = "
+    SELECT L.*, U.nama AS company_name, COUNT(la.lamaran_id) AS jumlah_pelamar
+    FROM Lowongan L
+    LEFT JOIN Lamaran la ON L.lowongan_id = la.lowongan_id
+    JOIN Users U ON L.company_id = U.user_id
+    WHERE la.created_at >= NOW() - INTERVAL '7 days'
+    AND L.is_open = TRUE
+    GROUP BY L.lowongan_id, U.nama
+    ORDER BY jumlah_pelamar DESC
+    LIMIT 3
+";
+
+
+$stmtTrending = $pdo->query($queryTrending);
+$trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -154,13 +219,13 @@ $totalPages = ceil($totalLowongan / $perPage);
     <nav class="navbar">
         <img class="logo" src="assets/LinkInPurry-crop.png">
         
-        <form method="GET" action="home_jobseeker.php" class="search-form">
+        <form method="GET" action="home_jobseeker.php" id="search-form" class="search-form">
             <div class="search-bar">
                 <div class="icon">
                     <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
                 <div class="search-bar-container">
-                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="handleSearchInput(event)" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
                     <div id="autocomplete-results" class="autocomplete-results"></div>
                 </div>
             </div>
@@ -237,6 +302,37 @@ $totalPages = ceil($totalLowongan / $perPage);
         </form>
         </aside>
     </aside>
+    <section class="job-recommendations">
+    <div class="header">
+        <h2>Recommended Jobs for You</h2>
+        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+    </div>
+
+    <ul class="job-cards">
+        <?php if ($rekomendasiList): ?>
+            <?php foreach ($rekomendasiList as $index => $rekomendasi): ?>
+                <li class="job-card">
+                    <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($rekomendasi['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($rekomendasi['posisi']) ?></a></h4>
+                    <p class="company"><?= htmlspecialchars($rekomendasi['company_name']) ?></p>
+                    <p class="location"><?= htmlspecialchars($rekomendasi['jenis_lokasi']) ?></p>
+                    <span class="promoted"><?= htmlspecialchars($rekomendasi['jenis_pekerjaan']) ?></span>
+                    <p style="font-weight:bold; font-size:14px; color:#666666;">
+                        <?php if ($rekomendasi['is_open']): ?>
+                            <span>Open</span>
+                        <?php else: ?>
+                            <span>Closed</span>
+                        <?php endif; ?>
+                    </p>
+                </li>
+                <?php if ($index !== array_key_last($rekomendasiList)): ?>
+                    <li class="line"><hr class="divider" /></li>
+                 <?php endif; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No recommendations available at the moment.</p>
+        <?php endif; ?>
+    </ul>
+</section>
 <section>
 <div class="card-header">
     <div class="card-content">
@@ -246,8 +342,8 @@ $totalPages = ceil($totalLowongan / $perPage);
     </div>
     <section class="job-listings">
     <div class="header">
-        <h2>Top job picks for you</h2>
-        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+        <h2>Job Listings Results</h2>
+        <p>Explore job opportunities tailored to your filters and search criteria.</p>
     </div>
 
     <ul class="job-cards">
@@ -276,16 +372,19 @@ $totalPages = ceil($totalLowongan / $perPage);
 
 
     </section>
+    
+
+
      <!-- Pagination -->
      <div id="pagination" class="pagination">
             <?php if ($totalPages > 1): ?>
                 <?php if ($page > 1): ?>
                     <!-- Tombol << mundur 2 halaman -->
-                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">«</a>
+                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>">«</a>
                 <?php endif; ?>
 
                 <!-- Tombol halaman pertama -->
-                <a href="?page=1&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == 1 ? 'active' : '' ?>">1</a>
+                <a href="?page=1&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $page == 1 ? 'active' : '' ?>">1</a>
 
                 <!-- Jika halaman lebih dari 3, tampilkan ... setelah halaman 1 -->
                 <?php if ($page > 3): ?>
@@ -294,7 +393,7 @@ $totalPages = ceil($totalLowongan / $perPage);
 
                 <!-- Tombol halaman di sekitar halaman saat ini -->
                 <?php for ($i = max(2, $page - 1); $i <= min($totalPages - 1, $page + 1); $i++): ?>
-                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
                 <?php endfor; ?>
 
                 <!-- Jika halaman saat ini lebih dari 3 halaman sebelum halaman terakhir, tampilkan ... sebelum halaman terakhir -->
@@ -303,11 +402,11 @@ $totalPages = ceil($totalLowongan / $perPage);
                 <?php endif; ?>
 
                 <!-- Tombol halaman terakhir -->
-                <a href="?page=<?= $totalPages ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == $totalPages ? 'active' : '' ?>"><?= $totalPages ?></a>
+                <a href="?page=<?= $totalPages ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $page == $totalPages ? 'active' : '' ?>"><?= $totalPages ?></a>
 
                 <!-- Tombol >> lompat 2 halaman -->
                 <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?= min($totalPages, $page + 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">»</a>
+                    <a href="?page=<?= min($totalPages, $page + 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>>&search_keyword=<?= $searchKeyword ?>">»</a>
                 <?php endif; ?>
             <?php endif; ?>
         </div>
@@ -330,6 +429,37 @@ $totalPages = ceil($totalLowongan / $perPage);
                     </div>
                 </div>
             </div>
+            <section class="job-trending">
+            <div class="header">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="margin-right: 10px;" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M384 160c-17.7 0-32-14.3-32-32s14.3-32 32-32l160 0c17.7 0 32 14.3 32 32l0 160c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-82.7L342.6 374.6c-12.5 12.5-32.8 12.5-45.3 0L192 269.3 54.6 406.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160c12.5-12.5 32.8-12.5 45.3 0L320 306.7 466.7 160 384 160z"/></svg>Trending Jobs</h2>
+                <p>These jobs are trending based on recent applications</p>
+            </div>
+
+            <ul class="job-cards">
+                <?php if ($trendingList): ?>
+                    <?php foreach ($trendingList as $trending): ?>
+                        <li class="job-card">
+                            <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($trending['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($trending['posisi']) ?></a></h4>
+                            <p class="company"><?= htmlspecialchars($trending['company_name']) ?></p>
+                            <p class="location"><?= htmlspecialchars($trending['jenis_lokasi']) ?></p>
+                            <span class="promoted"><?= htmlspecialchars($trending['jenis_pekerjaan']) ?></span>
+                            <p style="font-weight:bold; font-size:14px; color:#666666;">
+                                <?php if ($trending['is_open']): ?>
+                                    <span>Open</span>
+                                <?php else: ?>
+                                    <span>Closed</span>
+                                <?php endif; ?>
+                            </p>
+                        </li>
+                        <?php if ($index !== array_key_last($trendingList)): ?>
+                            <li class="line"><hr class="divider" /></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No trending jobs at the moment.</p>
+                <?php endif; ?>
+            </ul>
+        </section>
             <div class="footer-section" style="margin-top: 20px; text-align: center;">
                 <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
                 <span style="font-size: 14px; margin-left: 8px;">
@@ -341,12 +471,7 @@ $totalPages = ceil($totalLowongan / $perPage);
 
 
     <script src="public/autocomplete_js.js"></script>
+    <script src="public/hamburgermenu.js"></script>
+    <script src="public/searchdebounce.js"></script>
 </body>
 </html>
-
-<script>
-    document.getElementById('hamburger-menu').addEventListener('click', function() {
-        const navLinks = document.getElementById('nav-links');
-        navLinks.classList.toggle('active');
-    });
-</script>
