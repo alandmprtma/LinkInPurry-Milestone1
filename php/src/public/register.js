@@ -59,9 +59,55 @@ firstPassword.addEventListener("input", checkpasswordCorrect);
 checkPassword.addEventListener("input", checkpasswordCorrect);
 
 function checkEmail(email) {
+    //cleanse any errors
+    return new Promise((resolve,reject) =>{
     const emailRegexCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]+$/;
-    return emailRegexCheck.test(email);
+    if (!emailRegexCheck.test(email)){
+        //warn bad email format!
+        resolve(false);
+    }
+    //post request
+    var xmlh = new XMLHttpRequest();
+        xmlh.open('POST', '../auth/register.php');
+        xmlh.onreadystatechange = function () {
+            var failsafe = 0;
+            if (xmlh.readyState == 4 && xmlh.status == 200) {
+                try {
+                    const ajaxrespone = JSON.parse(xmlh.response);
+                    console.log(ajaxrespone);
+
+                    if (ajaxrespone["success"] == true) {
+                        resolve(true);
+                    }
+                    else {
+                        //warn bad email or smthn
+                        resolve(false);
+                    }
+                } catch (error) {
+                    //usually if the retval isnt json, something happened
+                    console.warn(xmlh.response);
+                }
+            }
+            else {
+                failsafe ++;
+                if (failsafe > 4){
+                    reject("Cannot establish connection with server!");
+                }
+            }
+        };
+
+        xmlh.setRequestHeader("Content-Type", "application/json");
+        
+        var payload = {
+            "intent" : "email-check",
+            "email" : email
+        }
+
+        xmlh.send(JSON.stringify(payload));
+    })
 }
+
+
 
 document.getElementById("password_visible").addEventListener("change", function () {
     if (this.checked) {
@@ -126,8 +172,8 @@ function canUpload() {
         return false;
     }
 }
-namebox.addEventListener("input", canUpload);
-emailbox.addEventListener("input", canUpload);
+namebox.addEventListener("change", canUpload);
+emailbox.addEventListener("change", checkEmail);
 firstPassword.addEventListener("input", canUpload);
 checkPassword.addEventListener("input", canUpload);
 
@@ -150,9 +196,11 @@ function submit() {
         else{
             console.log("Sending...")
         }
+        
         var xmlh = new XMLHttpRequest();
         xmlh.open('POST', '../auth/register.php');
         xmlh.onreadystatechange = function () {
+            var antidouble = false;
             if (xmlh.readyState == 4 && xmlh.status == 200) {
                 //Report success
                 console.log("testlmao");
@@ -160,12 +208,14 @@ function submit() {
                     const ajaxrespone = JSON.parse(xmlh.response);
                     console.log(ajaxrespone);
 
-                    if (ajaxrespone["Success"] == true) {
+                    if (ajaxrespone["success"] == true) {
+                        antidouble = true;
+                        console.log("redirecting...")
                         setTimeout(function () {
-                            window.location.href = "../login.html";
+                            window.location.href = "../auth/login.html";
                         }, 3000);
                     }
-                    else {
+                    else if (!antidouble){
                         console.warn("Failure");
                     }
                 } catch (error) {
@@ -180,13 +230,20 @@ function submit() {
         const email = emailbox.value;
         const pass = password.value;
 
-        xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlh.setRequestHeader("Content-Type", "application/json");
         
-        var payload = "role=" + selectedType + "&nama=" + nama + "&email=" + email + "&password=" + pass
-        if (corpo_mode){
-            payload += "&location=" + location + "&about=" + about;
+        var payload = {
+            "intent" : "register",
+            "role" : selectedType,
+            "nama" : nama,
+            "email" : email,
+            "password" : pass
         }
-        xmlh.send(payload);
+        if (corpo_mode){
+            payload["location"] = location,
+            payload["about"] = quill.root.innerHTML
+        }
+        xmlh.send(JSON.stringify(payload));
     }
     else {
         console.error("Nice try!");
