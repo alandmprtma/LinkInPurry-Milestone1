@@ -14,18 +14,17 @@ body {
 
 
 
+/* Navbar */
 
-/* General navbar styles */
 .navbar {
     position: sticky;
     top: 0;
-    width: 100%;
+    width: full;
     display: flex;
     align-items: center;
     padding: 1rem 2rem;
     background-color: #fff;
     border-bottom: 1px solid #ccc;
-    z-index: 10;
 }
 
 .logo {
@@ -39,12 +38,12 @@ body {
     border-radius: 5px;
     margin-left: 20px;
     background-color: #edf3f8;
-    width: 300px;
-    transition: width 0.4s ease;
+    width: 300px; /* Ukuran awal search bar */
+    transition: width 0.4s ease; /* Durasi transisi dan efek */
 }
 
 .search-bar .icon img {
-    width: 20px;
+    width: 20px; /* Ukuran ikon */
     margin-left: 5px;
     margin-right: 3px;
 }
@@ -56,11 +55,15 @@ body {
     flex: 1;
     background-color: transparent;
     font-size: 16px;
-    width: 100%;
 }
 
+.search-bar input::placeholder {
+    color: #666;
+}
+
+/* Ketika input di-focus, lebar search bar berubah */
 .search-bar:focus-within {
-    width: 450px;
+    width: 450px; /* Lebar setelah focus (250% dari 200px) */
     border: 2px solid #000;
 }
 
@@ -70,13 +73,10 @@ body {
     margin-left: auto;
 }
 
-.nav-links li {
-    margin-right: 40px;
-}
-
 .nav-links img {
     width: 20px;
-    transition: 0.3s ease-in-out;
+    text-align: center;
+    transition: 0.3s ease-in-out; /* Efek transisi yang halus */
 }
 
 .nav-links a:hover .home {
@@ -87,18 +87,25 @@ body {
     content: url('../assets/logout-black.png');
 }
 
-.nav-links a:hover .job {
-    content: url('../assets/suitcase-black.png');
+
+.nav-links a:hover .logout {
+    content: url('../assets/logout-black.png');
 }
 
-.inactive {
+.nav-links a:hover .job {
+    content: url('../assets/suitcase-black.png'); /* Ganti dengan gambar hitam saat dihover */
+}
+
+
+.inactive{
     text-decoration: none;
     color: #666;
     font-size: 16px;
+    margin-right: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: color 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out; /* Menambahkan transisi untuk perubahan warna */
 }
 
 .inactive:hover {
@@ -106,16 +113,24 @@ body {
     font-weight: bold;
 }
 
+.nav-links i {
+    font-size: 24px; /* Ukuran ikon */
+    margin-bottom: 5px; /* Jarak antara ikon dan teks */
+}
+
 .nav-links li .current {
     text-decoration: none;
     color: #000;
     font-size: 16px;
     font-weight: bold;
+    margin-right: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+
+/* Garis bawah hanya untuk halaman Home */
 .nav-links li:first-child .current::after {
     content: '';
     width: 80px; /* Lebar garis bawah */
@@ -126,102 +141,7 @@ body {
     bottom: 0px;
 }
 
-.hamburger-menu {
-    display: none; /* Show hamburger menu on mobile */
-    font-size: 24px;
-    cursor: pointer;
-    margin-left: auto;
-}
 
-/* Responsive Navbar Styles for Mobile */
-
-/* Hide the nav-links and show hamburger on mobile */
-@media (max-width: 768px) {
-    .nav-links li:first-child .current::after {
-        display: none;
-    }
-    
-
-    .nav-links {
-        display: none; /* Hide navigation links */
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #fff;
-        width: 100%;
-        padding: 20px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 999;
-    }
-
-    .nav-links.active {
-        display: flex; /* Show navigation links when active */
-    }
-
-    .nav-links li {
-        margin: 20px 0;
-        text-align: center;
-        flex-direction: row !important;
-    }
-
-    .hamburger-menu {
-        display: block; /* Show hamburger menu on mobile */
-        font-size: 24px;
-        cursor: pointer;
-        margin-left: auto;
-    }
-
-    .search-form {
-        flex-grow: 1;
-        margin-left: 20px;
-    }
-
-    .search-bar {
-        width: 200px;
-    }
-
-    .search-bar:focus-within {
-        width: 250px; /* Smaller focus width for mobile */
-    }
-
-    .inactive, .current {
-        display: flex !important;           /* Flex for the container */
-        flex-direction: row !important;     /* Row direction for icon and text */
-        align-items: center;     /* Vertically align items */
-        justify-content: center; /* Horizontally center items */
-        width: 100%;             /* Ensure it takes full width */
-        text-align: center;      /* Center text inside */
-    }
-    
-    .inactive img, .current img {
-        margin-right: 10px; /* Add space between icon and text */
-    }
-    
-    .nav-links img {
-        display: inline-block; /* Make sure the image is inline */
-    }
-}
-
-@media (max-width: 400px) {
-    .navbar .search-form {
-        margin: 0px auto;
-    }
-
-    .nav-links li:first-child .current::after {
-        display: none;
-    }
-
-    .search-bar {
-        width: 180px;
-        margin: 0px;
-    }
-
-
-    .search-bar:focus-within {
-        width: 220px;
-    }
-}
 
 /* Job Details */
 .job-details-js {
@@ -342,19 +262,4 @@ body {
     padding: 5px;
     margin: 5px;
     max-width: 200px;
-}
-
-@media (max-width: 768px) {
-    .job-details-js, 
-    .job-details-a {
-        width: 80%;
-    }
-}
-
-
-@media (max-width: 400px) {
-    .job-details-js, 
-    .job-details-a {
-        width: 100%;
-    }
 }

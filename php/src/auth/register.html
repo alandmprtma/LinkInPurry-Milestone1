@@ -1,93 +1,50 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - LinkInPurry</title>
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/styles.css"> <!-- Menggunakan CSS global -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 </head>
-
 <body>
-    <div class="background1"></div>
-    <div class="selection" id="selection">
-        <div class="centerbox">
-            <h1>Welcome! Are you a</h1>
-            <div class="choice-button-container">
-                <button href="#" id="buttonA" class="big-round-button">
-                    JobSeeker</button>
-                <button href="#" id="buttonB" class="big-round-button"
-                    >Company</button>
-            </div>
-        </div>
-    </div>
-    <div class="information" id="information">
-        <div class="reportbox information-top success" hidden style="position: absolute; top: 5%;">This is a reportbox</div>
-        <div class="centerbox">
-            <h1 id="splashtext">One step away!</h1>
-            <label class="reg_backbutton" onclick="returnto_pick()"> &#60; Back</label>
-            <br>
-            <form id="userinfo">
-                <label>Full name</label>
-                <input class="input-box" type="text" id="fullname">
-                <br>
-                <label>E-mail</label>
-                <input class="input-box" type="text" id="email">
-                <br>
-                <label>Password</label>
-                <span>
-                    <input class="input-box" type="password" id="password">
-                    <span class="show_password">Show password<input id="password_visible" type="checkbox"></span>
-                </span>
-                <br>
-                <label>Confirm password</label>
-                <span>
-                    <input class="input-box" type="password" id="confirmpassword">
-                    <span class="show_password">Show password<input id="checkpassword_visible" type="checkbox"></span>
-                </span>
-                <span>
-                    <label class="reportbox fail" id="password_report" hidden>
-                        Password is incorrect!</label>
-                </span>
-                <button type="button" class="submit_data" id="submit_data" disabled> Submit! </button>
-            </form>
-        </div>
-    </div>
-    <div class="corpo-information" id="corpo-information">
-        <div class="centerbox">
-            <b>One more step</b>
-            <label class="reg_backbutton" onclick="returnto_info()"> &#60; Back</label>
-            <label>Location</label>
-            <input class="input-box" type="text" id="location">
-            <br>
-            <!-- Create the editor container -->
-            <label>About</label>
-            <div id="editor">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br /></p>
+
+    <div class="login-container">
+        <h1>Register</h1>
+        <form action="register.php" method="POST" id="registerForm">
+            <div class="role">
+                <label for="role">Daftar sebagai: </label>
+                <select id="role" name="role" required>
+                    <option value="jobseeker">Job Seeker</option>
+                    <option value="company">Company</option>
+                </select>
             </div>
             
-            <!-- Include the Quill library -->
-            <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-            
-            <!-- Initialize Quill editor -->
-            <script>
-                const quill = new Quill('#editor', {
-                theme: 'snow'
-                });
-            </script>
+            <input type="text" id="nama" name="nama" placeholder="Nama" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
 
-            <button type="button" class="submit_data" id="submit_data_corpo" disabled> Submit! </button>
+            <div class="error" id="error-message"></div>
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="register-link">
+            <p>Sudah punya akun? <a href="login.html">Login</a></p>
         </div>
     </div>
 
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
 
-    <script async defer src="../public/register.js"></script>
+            if (password !== confirmPassword) {
+                document.getElementById('error-message').innerText = "Password dan Konfirmasi Password tidak cocok!";
+                event.preventDefault(); // Mencegah pengiriman form jika ada error
+            }
+        });
+    </script>
+
 </body>
-
 </html>
