@@ -168,6 +168,10 @@ $lamaranList = $stmtLamaran->fetchAll();
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <form action="export_csv.php" method="post">
+                    <input type="hidden" name="lowongan_id" value="<?php echo $lowongan_id; ?>">
+                    <button type="submit" class="btn btn-primary">Export to CSV</button>
+                </form>
             <?php else: ?>
                 <p>Belum ada pelamar untuk lowongan ini.</p>
             <?php endif; ?>
