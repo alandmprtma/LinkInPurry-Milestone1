@@ -452,6 +452,28 @@ main {
     font-size: 0.9rem;
 }
 
+.job-recommendations{
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-left: 10px;
+    margin-right: 20px;
+    width: 25%;
+    transform: translateX(-10px);
+}
+
+.job-trending{
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-top: 20px;
+    width: 100%;
+}
+
 .vacancy-card {
     display: flex;
     justify-content: space-between; /* Membuat jarak antara teks dan ikon */
@@ -696,6 +718,15 @@ main {
         display: flex;
         flex-direction: column;
         margin: 10px; /* Tambahkan jarak antar elemen */
+    }
+
+    .job-trending{
+        transform: translateX(-10px);
+    }    
+
+    .job-recommendations{
+        width: 100%;
+        transform: translateX(2px);
     }
 
     /* Buat elemen-elemen dalam satu baris pada lebar layar <= 768px */
