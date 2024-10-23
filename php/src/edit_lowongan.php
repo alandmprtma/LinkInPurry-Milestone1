@@ -49,8 +49,7 @@ if (!$lowongan) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Lowongan</title>
-    <link rel="stylesheet" href="css/styles_el.css"> <!-- Menggunakan CSS global -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/styles_js.css"> <!-- Menggunakan CSS global -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css" integrity="sha512-ggYQiYwuFFyThzEv6Eo6g/uPLis4oUynsE88ovEde5b2swycOh9SlAI8FL/cL2AkGGNnWADPXcX2UnPIJS2ozw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -63,11 +62,9 @@ if (!$lowongan) {
 
 <nav class="navbar">
     <img class="logo" src="assets/LinkInPurry-crop.png">
-    <div class="hamburger-menu" id="hamburger-menu">
-        <i class="fas fa-bars"></i>
-    </div>
-    <ul class="nav-links" id="nav-links">
+    <ul class="nav-links">
         <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
+        <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
         <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
     </ul>
 </nav>
@@ -99,18 +96,18 @@ if (!$lowongan) {
         <form class="job-form" action="simpan_edit_lowongan.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="lowongan_id" value="<?php echo htmlspecialchars($lowongan['lowongan_id']); ?>">
             <div class="form-group"> 
-                <label for="posisi" class="form-label">Job Position:</label>
+                <label for="posisi" class="form-label">Posisi Pekerjaan:</label>
                 <input type="text" id="posisi" name="posisi" class="form-input" value="<?php echo htmlspecialchars($lowongan['posisi']); ?>" required>
             </div>
             
             <div class="form-group">
-                <label for="deskripsi" class="form-label">Job Description:</label>
+                <label for="deskripsi" class="form-label">Deskripsi Pekerjaan:</label>
                 <div id="editor" style="height: 200px;"><?php echo $lowongan['deskripsi']; ?></div> <!-- Div untuk Quill -->
                 <input type="hidden" name="deskripsi" id="deskripsi"> <!-- Hidden input untuk menyimpan konten dari Quill -->
             </div>
 
             <div class="form-group">
-                <label for="jenis_pekerjaan" class="form-label">Job Type:</label>
+                <label for="jenis_pekerjaan" class="form-label">Jenis Pekerjaan:</label>
                 <select id="jenis_pekerjaan" name="jenis_pekerjaan" class="form-select" required>
                     <option value="full-time" <?php echo ($lowongan['jenis_pekerjaan'] == 'full-time') ? 'selected' : ''; ?>>Full-time</option>
                     <option value="part-time" <?php echo ($lowongan['jenis_pekerjaan'] == 'part-time') ? 'selected' : ''; ?>>Part-time</option>
@@ -119,7 +116,7 @@ if (!$lowongan) {
             </div>
 
             <div class="form-group">
-                <label for="jenis_lokasi" class="form-label">Location Type:</label>
+                <label for="jenis_lokasi" class="form-label">Jenis Lokasi:</label>
                 <select id="jenis_lokasi" name="jenis_lokasi" class="form-select" required>
                     <option value="on-site" <?php echo ($lowongan['jenis_lokasi'] == 'on-site') ? 'selected' : ''; ?>>On-site</option>
                     <option value="remote" <?php echo ($lowongan['jenis_lokasi'] == 'remote') ? 'selected' : ''; ?>>Remote</option>
@@ -128,7 +125,7 @@ if (!$lowongan) {
             </div>
 
             <div class="form-group">
-                <label for="image" class="form-label">Upload New Images:</label>
+                <label for="image">Upload New Images:</label>
                 <div id="image-drop-area" class="drop-area">
                     <p>Drag & Drop your Image here or click to upload</p>
                     <input type="file" name="attachments[]" id="image" accept=".jpeg, .jpg, .png" multiple hidden>
@@ -248,21 +245,9 @@ if (!$lowongan) {
         </div>
     </div>
 </div>
-<div class="footer-section" style="margin-top: 20px; text-align: center;">
-                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
-                <span style="font-size: 14px; margin-left: 8px;">
-                    LinkedInPurry Corporation © 2024
-                </span>
-            </div>
         </aside>
 <main>
 
 
 </body>
 </html>
-<script>
-    document.getElementById('hamburger-menu').addEventListener('click', function() {
-        const navLinks = document.getElementById('nav-links'); // Pastikan ID-nya sesuai
-        navLinks.classList.toggle('active');
-    });
-</script>
