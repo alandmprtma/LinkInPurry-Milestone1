@@ -155,10 +155,10 @@ $queryJobType = "
 
 $stmtJobType = $pdo->prepare($queryJobType);
 $stmtJobType->execute(['user_id' => $_SESSION['user_id']]);
-$jobType = $stmtJobType->fetch(PDO::FETCH_ASSOC);
+$jobTypeRec = $stmtJobType->fetch(PDO::FETCH_ASSOC);
 
 // Jika ada jenis pekerjaan, rekomendasikan pekerjaan dengan jenis yang sama
-if ($jobType) {
+if ($jobTypeRec) {
     $queryRekomendasi = "
         SELECT L.*, U.nama AS company_name
         FROM Lowongan L
@@ -170,7 +170,7 @@ if ($jobType) {
     ";
 
     $stmtRekomendasi = $pdo->prepare($queryRekomendasi);
-    $stmtRekomendasi->execute(['jenis_pekerjaan' => $jobType['jenis_pekerjaan']]);
+    $stmtRekomendasi->execute(['jenis_pekerjaan' => $jobTypeRec['jenis_pekerjaan']]);
     $rekomendasiList = $stmtRekomendasi->fetchAll(PDO::FETCH_ASSOC);
 } else {
     // Jika pengguna belum melamar pekerjaan, rekomendasikan pekerjaan terbaru
