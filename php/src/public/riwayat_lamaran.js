@@ -69,7 +69,7 @@ function getcount(filter){
             else{
                 failsafe ++;
                 if (failsafe > 4){
-                    reject(-1);
+                    reject("Cannot establish connection with server!");
                 }
             }
         };
