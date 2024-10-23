@@ -15,7 +15,7 @@
 <body>
     <div class="background1"></div>
     <div class="selection" id="selection">
-        <div class="centerbox">
+        <div class="centerbox whitebg">
             <h1>Welcome! Are you a</h1>
             <div class="choice-button-container">
                 <button href="#" id="buttonA" class="big-round-button">
@@ -32,27 +32,47 @@
             <label class="reg_backbutton" onclick="returnto_pick()"> &#60; Back</label>
             <br>
             <form id="userinfo">
-                <label>Full name</label>
-                <input class="input-box" type="text" id="fullname">
+                <div class="inputcontainer" id="name-box">
+                    <label>Full name</label>
+                    <input class="input-box" type="text" id="fullname">
+                    <small id="name-report"></small>
+                </div>
                 <br>
-                <label>E-mail</label>
-                <input class="input-box" type="text" id="email">
+                <div class="inputcontainer" id="email-box">
+                    <label>E-mail</label>
+                    <input class="input-box" type="text" id="email">
+                    <small id="email-report"></small>
+                </div>
                 <br>
-                <label>Password</label>
                 <span>
-                    <input class="input-box" type="password" id="password">
-                    <span class="show_password">Show password<input id="password_visible" type="checkbox"></span>
+                    <div class="inputcontainer" id="password-box">
+                        <label>Password</label>
+                        <span class="show_password">
+                            <input class="input-box" type="password" id="password">
+                            <i id="password_visible" class="fa-regular fa-eye-slash"></i>
+                        </span>
+                        <small id="password-report"></small>
+                    </div>
+                    
                 </span>
                 <br>
-                <label>Confirm password</label>
                 <span>
-                    <input class="input-box" type="password" id="confirmpassword">
-                    <span class="show_password">Show password<input id="checkpassword_visible" type="checkbox"></span>
+                    <div class="inputcontainer" id="password-box">
+                        <label>Confirm password</label>
+                        <span class="show_password">
+                            <input class="input-box" type="password" id="confirmpassword">
+                            <i id="checkpassword_visible" class="fa-regular fa-eye-slash"></i>
+                        </span>
+                        <small id="checkpassword-report"></small>
+                    </div>
                 </span>
-                <span>
+                <br>
+                <!--
+                    <span>
                     <label class="reportbox fail" id="password_report" hidden>
                         Password is incorrect!</label>
-                </span>
+                    </span>
+                -->
                 <button type="button" class="submit_data" id="submit_data" disabled> Submit! </button>
             </form>
         </div>

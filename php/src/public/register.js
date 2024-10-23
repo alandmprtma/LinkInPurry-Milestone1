@@ -46,11 +46,13 @@ function checkpasswordCorrect() {
     var password2 = checkPassword.value;
     console.log("change");
     if (password1 == password2) {
-        passwordReport.hidden = true;
+        //passwordReport.hidden = true;
+        reportinput("checkpassword-report");
         goodPassword = true
     }
     else {
-        passwordReport.hidden = false;
+        //passwordReport.hidden = false;
+        reportinput("checkpassword-report","Password is not matching!");
         goodPassword = false
     }
 }
@@ -58,12 +60,19 @@ function checkpasswordCorrect() {
 firstPassword.addEventListener("input", checkpasswordCorrect);
 checkPassword.addEventListener("input", checkpasswordCorrect);
 
-function checkEmail(email) {
+function checkEmail() {
+
+    const email = emailbox.value;
+    if (email == '' || email == null){
+        reportinput("email-report","Email cannot be empty!");
+        resolve(false);
+    }
     //cleanse any errors
     return new Promise((resolve,reject) =>{
     const emailRegexCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]+$/;
     if (!emailRegexCheck.test(email)){
         //warn bad email format!
+        reportinput("email-report","Incorrect email format!");
         resolve(false);
     }
     //post request
@@ -74,12 +83,13 @@ function checkEmail(email) {
             if (xmlh.readyState == 4 && xmlh.status == 200) {
                 try {
                     const ajaxrespone = JSON.parse(xmlh.response);
-                    console.log(ajaxrespone);
 
                     if (ajaxrespone["success"] == true) {
+                        reportinput("email-report");
                         resolve(true);
                     }
                     else {
+                        reportinput("email-report",ajaxrespone["reason"]+" ");
                         //warn bad email or smthn
                         resolve(false);
                     }
@@ -107,24 +117,26 @@ function checkEmail(email) {
     })
 }
 
-
-
-document.getElementById("password_visible").addEventListener("change", function () {
-    if (this.checked) {
+document.getElementById("password_visible").addEventListener("click", function () {
+    if (this.classList.contains("fa-eye-slash")){
         firstPassword.type = 'text';
     }
     else {
         firstPassword.type = 'password';
     }
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
 })
 
-document.getElementById("checkpassword_visible").addEventListener("change", function () {
-    if (this.checked) {
+document.getElementById("checkpassword_visible").addEventListener("click", function () {
+    if (this.classList.contains("fa-eye-slash")){
         checkPassword.type = 'text';
     }
     else {
         checkPassword.type = 'password';
     }
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
 })
 
 
@@ -164,8 +176,19 @@ function canUpload() {
 
     }
     else if (namebox.value != "" && emailbox != "" && firstPassword != "" && checkPassword != "" && goodPassword) {
-        uploadButton.disabled = false;
-        return true;
+        checkEmail().then(function(response){
+            if (response == true){
+                uploadButton.disabled = false;
+                return true;
+            }
+            else{
+                uploadButton.disabled = true;
+                return false;
+            }
+        }).catch(function(error){
+            //error???
+        })
+        
     }
     else {
         uploadButton.disabled = true;
@@ -173,7 +196,7 @@ function canUpload() {
     }
 }
 namebox.addEventListener("change", canUpload);
-emailbox.addEventListener("change", checkEmail);
+emailbox.addEventListener("change", canUpload);
 firstPassword.addEventListener("input", canUpload);
 checkPassword.addEventListener("input", canUpload);
 
@@ -250,7 +273,20 @@ function submit() {
     }
 }
 
-function report(success, reason) {
+function reportinput(id, info){
+    var reportbox = document.getElementById(id);
+    var parentcl = reportbox.parentNode;
+
+    if (info != '' && info != null){
+        reportbox.innerHTML = info;
+        parentcl.classList.add("bad");
+    }else{
+        reportbox.innerHTML = "";
+        parentcl.classList.remove("bad");
+    }
+}
+
+function reportbox(success, reason) {
     if (success == true) {
 
     }
@@ -259,7 +295,7 @@ function report(success, reason) {
     }
 }
 
-function hide_report() {
+function hide_reportbox() {
 
 }
 

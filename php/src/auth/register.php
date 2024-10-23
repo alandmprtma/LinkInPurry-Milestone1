@@ -14,9 +14,10 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
-function emailcheck($email){
+function emailcheck($emailtocheck){
     global $pdo;
-    if (!preg_match('/^[\w\-\.]+@([\w\-]+\.)+[\w\-]+$/',$email)){
+    
+    if (!preg_match('/^[\w\-\.]+@([\w\-]+\.)+[\w\-]+$/',$emailtocheck)){
         return "Bad email!";
     }
     else{
@@ -24,7 +25,7 @@ function emailcheck($email){
             // Cek apakah email sudah ada di database
             $query = "SELECT COUNT(*) FROM Users WHERE email = :email";
             $stmt = $pdo->prepare($query);
-            $stmt->execute(['email' => $email]);
+            $stmt->execute(['email' => $emailtocheck]);
             $emailCount = $stmt->fetchColumn();
 
             if ($emailCount > 0) {
