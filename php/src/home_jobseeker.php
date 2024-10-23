@@ -197,16 +197,12 @@ $queryTrending = "
     AND L.is_open = TRUE
     GROUP BY L.lowongan_id, U.nama
     ORDER BY jumlah_pelamar DESC
-    LIMIT 5
+    LIMIT 3
 ";
 
 
 $stmtTrending = $pdo->query($queryTrending);
 $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -223,13 +219,13 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
     <nav class="navbar">
         <img class="logo" src="assets/LinkInPurry-crop.png">
         
-        <form method="GET" action="home_jobseeker.php" class="search-form">
+        <form method="GET" action="home_jobseeker.php" id="search-form" class="search-form">
             <div class="search-bar">
                 <div class="icon">
                     <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
                 <div class="search-bar-container">
-                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="handleSearchInput(event)" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
                     <div id="autocomplete-results" class="autocomplete-results"></div>
                 </div>
             </div>
@@ -314,7 +310,7 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
 
     <ul class="job-cards">
         <?php if ($rekomendasiList): ?>
-            <?php foreach ($rekomendasiList as $rekomendasi): ?>
+            <?php foreach ($rekomendasiList as $index => $rekomendasi): ?>
                 <li class="job-card">
                     <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($rekomendasi['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($rekomendasi['posisi']) ?></a></h4>
                     <p class="company"><?= htmlspecialchars($rekomendasi['company_name']) ?></p>
@@ -328,37 +324,12 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
                         <?php endif; ?>
                     </p>
                 </li>
+                <?php if ($index !== array_key_last($rekomendasiList)): ?>
+                    <li class="line"><hr class="divider" /></li>
+                 <?php endif; ?>
             <?php endforeach; ?>
         <?php else: ?>
             <p>No recommendations available at the moment.</p>
-        <?php endif; ?>
-    </ul>
-</section>
-<section class="job-trending">
-    <div class="header">
-        <h2>Trending Jobs</h2>
-        <p>These jobs are trending based on recent applications</p>
-    </div>
-
-    <ul class="job-cards">
-        <?php if ($trendingList): ?>
-            <?php foreach ($trendingList as $trending): ?>
-                <li class="job-card">
-                    <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($trending['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($trending['posisi']) ?></a></h4>
-                    <p class="company"><?= htmlspecialchars($trending['company_name']) ?></p>
-                    <p class="location"><?= htmlspecialchars($trending['jenis_lokasi']) ?></p>
-                    <span class="promoted"><?= htmlspecialchars($trending['jenis_pekerjaan']) ?></span>
-                    <p style="font-weight:bold; font-size:14px; color:#666666;">
-                        <?php if ($trending['is_open']): ?>
-                            <span>Open</span>
-                        <?php else: ?>
-                            <span>Closed</span>
-                        <?php endif; ?>
-                    </p>
-                </li>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No trending jobs at the moment.</p>
         <?php endif; ?>
     </ul>
 </section>
@@ -371,8 +342,8 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <section class="job-listings">
     <div class="header">
-        <h2>Top job picks for you</h2>
-        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+        <h2>Job Listings Results</h2>
+        <p>Explore job opportunities tailored to your filters and search criteria.</p>
     </div>
 
     <ul class="job-cards">
@@ -409,11 +380,11 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
             <?php if ($totalPages > 1): ?>
                 <?php if ($page > 1): ?>
                     <!-- Tombol << mundur 2 halaman -->
-                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">«</a>
+                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>">«</a>
                 <?php endif; ?>
 
                 <!-- Tombol halaman pertama -->
-                <a href="?page=1&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == 1 ? 'active' : '' ?>">1</a>
+                <a href="?page=1&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $page == 1 ? 'active' : '' ?>">1</a>
 
                 <!-- Jika halaman lebih dari 3, tampilkan ... setelah halaman 1 -->
                 <?php if ($page > 3): ?>
@@ -422,7 +393,7 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
 
                 <!-- Tombol halaman di sekitar halaman saat ini -->
                 <?php for ($i = max(2, $page - 1); $i <= min($totalPages - 1, $page + 1); $i++): ?>
-                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
                 <?php endfor; ?>
 
                 <!-- Jika halaman saat ini lebih dari 3 halaman sebelum halaman terakhir, tampilkan ... sebelum halaman terakhir -->
@@ -431,11 +402,11 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
                 <?php endif; ?>
 
                 <!-- Tombol halaman terakhir -->
-                <a href="?page=<?= $totalPages ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == $totalPages ? 'active' : '' ?>"><?= $totalPages ?></a>
+                <a href="?page=<?= $totalPages ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $page == $totalPages ? 'active' : '' ?>"><?= $totalPages ?></a>
 
                 <!-- Tombol >> lompat 2 halaman -->
                 <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?= min($totalPages, $page + 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">»</a>
+                    <a href="?page=<?= min($totalPages, $page + 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>>&search_keyword=<?= $searchKeyword ?>">»</a>
                 <?php endif; ?>
             <?php endif; ?>
         </div>
@@ -458,6 +429,37 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
+            <section class="job-trending">
+            <div class="header">
+                <h2><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="margin-right: 10px;" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M384 160c-17.7 0-32-14.3-32-32s14.3-32 32-32l160 0c17.7 0 32 14.3 32 32l0 160c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-82.7L342.6 374.6c-12.5 12.5-32.8 12.5-45.3 0L192 269.3 54.6 406.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160c12.5-12.5 32.8-12.5 45.3 0L320 306.7 466.7 160 384 160z"/></svg>Trending Jobs</h2>
+                <p>These jobs are trending based on recent applications</p>
+            </div>
+
+            <ul class="job-cards">
+                <?php if ($trendingList): ?>
+                    <?php foreach ($trendingList as $trending): ?>
+                        <li class="job-card">
+                            <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($trending['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($trending['posisi']) ?></a></h4>
+                            <p class="company"><?= htmlspecialchars($trending['company_name']) ?></p>
+                            <p class="location"><?= htmlspecialchars($trending['jenis_lokasi']) ?></p>
+                            <span class="promoted"><?= htmlspecialchars($trending['jenis_pekerjaan']) ?></span>
+                            <p style="font-weight:bold; font-size:14px; color:#666666;">
+                                <?php if ($trending['is_open']): ?>
+                                    <span>Open</span>
+                                <?php else: ?>
+                                    <span>Closed</span>
+                                <?php endif; ?>
+                            </p>
+                        </li>
+                        <?php if ($index !== array_key_last($trendingList)): ?>
+                            <li class="line"><hr class="divider" /></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No trending jobs at the moment.</p>
+                <?php endif; ?>
+            </ul>
+        </section>
             <div class="footer-section" style="margin-top: 20px; text-align: center;">
                 <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
                 <span style="font-size: 14px; margin-left: 8px;">
@@ -477,4 +479,19 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
         const navLinks = document.getElementById('nav-links');
         navLinks.classList.toggle('active');
     });
+
+    let timeout;
+
+    function handleSearchInput(event) {
+
+        searchAutocomplete(); // Jalankan autocomplete tanpa delay
+        querySearch(); // Atur debounce untuk pencarian utama
+        timeout = setTimeout(() => {
+            document.getElementById('search-form').submit();
+        }, 2500);
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            document.getElementById('search-form').submit();
+        }
+    }
 </script>
