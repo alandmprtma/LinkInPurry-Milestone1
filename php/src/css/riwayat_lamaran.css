@@ -4,16 +4,24 @@ body {
 
 .container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60dvw;
-    height: 15dvh;
+    align-items: flex-start;
     background-color: white;
-    box-shadow: 0px 0px 10px #888888;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 3dvh;
     margin: 1.5%;
-    padding: 0 1.5%;
-    overflow: hidden; /* Ensure that the border-radius applies correctly */
+    padding: 1.5% 1.5%;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.container.no-border{
+    padding: 0;
+}
+
+.expand{
+    width: 100%;
 }
 
 .lamaran {
@@ -62,7 +70,6 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    width: 75dvw;
     height: auto;
     padding: 0;
 }
@@ -113,4 +120,21 @@ hr {
 .riwayat_pagination_button:hover {
     background-color: #888888;
     border-radius: 25dvh;
+}
+
+.pagination-container{
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-container * {
+    margin: 0 1%;
+    padding: 0 2%;
+}
+
+main.riwayat-container{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-left: 0;
 }
