@@ -63,20 +63,22 @@ $lamaranList = $stmtLamaran->fetchAll();
     <title>Buat Lowongan Baru</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="css/styles_js.css"> <!-- Menggunakan CSS global -->
+    <link rel="stylesheet" href="css/styles_ld.css">
 </head>
 <body>
 
 <nav class="navbar">
     <img class="logo" src="assets/LinkInPurry-crop.png">
-    <ul class="nav-links">
+    <div class="hamburger-menu" id="hamburger-menu">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="nav-links">
         <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-        <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
         <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
     </ul>
 </nav>
 <main style='align-content: center;'>
-<section style='width:60%'>
+<section class='section-left' >
 <section class="job-details">
     <div class="container">
         
@@ -210,9 +212,24 @@ $lamaranList = $stmtLamaran->fetchAll();
                     </div>
                 </div>
             </div>
+            <div class="footer-section" style="margin-top: 20px; text-align: center;">
+                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
+                <span style="font-size: 14px; margin-left: 8px;">
+                    LinkedInPurry Corporation © 2024
+                </span>
+            </div>
         </aside>
 <main>
 
 
 </body>
 </html>
+<script>
+const hamburgerMenu = document.getElementById('hamburger-menu');
+const navLinks = document.querySelector('.nav-links');
+
+hamburgerMenu.addEventListener('click', () => {
+    navLinks.classList.toggle('active'); // Toggle class untuk menampilkan atau menyembunyikan nav links
+});
+
+</script>

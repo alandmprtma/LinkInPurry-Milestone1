@@ -70,7 +70,11 @@ if (isset($_SESSION['user_id'])) {
 
 <nav class="navbar">
     <img class="logo" src="assets/LinkInPurry-crop.png">
-    <ul class="nav-links">
+            <!-- Hamburger menu for mobile -->
+    <div class="hamburger-menu" id="hamburger-menu">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="nav-links">
         <li><a class="inactive" href="/home.php"> <img src="assets/home_grey.png"> Home</a></li>
         <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
         <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
@@ -142,3 +146,10 @@ if (isset($_SESSION['user_id'])) {
 
 </body>
 </html>
+
+<script>
+    document.getElementById('hamburger-menu').addEventListener('click', function() {
+        const navLinks = document.getElementById('nav-links'); // Pastikan ID-nya sesuai
+        navLinks.classList.toggle('active');
+    });
+</script>
