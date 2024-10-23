@@ -80,7 +80,7 @@ if (!$lamaran) {
             <div class="hamburger-menu" id="hamburger-menu">
                 <i class="fas fa-bars"></i>
            </div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
                 <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
             </ul>
