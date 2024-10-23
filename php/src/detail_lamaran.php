@@ -82,7 +82,6 @@ if (!$lamaran) {
            </div>
             <ul class="nav-links">
                 <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
                 <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
             </ul>
         </nav>
@@ -193,13 +192,7 @@ if (!$lamaran) {
 
 
 </body>
+<script src="public/hamburgermenu.js"></script>
 </html>
 <script>
-const hamburgerMenu = document.getElementById('hamburger-menu');
-const navLinks = document.querySelector('.nav-links');
-
-hamburgerMenu.addEventListener('click', () => {
-    navLinks.classList.toggle('active'); // Toggle class untuk menampilkan atau menyembunyikan nav links
-});
-
 </script>
