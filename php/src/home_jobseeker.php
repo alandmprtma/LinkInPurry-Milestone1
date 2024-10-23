@@ -20,6 +20,7 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
+
 // Pagination
 $perPage = 3; // Jumlah lowongan per halaman
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Halaman saat ini
@@ -138,6 +139,74 @@ $lowonganList = $stmt->fetchAll();
 
 // Hitung total halaman
 $totalPages = ceil($totalLowongan / $perPage);
+
+// REKOMENDASI
+
+// Ambil jenis pekerjaan yang paling sering dilamar oleh user
+$queryJobType = "
+    SELECT l.jenis_pekerjaan, COUNT(*) AS jumlah
+    FROM Lamaran la
+    JOIN Lowongan l ON la.lowongan_id = l.lowongan_id
+    WHERE la.user_id = :user_id
+    GROUP BY l.jenis_pekerjaan
+    ORDER BY jumlah DESC
+    LIMIT 1
+";
+
+$stmtJobType = $pdo->prepare($queryJobType);
+$stmtJobType->execute(['user_id' => $_SESSION['user_id']]);
+$jobType = $stmtJobType->fetch(PDO::FETCH_ASSOC);
+
+// Jika ada jenis pekerjaan, rekomendasikan pekerjaan dengan jenis yang sama
+if ($jobType) {
+    $queryRekomendasi = "
+        SELECT L.*, U.nama AS company_name
+        FROM Lowongan L
+        JOIN Users U ON L.company_id = U.user_id
+        WHERE L.jenis_pekerjaan = :jenis_pekerjaan
+        AND L.is_open = TRUE
+        ORDER BY L.created_at DESC
+        LIMIT 5
+    ";
+
+    $stmtRekomendasi = $pdo->prepare($queryRekomendasi);
+    $stmtRekomendasi->execute(['jenis_pekerjaan' => $jobType['jenis_pekerjaan']]);
+    $rekomendasiList = $stmtRekomendasi->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Jika pengguna belum melamar pekerjaan, rekomendasikan pekerjaan terbaru
+    $queryRekomendasi = "
+        SELECT L.*, U.nama AS company_name
+        FROM Lowongan L
+        JOIN Users U ON L.company_id = U.user_id
+        WHERE L.is_open = TRUE
+        ORDER BY L.created_at DESC
+        LIMIT 5
+    ";
+
+    $stmtRekomendasi = $pdo->query($queryRekomendasi);
+    $rekomendasiList = $stmtRekomendasi->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Cari lowongan trending berdasarkan jumlah pelamar dalam 7 hari terakhir
+$queryTrending = "
+    SELECT L.*, U.nama AS company_name, COUNT(la.lamaran_id) AS jumlah_pelamar
+    FROM Lowongan L
+    LEFT JOIN Lamaran la ON L.lowongan_id = la.lowongan_id
+    JOIN Users U ON L.company_id = U.user_id
+    WHERE la.created_at >= NOW() - INTERVAL '7 days'
+    AND L.is_open = TRUE
+    GROUP BY L.lowongan_id, U.nama
+    ORDER BY jumlah_pelamar DESC
+    LIMIT 5
+";
+
+
+$stmtTrending = $pdo->query($queryTrending);
+$trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -237,6 +306,62 @@ $totalPages = ceil($totalLowongan / $perPage);
         </form>
         </aside>
     </aside>
+    <section class="job-recommendations">
+    <div class="header">
+        <h2>Recommended Jobs for You</h2>
+        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+    </div>
+
+    <ul class="job-cards">
+        <?php if ($rekomendasiList): ?>
+            <?php foreach ($rekomendasiList as $rekomendasi): ?>
+                <li class="job-card">
+                    <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($rekomendasi['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($rekomendasi['posisi']) ?></a></h4>
+                    <p class="company"><?= htmlspecialchars($rekomendasi['company_name']) ?></p>
+                    <p class="location"><?= htmlspecialchars($rekomendasi['jenis_lokasi']) ?></p>
+                    <span class="promoted"><?= htmlspecialchars($rekomendasi['jenis_pekerjaan']) ?></span>
+                    <p style="font-weight:bold; font-size:14px; color:#666666;">
+                        <?php if ($rekomendasi['is_open']): ?>
+                            <span>Open</span>
+                        <?php else: ?>
+                            <span>Closed</span>
+                        <?php endif; ?>
+                    </p>
+                </li>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No recommendations available at the moment.</p>
+        <?php endif; ?>
+    </ul>
+</section>
+<section class="job-trending">
+    <div class="header">
+        <h2>Trending Jobs</h2>
+        <p>These jobs are trending based on recent applications</p>
+    </div>
+
+    <ul class="job-cards">
+        <?php if ($trendingList): ?>
+            <?php foreach ($trendingList as $trending): ?>
+                <li class="job-card">
+                    <h4><a href="detail_lowongan_jobseeker.php?lowongan_id=<?= htmlspecialchars($trending['lowongan_id']); ?>" class="job-link"><?= htmlspecialchars($trending['posisi']) ?></a></h4>
+                    <p class="company"><?= htmlspecialchars($trending['company_name']) ?></p>
+                    <p class="location"><?= htmlspecialchars($trending['jenis_lokasi']) ?></p>
+                    <span class="promoted"><?= htmlspecialchars($trending['jenis_pekerjaan']) ?></span>
+                    <p style="font-weight:bold; font-size:14px; color:#666666;">
+                        <?php if ($trending['is_open']): ?>
+                            <span>Open</span>
+                        <?php else: ?>
+                            <span>Closed</span>
+                        <?php endif; ?>
+                    </p>
+                </li>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No trending jobs at the moment.</p>
+        <?php endif; ?>
+    </ul>
+</section>
 <section>
 <div class="card-header">
     <div class="card-content">
@@ -276,6 +401,9 @@ $totalPages = ceil($totalLowongan / $perPage);
 
 
     </section>
+    
+
+
      <!-- Pagination -->
      <div id="pagination" class="pagination">
             <?php if ($totalPages > 1): ?>
