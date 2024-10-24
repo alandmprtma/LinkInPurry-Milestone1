@@ -14,64 +14,124 @@ try {
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-
-    // Ambil data dari form
-    $role = $_POST['role']; // 'jobseeker' atau 'company'
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Hash password sebelum menyimpan ke database
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    $retval = array("Success"=>FALSE,"Reason"=>"");
-
-    if ($nama != NULL && $email != NULL && $password != NULL){
-
-        try {
-            if (!preg_match('/^[\w\-\.]+@([\w\-]+\.)+[\w\-]+$/',$email)){
-                $retval["Reason"] = "Bad email!";
-            }
-            else{
+function emailcheck($emailtocheck){
+    global $pdo;
+    
+    if (!preg_match('/^[\w\-\.]+@([\w\-]+\.)+[\w\-]+$/',$emailtocheck)){
+        return "Bad email!";
+    }
+    else{
+        try{
             // Cek apakah email sudah ada di database
             $query = "SELECT COUNT(*) FROM Users WHERE email = :email";
             $stmt = $pdo->prepare($query);
-            $stmt->execute(['email' => $email]);
+            $stmt->execute(['email' => $emailtocheck]);
             $emailCount = $stmt->fetchColumn();
 
             if ($emailCount > 0) {
                 // Jika email sudah terdaftar
-                $retval["Reason"] = "Email already exists!";
-                }
-            else{
-                // Jika email belum terdaftar, masukkan ke database
-                $query = "INSERT INTO Users (email, password, role, nama) VALUES (:email, :password, :role, :nama)";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute([
-                    'email' => $email,
-                    'password' => $hashedPassword,
-                    'role' => $role,
-                    'nama' => $nama
-                ]);
-                $retval["Success"] = TRUE;
-                }
+                return "Email already exists!";
             }
+            else {
+                return "";
+            }
+        }
+        catch (PDOException $e){
+            return $e;
+        }
+    }
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    $rawjsondata = file_get_contents('php://input');
+    $jsondata = json_decode($rawjsondata, TRUE);
+
+    $retval = array("success"=>FALSE,"reason"=>"");
+
+    if (!isset($jsondata)){
+        $retval["reason"] = "JSON Missing!";
+        echo json_encode($retval);
+        exit();
+    }
+
+    // Ambil data dari form
+    $email = $jsondata['email'];
+
+    if ($jsondata["intent"] == "email-check"){
+        $emailcheck = emailcheck($email);
+        if ($emailcheck != ""){
+            $retval["reason"] = $emailcheck;
+        }
+        else{
+            $retval["success"] = TRUE;
+        }
+    }
+    else if ($jsondata["intent"] == "register"){
+        $role = $jsondata['role']; // 'jobseeker' atau 'company'
+        $nama = $jsondata['nama'];
+        $password = $jsondata['password'];
+
+        // Hash password sebelum menyimpan ke database
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        if ($nama != NULL && $email != NULL && $password != NULL){
+
+            try {
+                $emailcheck = emailcheck($email);
+                if ($emailcheck != "") {
+                    $retval["reason"] = $emailcheck;
+                }
+                else{
+                    // Jika email belum terdaftar, masukkan ke database
+                    $query = "INSERT INTO Users (email, password, role, nama) VALUES (:email, :password, :role, :nama)";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute([
+                        'email' => $email,
+                        'password' => $hashedPassword,
+                        'role' => $role,
+                        'nama' => $nama
+                    ]);
+
+                    if ($role == 'company'){
+                        $location = "";
+                        $about = "";
+
+                        if (isset($jsondata["location"])) {$location = $jsondata["location"];}
+                        if (isset($jsondata["about"])) {$about = $jsondata["about"];}
+
+                        $query = " WITH email AS (SELECT user_id FROM users WHERE email = :email)
+                                   INSERT INTO companydetail (user_id, lokasi, about)
+                                   SELECT email.user_id, :lokasi, :about
+                                   FROM email;
+                                 ";
+                        $stmt = $pdo->prepare($query);
+                        $stmt->execute([
+                            'email' => $email,
+                            'lokasi' => $location,
+                            'about' => $about
+                        ]);
+                    }
+
+                    $retval["success"] = TRUE;
+                }
             }
             catch (PDOException $e){
-                $retval["Reason"] = $e;
+                $retval["reason"] = $e;
             }
-        
-    }
-    else{
-               //input form gak bener
+            
+        }
+        else{
+            //missing data
+            $retval["reason"] = "Missing data!";
+        }
     }
     echo json_encode($retval);
     exit();
 }
 else{
-    echo "What";
+    header("Location: ../auth/register.html");
     exit();
 }
 ?>

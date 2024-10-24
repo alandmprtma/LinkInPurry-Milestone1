@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Company</title>
     <link rel="stylesheet" href="../css/riwayat_lamaran.css">
-    <link rel="stylesheet" href="css/styles_dl.css"> <!-- Menggunakan CSS global -->
+    <link rel="stylesheet" href="../css/styles_js.css"> <!-- Menggunakan CSS global -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </head>
 <body>
@@ -117,13 +117,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
            </div>
             <ul class="nav-links">
                 <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-                <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+                <li><a class="current" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
                 <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
             </ul>
-        </nav>
+</nav>
 
-<div class="">
+<main class="riwayat-container">
     <div class="container">
+        <p>Filter by status</p>
         <ul>
             <ul class="button_list">
                 <li><button class="toggle_button" onclick="filter(this, 'accepted')">Accepted</button></li>
@@ -133,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         </ul>
     </div>
     <p><strong>Riwayat lamaran:</strong></p>
-    <div>
+    <div class="expand">
         <div class="container lamaran-container" id="lamaran-container">
             <a class="lamaran" href="#">            
                 <span class="corpname">
@@ -142,13 +143,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="status rejected"> <b> Rejected </b> </span>
             </a>
         </div>
-        <span>
+        <span class="pagination-container">
             <button class="riwayat_pagination_button" id="leftbttn" onclick="pageoffset(-1);" hidden><i class="fa-solid fa-angle-left"></i></button>
             <input id="pageno" type="text"> <label> of <b id="lamar_count"></b></label>
             <button class="riwayat_pagination_button" id="rightbttn" onclick="pageoffset(1);" hidden><i class="fa-solid fa-angle-right"></i></button>
         </span>
     </div>
-</div>
+</main>
 
 </body>
 

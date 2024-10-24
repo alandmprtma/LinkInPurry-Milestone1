@@ -115,7 +115,7 @@ body {
     align-items: center;
 }
 
-.nav-links li:first-child .current::after {
+.nav-links li .current::after {
     content: '';
     width: 80px; /* Lebar garis bawah */
     height: 2px; /* Tinggi garis bawah */

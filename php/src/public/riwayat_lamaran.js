@@ -69,7 +69,7 @@ function getcount(filter){
             else{
                 failsafe ++;
                 if (failsafe > 4){
-                    reject(-1);
+                    reject("Cannot establish connection with server!");
                 }
             }
         };
@@ -173,7 +173,7 @@ function populateLamaran(page, entryPerPage, filter) {
                 const lamaran = data[i];
                 // insert template here
                 const lamaranTemplate = `
-                    <a class="lamaran" href="../detail_lamaran.php?lamaran_id=${lamaran["lamaran_id"]}">            
+                    <a class="lamaran" href="../detail_lowongan_jobseeker.php?lowongan_id=${lamaran["lamaran_id"]}">            
                     <span class="corpname">
                         <b> ${lamaran["company_name"]} </b> ${lamaran["posisi"]}
                     </span>
@@ -191,9 +191,12 @@ function populateLamaran(page, entryPerPage, filter) {
             }
 
             pageno.value = page;
-            pagecount = Math.ceil(total_lamaran/entryPerPage);
-            pagecountdisplay.innerHTML = pagecount;
-            pageoffset(0);
+            getcount(filter).then(function(response) {
+                total_lamaran = response;
+                pagecount = Math.ceil(total_lamaran/entryPerPage);
+                pagecountdisplay.innerHTML = pagecount;
+                pageoffset(0);
+            })
         })
         .catch(
         function(error){

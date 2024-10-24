@@ -46,11 +46,13 @@ function checkpasswordCorrect() {
     var password2 = checkPassword.value;
     console.log("change");
     if (password1 == password2) {
-        passwordReport.hidden = true;
+        //passwordReport.hidden = true;
+        reportinput("checkpassword-report");
         goodPassword = true
     }
     else {
-        passwordReport.hidden = false;
+        //passwordReport.hidden = false;
+        reportinput("checkpassword-report","Password is not matching!");
         goodPassword = false
     }
 }
@@ -58,27 +60,83 @@ function checkpasswordCorrect() {
 firstPassword.addEventListener("input", checkpasswordCorrect);
 checkPassword.addEventListener("input", checkpasswordCorrect);
 
-function checkEmail(email) {
+function checkEmail() {
+
+    const email = emailbox.value;
+    if (email == '' || email == null){
+        reportinput("email-report","Email cannot be empty!");
+        resolve(false);
+    }
+    //cleanse any errors
+    return new Promise((resolve,reject) =>{
     const emailRegexCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]+$/;
-    return emailRegexCheck.test(email);
+    if (!emailRegexCheck.test(email)){
+        //warn bad email format!
+        reportinput("email-report","Incorrect email format!");
+        resolve(false);
+    }
+    //post request
+    var xmlh = new XMLHttpRequest();
+        xmlh.open('POST', '../auth/register.php');
+        xmlh.onreadystatechange = function () {
+            var failsafe = 0;
+            if (xmlh.readyState == 4 && xmlh.status == 200) {
+                try {
+                    const ajaxrespone = JSON.parse(xmlh.response);
+
+                    if (ajaxrespone["success"] == true) {
+                        reportinput("email-report");
+                        resolve(true);
+                    }
+                    else {
+                        reportinput("email-report",ajaxrespone["reason"]+" ");
+                        //warn bad email or smthn
+                        resolve(false);
+                    }
+                } catch (error) {
+                    //usually if the retval isnt json, something happened
+                    console.warn(xmlh.response);
+                }
+            }
+            else {
+                failsafe ++;
+                if (failsafe > 4){
+                    reject("Cannot establish connection with server!");
+                }
+            }
+        };
+
+        xmlh.setRequestHeader("Content-Type", "application/json");
+        
+        var payload = {
+            "intent" : "email-check",
+            "email" : email
+        }
+
+        xmlh.send(JSON.stringify(payload));
+    })
 }
 
-document.getElementById("password_visible").addEventListener("change", function () {
-    if (this.checked) {
+document.getElementById("password_visible").addEventListener("click", function () {
+    if (this.classList.contains("fa-eye-slash")){
         firstPassword.type = 'text';
     }
     else {
         firstPassword.type = 'password';
     }
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
 })
 
-document.getElementById("checkpassword_visible").addEventListener("change", function () {
-    if (this.checked) {
+document.getElementById("checkpassword_visible").addEventListener("click", function () {
+    if (this.classList.contains("fa-eye-slash")){
         checkPassword.type = 'text';
     }
     else {
         checkPassword.type = 'password';
     }
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
 })
 
 
@@ -118,16 +176,27 @@ function canUpload() {
 
     }
     else if (namebox.value != "" && emailbox != "" && firstPassword != "" && checkPassword != "" && goodPassword) {
-        uploadButton.disabled = false;
-        return true;
+        checkEmail().then(function(response){
+            if (response == true){
+                uploadButton.disabled = false;
+                return true;
+            }
+            else{
+                uploadButton.disabled = true;
+                return false;
+            }
+        }).catch(function(error){
+            //error???
+        })
+        
     }
     else {
         uploadButton.disabled = true;
         return false;
     }
 }
-namebox.addEventListener("input", canUpload);
-emailbox.addEventListener("input", canUpload);
+namebox.addEventListener("change", canUpload);
+emailbox.addEventListener("change", canUpload);
 firstPassword.addEventListener("input", canUpload);
 checkPassword.addEventListener("input", canUpload);
 
@@ -150,9 +219,11 @@ function submit() {
         else{
             console.log("Sending...")
         }
+        
         var xmlh = new XMLHttpRequest();
         xmlh.open('POST', '../auth/register.php');
         xmlh.onreadystatechange = function () {
+            var antidouble = false;
             if (xmlh.readyState == 4 && xmlh.status == 200) {
                 //Report success
                 console.log("testlmao");
@@ -160,12 +231,14 @@ function submit() {
                     const ajaxrespone = JSON.parse(xmlh.response);
                     console.log(ajaxrespone);
 
-                    if (ajaxrespone["Success"] == true) {
+                    if (ajaxrespone["success"] == true) {
+                        antidouble = true;
+                        console.log("redirecting...")
                         setTimeout(function () {
-                            window.location.href = "../login.html";
+                            window.location.href = "../auth/login.html";
                         }, 3000);
                     }
-                    else {
+                    else if (!antidouble){
                         console.warn("Failure");
                     }
                 } catch (error) {
@@ -180,20 +253,40 @@ function submit() {
         const email = emailbox.value;
         const pass = password.value;
 
-        xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlh.setRequestHeader("Content-Type", "application/json");
         
-        var payload = "role=" + selectedType + "&nama=" + nama + "&email=" + email + "&password=" + pass
-        if (corpo_mode){
-            payload += "&location=" + location + "&about=" + about;
+        var payload = {
+            "intent" : "register",
+            "role" : selectedType,
+            "nama" : nama,
+            "email" : email,
+            "password" : pass
         }
-        xmlh.send(payload);
+        if (corpo_mode){
+            payload["location"] = location,
+            payload["about"] = quill.root.innerHTML
+        }
+        xmlh.send(JSON.stringify(payload));
     }
     else {
         console.error("Nice try!");
     }
 }
 
-function report(success, reason) {
+function reportinput(id, info){
+    var reportbox = document.getElementById(id);
+    var parentcl = reportbox.parentNode;
+
+    if (info != '' && info != null){
+        reportbox.innerHTML = info;
+        parentcl.classList.add("bad");
+    }else{
+        reportbox.innerHTML = "";
+        parentcl.classList.remove("bad");
+    }
+}
+
+function reportbox(success, reason) {
     if (success == true) {
 
     }
@@ -202,7 +295,7 @@ function report(success, reason) {
     }
 }
 
-function hide_report() {
+function hide_reportbox() {
 
 }
 
