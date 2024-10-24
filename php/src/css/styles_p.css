@@ -1,0 +1,64 @@
+body {
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.shadowed {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nameplate {
+    background-color: #e3e7ea;
+    padding: 5% 10% 5% 10%;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.box {
+    width: 80%;
+    border: 10%;
+    border-radius: 1dvw;
+    margin: 1%;
+    background-color: white;
+}
+
+.profile_editor_div {
+    display: block;
+    width: 100%;
+}
+
+.profile_editor_button {
+    width: 25%;
+}
+
+.profile_editor_div * {
+    float: right;
+}
+
+.yipee {
+    position: absolute;
+    display: flex;
+    bottom: 5%;
+    right: 5%;
+    width: 20%;
+    height: 10%;
+    background-color: green;
+    border-radius: 2vh;
+    padding: 0 1%;
+}
+
+.yipee h2 {
+    color: white;
+    align-self: center;
+}
+
+.location-span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.location-span div {
+    margin: 0 1%;
+}
