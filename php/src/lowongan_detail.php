@@ -69,13 +69,13 @@ $lamaranList = $stmtLamaran->fetchAll();
 <body>
 
 <nav class="navbar">
-    <img class="logo" src="assets/LinkInPurry-crop.png" alt=".">
+    <img class="logo" src="assets/LinkInPurry-crop.png" alt="LinkIn Purry Logo">
     <div class="hamburger-menu" id="hamburger-menu">
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="."> Home</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
+        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="Home"> Home</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="Log Out"> Log Out</a></li>
     </ul>
 </nav>
 <main style='align-content: center;'>

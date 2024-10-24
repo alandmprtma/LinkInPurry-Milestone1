@@ -321,7 +321,7 @@ main {
 
 .profile-card .body .location {
     font-size: 12px;
-    color: #999;
+    color: #333;
 }
 
 .profile-card .footer {
@@ -530,7 +530,7 @@ main {
 
 .guidance-card .recommendation {
     font-size: 12px;
-    color: #888;
+    color: #333;
     margin-bottom: 1rem;
 }
 

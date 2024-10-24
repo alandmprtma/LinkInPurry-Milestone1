@@ -48,6 +48,8 @@ if (!$lowongan) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit your job with LinkInPurry, the best platform for job seekers and employers.">
+    <meta name="description" content="">
     <title>Edit Lowongan</title>
     <link rel="stylesheet" href="css/styles_el.css"> <!-- Menggunakan CSS global -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -62,13 +64,13 @@ if (!$lowongan) {
 <body>
 
 <nav class="navbar">
-    <img class="logo" src="assets/LinkInPurry-crop.png">
+    <img class="logo" src="assets/LinkInPurry-crop.png" alt="LinkInPurry Logo">
     <div class="hamburger-menu" id="hamburger-menu">
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="Home"> Home</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="Log Out"> Log Out</a></li>
     </ul>
 </nav>
 <main style='align-content: center;'>
