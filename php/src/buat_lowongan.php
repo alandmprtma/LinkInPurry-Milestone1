@@ -32,7 +32,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
     <div class="hamburger-menu" id="hamburger-menu">
         <i class="fas fa-bars"></i>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-links">
         <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
         <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
     </ul>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
             </div>
 
             <div class="button-group">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
@@ -191,14 +191,5 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
         </aside>
 <main>
 </body>
+<script src=public/hamburgermenu.js></script>
 </html>
-
-<script>
-const hamburgerMenu = document.getElementById('hamburger-menu');
-const navLinks = document.querySelector('.nav-links');
-
-hamburgerMenu.addEventListener('click', () => {
-    navLinks.classList.toggle('active'); // Toggle class untuk menampilkan atau menyembunyikan nav links
-});
-
-</script>
