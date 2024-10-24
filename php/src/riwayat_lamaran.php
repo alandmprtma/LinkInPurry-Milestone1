@@ -17,7 +17,7 @@ else if ($_SESSION['role'] != 'jobseeker') {
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "GET"){
     // Koneksi ke database
     $host = 'db'; // Atau localhost jika di luar Docker
     $dbname = 'linkinpurry_db';
@@ -31,30 +31,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         die("Koneksi ke database gagal: " . $e->getMessage());
     }    
 
-    if (!isset($_POST['count'])){
-        // Query untuk mendapatkan detail lamaran
+    if (isset($_GET['data'])){
         $query ="WITH deskripsilowongan AS (SELECT lowongan_id, company_id, posisi FROM lowongan),
-        namelist AS (SELECT user_id, nama FROM users)
-        SELECT ll.lamaran_id ,n.nama AS company_name, ll.posisi, ll.status, ll.created_at
-        FROM (lamaran AS la INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id) AS ll
-        INNER JOIN namelist as n ON ll.company_id = n.user_id
-        WHERE ll.user_id = :active_user";
+                namelist AS (SELECT user_id, nama FROM users)
+                SELECT la.lowongan_id, n.nama AS company_name, dl.posisi, la.status, la.created_at
+                FROM lamaran AS la
+                INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id
+                INNER JOIN namelist AS n ON dl.company_id = n.user_id
+                WHERE la.user_id = :active_user";
 
         $vars = ['active_user' => $_SESSION['user_id']];
 
-        if (isset($_POST['filter'])) {
-            $query .= " AND ll.status = :filter";
-            $vars['filter'] = $_POST['filter'];
+        if (isset($_GET['filter'])) {
+            $query .= " AND la.status = :filter";
+            $vars['filter'] = $_GET['filter'];
         } 
 
-        if (isset($_POST['limit'])) {
+        if (isset($_GET['limit'])) {
             $query .= " LIMIT :limit";
-            $vars['limit'] = $_POST['limit'];
+            $vars['limit'] = $_GET['limit'];
         }
 
-        if (isset($_POST['skip'])) {
+        if (isset($_GET['skip'])) {
             $query .= " OFFSET :skip";
-            $vars['skip'] = $_POST['skip'];
+            $vars['skip'] = $_GET['skip'];
         }
         
         $stmt = $pdo->prepare($query);
@@ -62,19 +62,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         exit();
     }
-    else{
+    else if (isset($_GET['count'])){
         $query ="WITH deskripsilowongan AS (SELECT lowongan_id, company_id, posisi FROM lowongan),
-        namelist AS (SELECT user_id, nama FROM users)
-        SELECT COUNT(*) AS count
-        FROM (lamaran AS la INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id) AS ll
-        INNER JOIN namelist as n ON ll.company_id = n.user_id
-        WHERE ll.user_id = :active_user";
+                namelist AS (SELECT user_id, nama FROM users)
+                SELECT COUNT(*)
+                FROM lamaran AS la
+                INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id
+                INNER JOIN namelist AS n ON dl.company_id = n.user_id
+                WHERE la.user_id = :active_user";
 
         $vars = ['active_user' => $_SESSION['user_id']];
 
-        if (isset($_POST['filter'])) {
-            $query .= " AND ll.status = :filter";
-            $vars['filter'] = $_POST['filter'];
+        if (isset($_GET['filter'])) {
+            $query .= " AND la.status = :filter";
+            $vars['filter'] = $_GET['filter'];
         } 
 
         $stmt = $pdo->prepare($query);
@@ -83,6 +84,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         echo $count;
         exit();
     }
+    else {
+        echo isset($_GET['data']);
+        echo isset($_GET['count']);
+    }
+}
+else{
+    echo $_SERVER["REQUEST_METHOD"];
 }
 ?>
 
@@ -101,16 +109,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <nav class="navbar">
             <img class="logo" src="assets/LinkInPurry-crop.png">
             <form method="GET" action="home_company.php">
-            <div class="search-bar">
-                <div class="icon">
-                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
-                </div>
-                <div class="search-bar-container">
-                <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['user_id'];?>">
-                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
-                <div id="autocomplete-results" class="autocomplete-results"></div>
-                </div>
-            </div>
             </form>
             <div class="hamburger-menu" id="hamburger-menu">
                 <i class="fas fa-bars"></i>

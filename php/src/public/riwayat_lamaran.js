@@ -59,8 +59,14 @@ function filter(toggle_button, filter){
 
 function getcount(filter){
     return new Promise((resolve,reject) => {
+
+        var payload = "count";
+        if (filter != null){
+            payload += "&filter="+filter;
+        }
+
         var xmlh = new XMLHttpRequest();
-        xmlh.open('POST', '../riwayat_lamaran.php');
+        xmlh.open('GET', '../riwayat_lamaran.php?' + payload);
         var failsafe = 0;
         xmlh.onreadystatechange = function () {
             if (xmlh.readyState == 4 && xmlh.status == 200) {
@@ -74,14 +80,7 @@ function getcount(filter){
             }
         };
         xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        var payload = "count";
-
-        if (filter != null){
-            payload += "&filter="+filter;
-        }
-
-        xmlh.send(payload);
+        xmlh.send();
     })
     
 }
@@ -91,7 +90,19 @@ function getdata(limit, skip, filter){
     console.log(skip);
     return new Promise((resolve,reject) => {
         var xmlh = new XMLHttpRequest();
-        xmlh.open('POST', '../riwayat_lamaran.php');
+
+        var payload = "data";
+        if (limit != null){
+            payload = payload + "&limit=" + limit;
+        }
+        if (skip != null){
+            payload = payload + "&skip=" + skip;
+        }
+        if (filter != null){
+            payload = payload + "&filter=" + filter;
+        }
+
+        xmlh.open('GET', '../riwayat_lamaran.php?'+payload);
         var failsafe = 0;
         xmlh.onreadystatechange = function () {
             if (xmlh.readyState == 4 && xmlh.status == 200) {
@@ -105,17 +116,7 @@ function getdata(limit, skip, filter){
             }
         };
         xmlh.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        var payload = "";
-        if (limit != null){
-            payload = payload + "limit=" + limit;
-        }
-        if (skip != null){
-            payload = payload + "&skip=" + skip;
-        }
-        if (filter != null){
-            payload = payload + "&filter=" + filter;
-        }
-        xmlh.send(payload);
+        xmlh.send();
     })
 }
 
@@ -161,19 +162,20 @@ function populateLamaran(page, entryPerPage, filter) {
         return null;
     }
 
-    lamaranContainer.innerHTML = "";
-
     //get data first
     getdata(entryPerPage, (page-1) * entryPerPage, filter)
         .then(
         function(response){
             var first = true;
-            var data = JSON.parse(response)
+            var data = JSON.parse(response);
+            //nuke lamarancontainer
+            lamaranContainer.innerHTML = "";
+
             for (let i = 0; i < data.length; i++) {
                 const lamaran = data[i];
                 // insert template here
                 const lamaranTemplate = `
-                    <a class="lamaran" href="../detail_lowongan_jobseeker.php?lowongan_id=${lamaran["lamaran_id"]}">            
+                    <a class="lamaran" href="../detail_lowongan_jobseeker.php?lowongan_id=${lamaran["lowongan_id"]}">            
                     <span class="corpname">
                         <b> ${lamaran["company_name"]} </b> ${lamaran["posisi"]}
                     </span>
@@ -186,6 +188,7 @@ function populateLamaran(page, entryPerPage, filter) {
                 else{
                     lamaranContainer.insertAdjacentHTML('beforeend', '<hr>');    
                 }
+
                 // insert the template into the user container
                 lamaranContainer.insertAdjacentHTML('beforeend', lamaranTemplate);
             }

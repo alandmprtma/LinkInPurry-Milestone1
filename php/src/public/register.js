@@ -8,6 +8,7 @@ var splashtext = document.getElementById("splashtext");
 var selection = document.getElementById("selection");
 var information = document.getElementById("information");
 var corpoinfo = document.getElementById("corpo-information");
+var corplocation = document.getElementById("location")
 var selectedType = "None";
 var goodPassword = false;
 
@@ -162,16 +163,20 @@ document.getElementById("location").addEventListener("input", function(){
 
 var uploadButton = document.getElementById("submit_data");
 
+var canUploadVar = false
+
 function canUpload() {
     if (corpo_mode){
-        var location = document.getElementById("location").value
-        if (location != null && location !== ""){
+        var clocation = corplocation.value
+        if (clocation != null && clocation !== ""){
+            reportinput("location-report")
             uploadButton.disabled = false;
-            return true;
+            canUploadVar = true;
         }
         else{
+            reportinput("location-report","Location cannot be empty!");
             uploadButton.disabled = true;
-            return false;
+            canUploadVar = false;
         }
 
     }
@@ -179,20 +184,22 @@ function canUpload() {
         checkEmail().then(function(response){
             if (response == true){
                 uploadButton.disabled = false;
-                return true;
+                canUploadVar = true;
             }
             else{
                 uploadButton.disabled = true;
-                return false;
+                canUploadVar = false;
             }
         }).catch(function(error){
+            console.warn("checkemail failure");
             //error???
         })
         
     }
     else {
+        console.log("huh");
         uploadButton.disabled = true;
-        return false;
+        canUploadVar = false;
     }
 }
 namebox.addEventListener("change", canUpload);
@@ -200,18 +207,23 @@ emailbox.addEventListener("change", canUpload);
 firstPassword.addEventListener("input", canUpload);
 checkPassword.addEventListener("input", canUpload);
 
+corplocation.addEventListener("change", function(){
+    canUpload();
+});
+
 uploadButton.addEventListener("click", submit);
 document.getElementById("submit_data_corpo").addEventListener("click", submit);
 
 //go to corpo details first
 var corpo_mode = false;
 
+
 function submit() {
     //if JobSeeker, immediately upload
-    if (canUpload()) {
+    if (canUploadVar) {
         if (selectedType == 'company' && !corpo_mode){
+            uploadButton.disabled = true;
             corpo_mode = true;
-            canUpload();
             //slide to right
             corpoinfo.scrollIntoView({ behavior: "smooth" });
             return false;
@@ -263,7 +275,7 @@ function submit() {
             "password" : pass
         }
         if (corpo_mode){
-            payload["location"] = location,
+            payload["location"] = document.getElementById("location").value,
             payload["about"] = quill.root.innerHTML
         }
         xmlh.send(JSON.stringify(payload));
@@ -300,9 +312,12 @@ function hide_reportbox() {
 }
 
 function returnto_info() {
+    corpo_mode = false;
+    canUpload();
     information.scrollIntoView({ behavior: "smooth" });
 }
 
 function returnto_pick() {
+    selectedType = "None";
     selection.scrollIntoView({ behavior: "smooth" });
 }

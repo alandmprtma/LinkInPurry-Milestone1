@@ -210,6 +210,7 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LinkedInPurry is a platform for job seekers to find their dream job.">
     <title>LinkInPurry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
@@ -217,12 +218,12 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <nav class="navbar">
-        <img class="logo" src="assets/LinkInPurry-crop.png">
+        <img class="logo" src="assets/LinkInPurry-crop.png" alt=".">
         
         <form method="GET" action="home_jobseeker.php" id="search-form" class="search-form">
             <div class="search-bar">
                 <div class="icon">
-                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
+                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon" >
                 </div>
                 <div class="search-bar-container">
                     <input type="text" id="search_keyword" name="search_keyword" onkeyup="handleSearchInput(event)" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
@@ -238,9 +239,9 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
 
         <!-- Navigation Links -->
         <ul class="nav-links" id="nav-links">
-            <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
-            <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
-            <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+            <li><a class="current" href="/"> <img src="assets/home_black.png" alt="."> Home</a></li>
+            <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png" alt="."> My Jobs</a></li>
+            <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
         </ul>
     </nav>
     <main style='align-content: center;'>
