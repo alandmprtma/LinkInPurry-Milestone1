@@ -20,6 +20,7 @@ function funcA() {
     selectedType = "jobseeker";
     buttonA.classList.add('pickleft');
     uploadButton.innerHTML = "Submit!";
+    uploadButton.ariaLabel = "Submit registration data";
 }
 
 function funcB() {
@@ -29,6 +30,7 @@ function funcB() {
     selectedType = "company";
     buttonB.classList.add('pickright');
     uploadButton.innerHTML = "Next";
+    uploadButton.ariaLabel = "Next section";
 }
 
 buttonA.addEventListener("click", funcA);

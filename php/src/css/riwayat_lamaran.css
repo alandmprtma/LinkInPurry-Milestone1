@@ -133,6 +133,11 @@ hr {
     padding: 0 2%;
 }
 
+.pagination-container label {
+    text-align: center;
+    width: 15%;
+}
+
 .riwayat-container{
     display: flex;
     flex-direction: column;

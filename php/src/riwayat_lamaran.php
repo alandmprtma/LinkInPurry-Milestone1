@@ -154,9 +154,10 @@ else{
             </a>
         </div>
         <span class="pagination-container">
-            <button class="riwayat_pagination_button" id="leftbttn" onclick="pageoffset(-1);" hidden><i class="fa-solid fa-angle-left"></i></button>
+            <button class="riwayat_pagination_button" id="leftbttn" onclick="pageoffset(-1);" aria-label="Previous page" hidden><i class="fa-solid fa-angle-left"></i></button>
+            <label for="pageno"> Page </label>
             <input id="pageno" type="text"> <label> of <b id="lamar_count"></b></label>
-            <button class="riwayat_pagination_button" id="rightbttn" onclick="pageoffset(1);" hidden><i class="fa-solid fa-angle-right"></i></button>
+            <button class="riwayat_pagination_button" id="rightbttn" onclick="pageoffset(1);" aria-label="Next page" hidden><i class="fa-solid fa-angle-right"></i></button>
         </span>
     </div>
 </main>
