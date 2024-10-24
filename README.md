@@ -60,44 +60,75 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 ## Screenshots
 
 ### 1. Login Page
-![Login Page](screenshots/login.png)
+<div style="text-align: center;">
+    <img src="screenshots/login.png" alt="Login Page" width="400" />
+</div>
 
 ### 2. Register page
-![Register page](screenshots/register1.png)
-![Register page](screenshots/register2.png)
+<div style="text-align: center;">
+    <img src="screenshots/register1.png" alt="Register Page" width="400" />
+</div>
+<div style="text-align: center;">
+    <img src="screenshots/register2.png" alt="Register Page" width="400" />
+</div>
 
 ### 3. Home (Company)
-![Home (Company)](screenshots/home_company.png)
+<div style="text-align: center;">
+    <img src="screenshots/home_company.png" alt="Home Page" width="400" />
+</div>
 
 ### 4. Detail Lowongan (Company)
-![Detail Lowongan (Company)](screenshots/detail_lowongan_company.png)
+
+<div style="text-align: center;">
+    <img src="screenshots/detail_lowongan_company.png" alt="Detail Lowongan (Company)" width="400" />
+</div>
 
 ### 5. Tambah Lowongan (Company)
-![Tambah Lowongan (Company)](screenshots/buat_lowongan.png)
+<div style="text-align: center;">
+    <img src="screenshots/buat_lowongan.png" alt="Tambah Lowongan (Company)" width="400" />
+</div>
+
 
 ### 6. Detail Pelamar
-![Detail Pelamar](screenshots/detail_pelamar.png)
+<div style="text-align: center;">
+    <img src="screenshots/detail_pelamar.png" alt="Detail Pelamar" width="400" />
+</div>
+
 
 ### 7. Home (Jobseeker)
-![Home (Jobseeker))](screenshots/home_jobseeker.png)
+<div style="text-align: center;">
+    <img src="screenshots/home_jobseeker.png" alt="Home (Jobseeker)" width="400" />
+</div>
 
 ### 8. Detail Lowongan (Jobseeker)
-![Detail Lowongan (Jobseeker)](screenshots/detail_lowongan_jobseeker.png)
+<div style="text-align: center;">
+    <img src="screenshots/detail_lowongan_jobseeker.png" alt="Detail Lowongan (Jobseeker)" width="400" />
+</div>
 
 ### 9. Apply Lowongan
-![Apply Lowongan](screenshots/apply.png)
+<div style="text-align: center;">
+    <img src="screenshots/apply.png" alt="Apply Lowongan" width="400" />
+</div>
 
 ### 10. Guest Mode
-![Guest Mode](screenshots/guest.png)
+<div style="text-align: center;">
+    <img src="screenshots/guest.png" alt="Guest Mode" width="400" />
+</div>
 
-### 10. Edit Lowongan
-![Edit Lowongan](screenshots/edit_lowongan.png)
+### 11. Edit Lowongan
+<div style="text-align: center;">
+    <img src="screenshots/edit_lowongan.png" alt="Edit Lowongan" width="400" />
+</div>
 
 ### 12. Riwayat Apply
-![Riwayat Apply](screenshots/.png)
+<div style="text-align: center;">
+    <img src="screenshots/.png" alt="Riwayat Apply" width="400" />
+</div>
 
 ### 13. Profil Company
-![Profil Company](screenshots/.png)
+<div style="text-align: center;">
+    <img src="screenshots/.png" alt="Profil Company" width="400" />
+</div>
 
 ## Lighthouse
 
@@ -110,35 +141,73 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 ### 3. Job Listing Page (Company)
 ![Company Job Listing](screenshots/company-jobs.png)
 
+### 4. Buat Lowongan (Company)
+<div style="text-align: center;">
+    <img src="lighthouse/buat_lowongan_before.png" alt="Buat Lowongan Lighthouse After" width="400" />
+    <p>Before Enhancement</p>
+</div>
+<div style="text-align: center;">
+    <img src="lighthouse/buat_lowongan_after.png" alt="Buat Lowongan Lighthouse Before" width="400" />
+    <p>After Enhancement</p>
+</div>
+
+### 5. Detail Lamaran (Company)
+<div style="text-align: center;">
+    <img src="lighthouse/detail_lamaran_before.png" alt="Detail Lamaran Lighthouse After" width="400" />
+    <p>Before Enhancement</p>
+</div>
+<div style="text-align: center;">
+    <img src="lighthouse/detail_lamaran_after.png" alt="Detail Lamaran Lighthouse Before" width="400" />
+    <p>After Enhancement</p>
+</div>
+
+### 6. Edit Lowongan (Company)
+<div style="text-align: center;">
+    <img src="lighthouse/edit_job_before.png" alt="Edit Job Lighthouse After" width="400" />
+    <p>Before Enhancement</p>
+</div>
+<div style="text-align: center;">
+    <img src="lighthouse/edit_job_after.png" alt="Edit Job Lighthouse Before" width="400" />
+    <p>After Enhancement</p>
+</div>
+
+### 7. Home Page (Company)
+<div style="text-align: center;">
+    <img src="lighthouse/home_company_before.png" alt="Home Company Lighthouse After" width="400" />
+    <p>Before Enhancement</p>
+</div>
+<div style="text-align: center;">
+    <img src="lighthouse/home_company_after.png" alt="Home Company Lighthouse Before" width="400" />
+    <p>After Enhancement</p>
+</div>
+
+### 8. Lowongan Detail (Company)
+<div style="text-align: center;">
+    <img src="lighthouse/lowongan_detail_before.png" alt="Lowongan Detail Company Lighthouse After" width="400" />
+    <p>Before Enhancement</p>
+</div>
+<div style="text-align: center;">
+    <img src="lighthouse/home_company_after.png" alt="Lowongan Detail Lighthouse Before" width="400" />
+    <p>After Enhancement</p>
+</div>
+
 ## Task Allocation
 
-- **Server-Side (PHP):**
-  - Login/Logout: 13522146
-  - Register: 13522146, 13522130
-  - Halaman Home (JobSeeker): 13522146, 13522124
-  - Halaman Home (Company): 13522146, 13522124
-  - Halaman Tambah Lowongan (Company): 13522146
-  - Halaman Detail Lowongan (Company): 13522146
-  - Halaman Detail Lamaran (Company): 13522146
-  - Halaman Edit Lowongan (Company): 13522124
-  - Halaman Detail Lowongan (JobSeeker): 13522146
-  - Halaman Lamaran (JobSeeker): 13522146
-  - Halaman Riwayat (JobSeeker): 13522130
-  - Halaman Profil(Company): 13522130
+| Feature                               | Server-Side (PHP)       | Client-Side (HTML, CSS, JS) |
+|---------------------------------------|--------------------------|------------------------------|
+| Login/Logout                          | 13522146                 | 13522146                     |
+| Register                              | 13522146, 13522130      | 13522146, 13522130           |
+| Halaman Home (JobSeeker)             | 13522146, 13522124      | 13522146, 13522124           |
+| Halaman Home (Company)                | 13522146, 13522124      | 13522146, 13522124           |
+| Halaman Tambah Lowongan (Company)    | 13522146                 | 13522124, 13522146           |
+| Halaman Detail Lowongan (Company)     | 13522146                 | 13522124                     |
+| Halaman Detail Lamaran (Company)      | 13522146                 | 13522124                     |
+| Halaman Edit Lowongan (Company)       | 13522124                 | 13522124, 13522146           |
+| Halaman Detail Lowongan (JobSeeker)   | 13522146                 | 13522146                     |
+| Halaman Lamaran (JobSeeker)           | 13522146                 | 13522146                     |
+| Halaman Riwayat (JobSeeker)           | 13522130                 | 13522130                     |
+| Halaman Profil (Company)              | 13522130                 | 13522130                     |
 
-- **Client-Side (HTML, CSS, JS):**
-  - Login/Logout: 13522146
-  - Register: 13522146, 13522130
-  - Halaman Home (JobSeeker): 13522146, 13522124
-  - Halaman Home (Company): 13522146, 13522124
-  - Halaman Tambah Lowongan (Company): 13522124, 13522146
-  - Halaman Detail Lowongan (Company): 13522124
-  - Halaman Detail Lamaran (Company): 13522124
-  - Halaman Edit Lowongan (Company): 13522124, 13522146
-  - Halaman Detail Lowongan (JobSeeker): 13522146
-  - Halaman Lamaran (JobSeeker): 13522146
-  - Halaman Riwayat (JobSeeker): 13522130
-  - HalamanProfil(Company): 13522130
 
 ## Deliverables
 
