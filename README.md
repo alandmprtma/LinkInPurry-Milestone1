@@ -231,6 +231,14 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
     <p>After Enhancement</p>
 </div>
 
+### Lighthouse Performance Summary
+
+For each page tested using Google Lighthouse, we ensured that the metrics for **Best Practices**, **Performance**, and **Accessibility** were consistently above 90. This was achieved through various optimizations, including:
+
+- **Best Practices:** We ensured that the application adheres to modern web development standards by fixing issues such as insecure links, using HTTPS for all resources, and eliminating unused JavaScript.
+- **Performance:** We optimized page load times by minimizing and compressing CSS, JavaScript, and images. Lazy loading was applied to large images, and caching strategies were improved.
+- **Accessibility:** We improved accessibility by implementing semantic HTML tags, ensuring proper color contrast, providing alt text for images, and optimizing navigation for screen readers.
+
 ## Task Allocation
 | Feature                               | Server-Side (PHP)       | Client-Side (HTML, CSS, JS) |
 |---------------------------------------|--------------------------|------------------------------|
