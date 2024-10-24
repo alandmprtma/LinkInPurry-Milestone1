@@ -67,17 +67,46 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 ### 3. Job Listing Page (Company)
 ![Company Job Listing](screenshots/company-jobs.png)
 
+## Lighthouse
+
+### 1. Login Page
+![Login Page](screenshots/login.png)
+
+### 2. Home Page (Job Seeker)
+![Job Seeker Home](screenshots/jobseeker-home.png)
+
+### 3. Job Listing Page (Company)
+![Company Job Listing](screenshots/company-jobs.png)
+
 ## Task Allocation
 
 - **Server-Side (PHP):**
-  - Login/Logout: [Team Member 1]
-  - Register: [Team Member 2]
-  - Job Posting Management: [Team Member 3]
+  - Login/Logout: 13522146
+  - Register: 13522146, 13522130
+  - Halaman Home (JobSeeker): 13522146, 13522124
+  - Halaman Home (Company): 13522146, 13522124
+  - Halaman Tambah Lowongan (Company): 13522146
+  - Halaman Detail Lowongan (Company): 13522146
+  - Halaman Detail Lamaran (Company): 13522146
+  - Halaman Edit Lowongan (Company): 13522124
+  - Halaman Detail Lowongan (JobSeeker): 13522146
+  - Halaman Lamaran (JobSeeker): 13522146
+  - Halaman Riwayat (JobSeeker): 13522130
+  - Halaman Profil(Company): 13522130
 
 - **Client-Side (HTML, CSS, JS):**
-  - Login/Register UI: [Team Member 1]
-  - Home Page (Job Seeker): [Team Member 2]
-  - Home Page (Company): [Team Member 3]
+  - Login/Logout: 13522146
+  - Register: 13522146, 13522130
+  - Halaman Home (JobSeeker): 13522146, 13522124
+  - Halaman Home (Company): 13522146, 13522124
+  - Halaman Tambah Lowongan (Company): 13522124, 13522146
+  - Halaman Detail Lowongan (Company): 13522124
+  - Halaman Detail Lamaran (Company): 13522124
+  - Halaman Edit Lowongan (Company): 13522124, 13522146
+  - Halaman Detail Lowongan (JobSeeker): 13522146
+  - Halaman Lamaran (JobSeeker): 13522146
+  - Halaman Riwayat (JobSeeker): 13522130
+  - HalamanProfil(Company): 13522130
 
 ## Deliverables
 
@@ -86,7 +115,5 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
   - Milestone 1 focuses on completing the core features and ensuring a functional web application.
   - Further milestones will expand upon this foundation, adding advanced features and optimizations.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
