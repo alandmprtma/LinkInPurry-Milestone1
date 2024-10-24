@@ -143,13 +143,6 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 </div>
-
 </body>
+    <script src=public/hamburgermenu.js></script>
 </html>
-
-<script>
-    document.getElementById('hamburger-menu').addEventListener('click', function() {
-        const navLinks = document.getElementById('nav-links'); // Pastikan ID-nya sesuai
-        navLinks.classList.toggle('active');
-    });
-</script>
