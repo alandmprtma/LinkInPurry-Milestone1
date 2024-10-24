@@ -1,15 +1,18 @@
-
+<div align="center">
+    <img src="php/src/assets/LinkInPurry-crop.png" alt="Logo" width="200" />
+    <p>LinkedInPurry Logo</p>
+</div>
 # LinkInPurry - IF3110 Web-Based Development
 
-## Project Overview
+## 🖥️ Project Overview
 <div align="center">
     <img src="screenshots/LinkInPurry.png" alt="Buat Lowongan Lighthouse After" width="600" />
-    <p>Project Overview of LinkedInPurry</p>
+    <p>Project Overview of LinkInPurry</p>
 </div>
 
 LinkInPurry is a web-based application aimed to assist secret agents, like Purry the Platypus, and other members of O.W.C.A. (Organisasi Warga Cool Abiez) in finding job opportunities. The platform provides features for both job seekers and companies to interact, post job openings, and manage job applications.
 
-## Key Features
+## 🔓 Key Features
 | Feature                       | Description                                                            |
 |-------------------------------|------------------------------------------------------------------------|
 | **User Authentication**       | <ul><li>Separate authentication for Job Seekers and Companies.</li></ul>      |
@@ -20,7 +23,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 | **Pagination and Sorting**    | <ul><li>Job listings are paginated and can be sorted based on various criteria.</li></ul> |
 | **File Attachments**          | <ul><li>Companies can upload related job images, and applicants can attach CVs and videos.</li></ul> |
 
-## Bonus Features that we Implemented
+## 🚨 Bonus Features that we Implemented
 
 | Feature                        | Description                                                                                                                                                     |
 |--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -31,7 +34,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 | **Google Lighthouse**          | - An automated tool for improving web page quality.<br>- Conducts audits for performance, accessibility, and best practices.<br>- Ensure scores are above 90 for accessibility and above 80 for performance.<br>- Capture initial scores and document changes made to improve the scores. |
 
 
-## System Requirements
+## 🪛 System Requirements
 
 - **Client-Side:**
   - JavaScript, HTML, CSS (No frameworks like Bootstrap or Tailwind)
@@ -42,7 +45,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 - **Other Tools:**
   - Docker for containerization (Dockerfile and docker-compose.yml)
 
-## Installation Instructions
+## ️️️⚙️ Installation Instructions
 
 1. **Clone the Repository:**
    ```
@@ -61,7 +64,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 4. **Access the Application:**
    Open your browser and go to `http://localhost:8080`.
 
-## Usage Instructions
+## 🛠️ Usage Instructions
 
 ### Company Features:
 - Create, edit, and close job listings.
@@ -71,7 +74,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 - Search, filter, and apply for job listings.
 - Track job application statuses.
 
-## Screenshots
+## 📷 Screenshots
 
 ### 1. Login Page
 <div align="center">
@@ -144,7 +147,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
     <img src="screenshots/profile.png" alt="Profil Company" width="400" />
 </div>
 
-## Lighthouse
+## 🔦 Lighthouse
 ### 1. Login Page
 <div align="center">
     <img src="lighthouse/buat_lowongan_before.png" alt="Buat Lowongan Lighthouse After" width="400" />
@@ -267,7 +270,7 @@ For each page tested using Google Lighthouse, we ensured that the metrics for **
 
 
 
-## Deliverables
+## 📦 Deliverables
 
 - **Final Submission:** 24th October 2024, 21.00 WIB
 - **Milestones:**
