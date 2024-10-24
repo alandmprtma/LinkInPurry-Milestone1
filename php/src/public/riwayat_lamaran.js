@@ -106,7 +106,6 @@ function getdata(limit, skip, filter){
         var failsafe = 0;
         xmlh.onreadystatechange = function () {
             if (xmlh.readyState == 4 && xmlh.status == 200) {
-                console.log(xmlh.response);
                 resolve(xmlh.response);
             }
             else{

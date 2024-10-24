@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $vars = ['active_user' => $_SESSION['user_id']];
 
         if (isset($_GET['filter'])) {
-            $query .= " AND ll.status = :filter";
+            $query .= " AND la.status = :filter";
             $vars['filter'] = $_GET['filter'];
         } 
 
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $vars = ['active_user' => $_SESSION['user_id']];
 
         if (isset($_GET['filter'])) {
-            $query .= " AND ll.status = :filter";
+            $query .= " AND la.status = :filter";
             $vars['filter'] = $_GET['filter'];
         } 
 
@@ -109,16 +109,6 @@ else{
 <nav class="navbar">
             <img class="logo" src="assets/LinkInPurry-crop.png">
             <form method="GET" action="home_company.php">
-            <div class="search-bar">
-                <div class="icon">
-                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
-                </div>
-                <div class="search-bar-container">
-                <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['user_id'];?>">
-                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
-                <div id="autocomplete-results" class="autocomplete-results"></div>
-                </div>
-            </div>
             </form>
             <div class="hamburger-menu" id="hamburger-menu">
                 <i class="fas fa-bars"></i>
