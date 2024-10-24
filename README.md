@@ -69,8 +69,32 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 ### 3. Home (Company)
 ![Home (Company)](screenshots/home_company.png)
 
-### 3. Home (Company)
+### 4. Detail Lowongan (Company)
 ![Detail Lowongan (Company)](screenshots/detail_lowongan_company.png)
+
+### 5. Tambah Lowongan (Company)
+![Tambah Lowongan (Company)](screenshots/buat_lowongan.png)
+
+### 6. Detail Pelamar
+![Detail Pelamar](screenshots/detail_pelamar.png)
+
+### 7. Home (Jobseeker)
+![Home (Jobseeker))](screenshots/home_jobseeker.png)
+
+### 8. Detail Lowongan (Jobseeker)
+![Detail Lowongan (Jobseeker)](screenshots/detail_lowongan_jobseeker.png)
+
+### 9. Apply Lowongan
+![Apply Lowongan](screenshots/apply.png)
+
+### 9. Guest Mode
+![Apply Lowongan](screenshots/guest.png)
+
+### 10. Riwayat Apply
+![Riwayat Apply](screenshots/.png)
+
+### 11. Profil Company
+![Profil Company](screenshots/.png)
 
 ## Lighthouse
 
