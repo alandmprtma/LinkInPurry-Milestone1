@@ -103,12 +103,13 @@ hr {
 }
 
 .toggle_button.active {
-    background-color: #4CAF50; /* Active color */
+    background-color: #2867b2; /* Active color */
     color: white;
 }
 
 .toggle_button:hover {
-    background-color: #ddd; /* Hover effect */
+    background-color: #22589a; /* Hover effect */
+    color: white;
 }
 
 .riwayat_pagination_button {
@@ -132,9 +133,39 @@ hr {
     padding: 0 2%;
 }
 
-main.riwayat-container{
+.riwayat-container{
     display: flex;
     flex-direction: column;
-    width: 60%;
-    margin-left: 0;
+    width: 70%;
+    margin-left: 10%;
+}
+
+@media (max-width: 768px) {
+
+    .riwayat-container{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .status{
+        width: 35%;
+    }
+
+    .button_list {
+        width: 100%;
+        padding: 0;
+        justify-content: space-around;
+        display: flex;
+    }
+
+    .button_list li {
+        display: flex;
+        flex-grow: 1;
+        margin: 0 1%;
+    }
+
+    .toggle_button {
+        flex-grow: 1;
+    }
+
 }
