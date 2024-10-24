@@ -95,21 +95,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     ]);
 
                     if ($role == 'company'){
-                        $location = "";
+                        $corplocation = "";
                         $about = "";
 
-                        if (isset($jsondata["location"])) {$location = $jsondata["location"];}
+                        if (isset($jsondata["location"])) {$corplocation = $jsondata["location"];}
                         if (isset($jsondata["about"])) {$about = $jsondata["about"];}
 
                         $query = " WITH email AS (SELECT user_id FROM users WHERE email = :email)
                                    INSERT INTO companydetail (user_id, lokasi, about)
                                    SELECT email.user_id, :lokasi, :about
-                                   FROM email;
+                                   FROM email
                                  ";
                         $stmt = $pdo->prepare($query);
                         $stmt->execute([
                             'email' => $email,
-                            'lokasi' => $location,
+                            'lokasi' => $corplocation,
                             'about' => $about
                         ]);
                     }
