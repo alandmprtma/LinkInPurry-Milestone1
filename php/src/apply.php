@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <img class="logo" src="assets/LinkInPurry-crop.png">
     <ul class="nav-links">
         <li><a class="inactive" href="/"> <img src="assets/home_black.png"> Home</a></li>
-        <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+        <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
         <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
     </ul>
 </nav>

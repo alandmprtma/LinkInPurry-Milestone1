@@ -76,7 +76,7 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <ul class="nav-links" id="nav-links">
         <li><a class="inactive" href="/home.php"> <img src="assets/home_grey.png"> Home</a></li>
-        <li><a class="inactive" href="/jobs"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
+        <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
         <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
     </ul>
 </nav>
