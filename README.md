@@ -131,17 +131,44 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 </div>
 
 ## Lighthouse
-
 ### 1. Login Page
+<div style="text-align: center;">
+    <img src="lighthouse/buat_lowongan_before.png" alt="Buat Lowongan Lighthouse After" width="400" />
+    <p>No Enhancement Needed</p>
+</div>
 ![Login Page](screenshots/login.png)
 
-### 2. Home Page (Job Seeker)
-![Job Seeker Home](screenshots/jobseeker-home.png)
+### 2. Index Page
+<div style="text-align: center;">
+    <img src="lighthouse/index.png" alt="Index Lighthouse" width="400" />
+    <p>No Enhancement Needed</p>
+</div>
 
-### 3. Job Listing Page (Company)
-![Company Job Listing](screenshots/company-jobs.png)
+### 3. 404 Page Not Found
+<div style="text-align: center;">
+    <img src="lighthouse/404.png" alt="404 Lighthouse" width="400" />
+    <p>No Enhancement Needed</p>
+</div>
 
-### 4. Buat Lowongan (Company)
+### 4. Home Page (Job Seeker)
+<div style="text-align: center;">
+    <img src="lighthouse/home_jobseeker.png" alt="Home Page Job Seeker Lighthouse" width="400" />
+    <p>No Enhancement Needed</p>
+</div>
+
+### 5. Apply (Job Seeker)
+<div style="text-align: center;">
+    <img src="lighthouse/apply.png" alt="Apply Job Seeker Lighthouse" width="400" />
+    <p>No Enhancement Needed</p>
+</div>
+
+### 6. Detail Lowongan (Job Seeker)
+<div style="text-align: center;">
+    <img src="lighthouse/detail_lowongan_jobseeker.png" alt="Apply Job Seeker Lighthouse" width="400" />
+    <p>No Enhancement Needed</p>
+</div>
+
+### 7. Buat Lowongan (Company)
 <div style="text-align: center;">
     <img src="lighthouse/buat_lowongan_before.png" alt="Buat Lowongan Lighthouse After" width="400" />
     <p>Before Enhancement</p>
@@ -151,7 +178,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
     <p>After Enhancement</p>
 </div>
 
-### 5. Detail Lamaran (Company)
+### 8. Detail Lamaran (Company)
 <div style="text-align: center;">
     <img src="lighthouse/detail_lamaran_before.png" alt="Detail Lamaran Lighthouse After" width="400" />
     <p>Before Enhancement</p>
@@ -161,7 +188,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
     <p>After Enhancement</p>
 </div>
 
-### 6. Edit Lowongan (Company)
+### 9. Edit Lowongan (Company)
 <div style="text-align: center;">
     <img src="lighthouse/edit_job_before.png" alt="Edit Job Lighthouse After" width="400" />
     <p>Before Enhancement</p>
@@ -171,7 +198,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
     <p>After Enhancement</p>
 </div>
 
-### 7. Home Page (Company)
+### 10. Home Page (Company)
 <div style="text-align: center;">
     <img src="lighthouse/home_company_before.png" alt="Home Company Lighthouse After" width="400" />
     <p>Before Enhancement</p>
@@ -181,7 +208,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
     <p>After Enhancement</p>
 </div>
 
-### 8. Lowongan Detail (Company)
+### 11. Lowongan Detail (Company)
 <div style="text-align: center;">
     <img src="lighthouse/lowongan_detail_before.png" alt="Lowongan Detail Company Lighthouse After" width="400" />
     <p>Before Enhancement</p>
