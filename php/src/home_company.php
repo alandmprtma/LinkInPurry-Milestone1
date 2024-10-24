@@ -177,7 +177,7 @@ $totalPages = ceil($totalLowongan / $perPage);
             <img src="assets/company.jpg" alt="Profile Avatar of Company" loading="lazy">
         </div>
         </div>
-        <div class="body">
+        <div class="body" onclick="gotoprofile()">
             <h3><?php echo $_SESSION['nama']; ?></h3>
             <p><?php echo $_SESSION['email']; ?></p>
             <p class="location">Tangerang, Banten</p>
@@ -350,5 +350,10 @@ $totalPages = ceil($totalLowongan / $perPage);
     <script src="public/autocomplete_h.js" defer></script>
     <script src="public/hamburgermenu.js" defer></script>
     <script src="public/searchdebounce.js" defer></script>
+    <script>
+        function gotoprofile(){
+            window.location.href = "../profile.php?user_id=" + <?php echo $_SESSION['user_id']; ?>
+        }
+    </script>
 </body>
 </html>
