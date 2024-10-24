@@ -261,11 +261,12 @@ $totalPages = ceil($totalLowongan / $perPage);
     </div>
     <section class="job-listings">
     <div class="header">
-        <h2>Top job picks for you</h2>
-        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+        <h2>Job Listings Results</h2>
+        <p>Explore job opportunities tailored to your filters and search criteria.</p>
     </div>
 
     <ul class="job-cards">
+    <?php if (!empty($lowonganList)): ?>
         <?php foreach ($lowonganList as $index => $lowongan): ?>
             <li class="job-card">
                 <!-- Tambahkan link di sekitar nama posisi -->
@@ -287,6 +288,13 @@ $totalPages = ceil($totalLowongan / $perPage);
                 <li class="line"><hr class="divider" /></li>
             <?php endif; ?>
         <?php endforeach; ?>
+    <?php else: ?>
+            <!-- Jika lowonganList kosong, tampilkan pesan -->
+        <div class="cactus-placeholder"> 
+            <p>No Jobs Listing at the moment.</p>
+            <img src="assets/cactus.png" class="cactus"/>
+        </div>
+    <?php endif; ?>
     </ul>
 
 
