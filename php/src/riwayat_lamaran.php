@@ -107,18 +107,32 @@ else{
 <body>
 
 <nav class="navbar">
-            <img class="logo" src="assets/LinkInPurry-crop.png">
-            <form method="GET" action="home_company.php">
-            </form>
-            <div class="hamburger-menu" id="hamburger-menu">
-                <i class="fas fa-bars"></i>
-           </div>
-            <ul class="nav-links">
-                <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-                <li><a class="current" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
-                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
-            </ul>
-</nav>
+        <img class="logo" src="assets/LinkInPurry-crop.png" alt=".">
+        
+        <form method="GET" action="home_jobseeker.php" id="search-form" class="search-form">
+            <div class="search-bar">
+                <div class="icon">
+                    <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon" >
+                </div>
+                <div class="search-bar-container">
+                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="handleSearchInput(event)" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                    <div id="autocomplete-results" class="autocomplete-results"></div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Hamburger menu for mobile -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links" id="nav-links">
+            <li><a class="inactive" href="/"> <img src="assets/home_black.png" alt="."> Home</a></li>
+            <li><a class="current" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png" alt="."> My Jobs</a></li>
+            <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
+        </ul>
+    </nav>
 
 <main class="riwayat-container">
     <div class="container">
