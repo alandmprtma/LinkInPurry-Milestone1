@@ -340,7 +340,7 @@ $totalPages = ceil($totalLowongan / $perPage);
                 </div>
             </div>
             <div class="footer-section">
-                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" ">
+                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo">
                 <span style="font-size: 14px; margin-left: 8px;">
                     LinkedInPurry Corporation © 2024
                 </span>
