@@ -128,8 +128,8 @@ else{
 
         <!-- Navigation Links -->
         <ul class="nav-links" id="nav-links">
-            <li><a class="inactive" href="/"> <img src="assets/home_black.png" alt="."> Home</a></li>
-            <li><a class="current" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png" alt="."> My Jobs</a></li>
+            <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="."> Home</a></li>
+            <li><a class="current" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-black.png" alt="."> My Jobs</a></li>
             <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
         </ul>
     </nav>

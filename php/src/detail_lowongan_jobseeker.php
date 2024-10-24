@@ -76,9 +76,23 @@ if (isset($_SESSION['user_id'])) {
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-        <li><a class="inactive" href="/home.php"> <img src="assets/home_grey.png" alt="."> Home</a></li>
-        <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png" alt="."> My Jobs</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
+    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'jobseeker'): ?>
+            <li><a class="inactive" href="/home_jobseeker.php"> <img class="home" src="assets/home_grey.png" alt="."> Home</a></li>
+            <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png" alt="."> My Jobs</a></li>
+            <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
+        <?php else: ?>
+            <li><a class="inactive" href="/home.php"> <img class="home" src="assets/home_grey.png"> Home</a></li>
+            <li>
+                <a class="inactive" href="/auth/register.html">
+                    <i class="fa fa-user-plus"></i> Register
+                </a>
+            </li>
+            <li>
+                <a class="inactive" href="auth/index.html">
+                    <i class="fas fa-sign-in-alt"></i> Log In
+                </a>
+            </li>
+        <?php endif; ?>
     </ul>
 </nav>
 

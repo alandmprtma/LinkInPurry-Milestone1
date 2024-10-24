@@ -1,0 +1,425 @@
+/* Container to hold sidebar and content */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #f3f2ef;
+    color: #333;
+}
+
+/* General navbar styles */
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    z-index: 10;
+}
+
+.logo {
+    height: 50px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    margin-left: 20px;
+    background-color: #edf3f8;
+    width: 300px;
+    transition: width 0.4s ease;
+}
+
+.search-bar .icon img {
+    width: 20px;
+    margin-left: 5px;
+    margin-right: 3px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    flex: 1;
+    background-color: transparent;
+    font-size: 16px;
+    width: 100%;
+}
+
+.search-bar:focus-within {
+    width: 450px;
+    border: 2px solid #000;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+}
+
+.nav-links li {
+    margin-right: 40px;
+}
+
+.nav-links img {
+    width: 20px;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-links a:hover .home {
+    content: url('../assets/home_black.png');
+}
+
+.nav-links a:hover .logout {
+    content: url('../assets/logout-black.png');
+}
+
+.nav-links a:hover .job {
+    content: url('../assets/suitcase-black.png');
+}
+
+.inactive {
+    text-decoration: none;
+    color: #666;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease-in-out;
+}
+
+.inactive:hover {
+    color: #000;
+    font-weight: bold;
+}
+
+.nav-links li .current {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-links li .current::after {
+    content: '';
+    width: 80px; /* Lebar garis bawah */
+    height: 2px; /* Tinggi garis bawah */
+    background-color: #000;
+    margin-top: 5px;
+    position:absolute;
+    bottom: 0px;
+}
+
+.hamburger-menu {
+    display: none; /* Show hamburger menu on mobile */
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+/* Responsive Navbar Styles for Mobile */
+
+/* Hide the nav-links and show hamburger on mobile */
+@media (max-width: 768px) {
+    .nav-links li:first-child .current::after {
+        display: none;
+    }
+    
+
+    .nav-links {
+        display: none; /* Hide navigation links */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        width: 100%;
+        padding: 20px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex; /* Show navigation links when active */
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+        text-align: center;
+        flex-direction: row !important;
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger menu on mobile */
+        font-size: 24px;
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    .search-form {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+
+    .search-bar {
+        width: 200px;
+    }
+
+    .search-bar:focus-within {
+        width: 250px; /* Smaller focus width for mobile */
+    }
+
+    .inactive, .current {
+        display: flex !important;           /* Flex for the container */
+        flex-direction: row !important;     /* Row direction for icon and text */
+        align-items: center;     /* Vertically align items */
+        justify-content: center; /* Horizontally center items */
+        width: 100%;             /* Ensure it takes full width */
+        text-align: center;      /* Center text inside */
+    }
+    
+    .inactive img, .current img {
+        margin-right: 10px; /* Add space between icon and text */
+    }
+    
+    .nav-links img {
+        display: inline-block; /* Make sure the image is inline */
+    }
+}
+
+@media (max-width: 400px) {
+    .navbar .search-form {
+        margin: 0px auto;
+    }
+
+    .nav-links li:first-child .current::after {
+        display: none;
+    }
+
+    .search-bar {
+        width: 180px;
+        margin: 0px;
+    }
+
+
+    .search-bar:focus-within {
+        width: 220px;
+    }
+}
+
+.top-section {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom:50px;
+    background-color: #00000040; /* light background like in the image */
+  }
+  
+  .top-section h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .top-section p {
+    font-size: 18px;
+    color: #666;
+  }
+
+.container {
+    display: flex;
+    justify-content: center; /* Center the entire container */
+    align-items: flex-start; /* Align items to the top */
+    width: 100%; /* Take full width of the page */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  /* Sidebar styling */
+  .sidebar {
+    width: 27%; /* 150% of the original size */
+    height: fit-content;
+    background-color: #f8f9fa;
+    padding: 0px;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+  
+  /* List items in the sidebar */
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar li {
+    font-weight: bold;
+    color: #666;
+    margin: 0px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s, border-bottom 0.3s; /* Smooth hover and selection transitions */
+    position: relative; /* To position the active underline */
+  }
+  
+  /* Hover effect: turns the background color to light gray */
+  .sidebar li:hover {
+    background-color: #e0e0e0; /* Light gray on hover */
+  }
+  
+  /* Active state: adds a black underline */
+  .sidebar li.active {
+    background-color: #ffffff; /* Keep the background white for active item */
+    border-bottom: 3px solid black; /* Black underline */
+  }
+  
+  /* Main content section */
+  .main-content {
+    max-width: 60%;
+    flex-grow: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Example content styling */
+  .main-content h1 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .main-content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  /* Form/Checklist styles */
+  .checklist {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .checklist h3 {
+    font-size: 18px;
+    color: #0073b1;
+    margin-bottom: 10px;
+  }
+  
+  .checklist ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .checklist li {
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .checklist li input {
+    margin-right: 10px;
+  }
+
+  /* Key Takeaways Section */
+.key-takeaways {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 30px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .key-takeaways h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .key-takeaways p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .key-takeaways p a {
+    color: #0073b1; /* LinkedIn blue */
+    text-decoration: none;
+  }
+  
+  .key-takeaways p a:hover {
+    text-decoration: underline;
+  }
+  
+  .key-takeaways h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  .key-takeaways ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .key-takeaways ul li {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  .video-container {
+    width: 100%;
+    max-width: 800px; /* Maksimum lebar untuk layar besar */
+    margin: 20px auto; /* Pusatkan dengan margin */
+    border: 1px solid #ddd; /* Border ringan */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow halus */
+    border-radius: 8px; /* Border sudut melengkung */
+    overflow: hidden; /* Pastikan sudut border bekerja dengan baik */
+}
+
+.video-container video {
+    width: 100%; /* Pastikan video memenuhi lebar container */
+    height: auto; /* Biarkan tinggi menyesuaikan otomatis */
+}
+
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .main-content {
+      margin-left: 0;
+    }
+  }
+  

@@ -435,7 +435,7 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                         <p style="margin-top:15px; text-align:justify;">Explore our curated guide of expert-led courses, such as how to improve your resume and grow your network, to help you land your next opportunity.</p>
-                        <a href="#" class="show-more">Show more <span>&#8594;</span></a>
+                        <a href="/learn_more.php" class="show-more">Show more <span>&#8594;</span></a>
                     </div>
                 </div>
             </div>
