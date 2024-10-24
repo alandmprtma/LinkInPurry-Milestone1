@@ -272,7 +272,7 @@ For each page tested using Google Lighthouse, we ensured that the metrics for **
 
 ## 📦 Deliverables
 
-- **Final Submission:** 24th October 2024, 21.00 WIB
+- **Final Submission:** 25th October 2024, 23.59 WIB
 - **Milestones:**
   - Milestone 1 focuses on completing the core features and ensuring a functional web application.
   - Further milestones will expand upon this foundation, adding advanced features and optimizations.
