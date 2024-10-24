@@ -200,3 +200,22 @@ button.submit_data {
 .bad small, .bad label{
     color: crimson;
 }
+
+@media (max-width: 768px) {
+    .choice-button-container{
+        flex-direction: column;
+    }
+
+    .choice-button-container * {
+        margin: 5%;
+        width: 100%;
+    }
+
+    .centerbox {
+        width: 75%;
+    }
+
+    button.submit_data{
+        height: 20dvh;
+    }
+}
