@@ -138,6 +138,7 @@ $totalPages = ceil($totalLowongan / $perPage);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Home Company">
     <title>LinkInPurry</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -145,7 +146,7 @@ $totalPages = ceil($totalLowongan / $perPage);
 </head>
 <body>
         <nav class="navbar">
-            <img class="logo" src="assets/LinkInPurry-crop.png">
+            <img class="logo" src="assets/LinkInPurry-crop.png" alt=".">
             <form method="GET" action="home_company.php" id="search-form">
             <div class="search-bar">
                 <div class="icon">
@@ -162,8 +163,8 @@ $totalPages = ceil($totalLowongan / $perPage);
                 <i class="fas fa-bars"></i>
            </div>
             <ul class="nav-links" id="nav-links">
-                <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
-                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+                <li><a class="current" href="/"> <img src="assets/home_black.png" alt="."> Home</a></li>
+                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
             </ul>
         </nav>
 

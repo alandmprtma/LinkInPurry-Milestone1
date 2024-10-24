@@ -60,6 +60,7 @@ $lamaranList = $stmtLamaran->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="lowongan detail">
     <title>Buat Lowongan Baru</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -68,13 +69,13 @@ $lamaranList = $stmtLamaran->fetchAll();
 <body>
 
 <nav class="navbar">
-    <img class="logo" src="assets/LinkInPurry-crop.png">
+    <img class="logo" src="assets/LinkInPurry-crop.png" alt=".">
     <div class="hamburger-menu" id="hamburger-menu">
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="."> Home</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
     </ul>
 </nav>
 <main style='align-content: center;'>
