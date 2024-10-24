@@ -2,20 +2,34 @@
 # LinkInPurry - IF3110 Web-Based Development
 
 ## Project Overview
-
-![LinkInPurry](screenshots/LinkInPurry.png)
+<div style="text-align: center;">
+    <img src="screenshots/LinkInPurry.png" alt="Buat Lowongan Lighthouse After" width="600" />
+    <p>Project Overview of LinkedInPurry</p>
+</div>
 
 LinkInPurry is a web-based application aimed to assist secret agents, like Purry the Platypus, and other members of O.W.C.A. (Organisasi Warga Cool Abiez) in finding job opportunities. The platform provides features for both job seekers and companies to interact, post job openings, and manage job applications.
 
 ## Key Features
+| Feature                       | Description                                                            |
+|-------------------------------|------------------------------------------------------------------------|
+| **User Authentication**       | <ul><li>Separate authentication for Job Seekers and Companies.</li></ul>      |
+| **Job Management**            | <ul><li>Companies can create, edit, and close job vacancies.</li></ul>       |
+| **Job Application**           | <ul><li>Job Seekers can search, filter, and apply for jobs.</li></ul>         |
+| **Responsive Design**         | <ul><li>The application is responsive and optimized for different screen sizes.</li></ul> |
+| **Rich Text Editor**          | <ul><li>Implemented using quill.js for job descriptions and other rich text fields.</li></ul> |
+| **Pagination and Sorting**    | <ul><li>Job listings are paginated and can be sorted based on various criteria.</li></ul> |
+| **File Attachments**          | <ul><li>Companies can upload related job images, and applicants can attach CVs and videos.</li></ul> |
 
-- **User Authentication:** Separate authentication for Job Seekers and Companies.
-- **Job Management:** Companies can create, edit, and close job vacancies.
-- **Job Application:** Job Seekers can search, filter, and apply for jobs.
-- **Responsive Design:** The application is responsive and optimized for different screen sizes.
-- **Rich Text Editor:** Implemented using quill.js for job descriptions and other rich text fields.
-- **Pagination and Sorting:** Job listings are paginated and can be sorted based on various criteria.
-- **File Attachments:** Companies can upload related job images, and applicants can attach CVs and videos.
+## Bonus Features that we Implemented
+
+| Feature                        | Description                                                                                                                                                     |
+|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **All Responsive Web Design**  | - All layouts are made responsive (minimum for sizes 1280 x 768 and 400 x 800).<br>- The display will adjust according to the screen size using CSS @media rules.<br>- Reference for media queries can be found at [W3Schools](https://www.w3schools.com/css/css_rwd_mediaqueries.asp). |
+| **UI/UX like LinkedIn**       | - Create a UI/UX similar to the LinkedIn website design.<br>- Ensure a consistent and responsive design for every page.<br>- This may open opportunities for getting hired at LinkedIn with an attractive design. |
+| **Data Export**                | - Allows companies to upload applicant lists in Excel or CSV format.<br>- This is useful for internal analysis, archiving, or reporting.<br>- The minimum content of the file should include: Name, Job applied for, Date of application, URL of CV and other attachments, Application status. |
+| **Simple Job Recommendation**  | - Provides job recommendations to applicants based on their previous application history.<br>- Applicants can find relevant job openings without manual searching.<br>- Implementation examples include recommendations based on job categories and a "trend" system. |
+| **Google Lighthouse**          | - An automated tool for improving web page quality.<br>- Conducts audits for performance, accessibility, and best practices.<br>- Ensure scores are above 90 for accessibility and above 80 for performance.<br>- Capture initial scores and document changes made to improve the scores. |
+
 
 ## System Requirements
 
@@ -136,7 +150,6 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
     <img src="lighthouse/buat_lowongan_before.png" alt="Buat Lowongan Lighthouse After" width="400" />
     <p>No Enhancement Needed</p>
 </div>
-![Login Page](screenshots/login.png)
 
 ### 2. Index Page
 <div style="text-align: center;">
@@ -219,7 +232,6 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 </div>
 
 ## Task Allocation
-
 | Feature                               | Server-Side (PHP)       | Client-Side (HTML, CSS, JS) |
 |---------------------------------------|--------------------------|------------------------------|
 | Login/Logout                          | 13522146                 | 13522146                     |
@@ -234,6 +246,7 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 | Halaman Lamaran (JobSeeker)           | 13522146                 | 13522146                     |
 | Halaman Riwayat (JobSeeker)           | 13522130                 | 13522130                     |
 | Halaman Profil (Company)              | 13522130                 | 13522130                     |
+
 
 
 ## Deliverables
