@@ -32,13 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
     }    
 
     if (isset($_GET['data'])){
-        // Query untuk mendapatkan detail lamaran
         $query ="WITH deskripsilowongan AS (SELECT lowongan_id, company_id, posisi FROM lowongan),
-        namelist AS (SELECT user_id, nama FROM users)
-        SELECT ll.lamaran_id ,n.nama AS company_name, ll.posisi, ll.status, ll.created_at
-        FROM (lamaran AS la INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id) AS ll
-        INNER JOIN namelist as n ON ll.company_id = n.user_id
-        WHERE ll.user_id = :active_user";
+                namelist AS (SELECT user_id, nama FROM users)
+                SELECT la.lowongan_id, n.nama AS company_name, dl.posisi, la.status, la.created_at
+                FROM lamaran AS la
+                INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id
+                INNER JOIN namelist AS n ON dl.company_id = n.user_id
+                WHERE la.user_id = :active_user";
 
         $vars = ['active_user' => $_SESSION['user_id']];
 
@@ -64,11 +64,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if (isset($_GET['count'])){
         $query ="WITH deskripsilowongan AS (SELECT lowongan_id, company_id, posisi FROM lowongan),
-        namelist AS (SELECT user_id, nama FROM users)
-        SELECT COUNT(*) AS count
-        FROM (lamaran AS la INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id) AS ll
-        INNER JOIN namelist as n ON ll.company_id = n.user_id
-        WHERE ll.user_id = :active_user";
+                namelist AS (SELECT user_id, nama FROM users)
+                SELECT COUNT(*)
+                FROM lamaran AS la
+                INNER JOIN deskripsilowongan AS dl ON la.lowongan_id = dl.lowongan_id
+                INNER JOIN namelist AS n ON dl.company_id = n.user_id
+                WHERE la.user_id = :active_user";
 
         $vars = ['active_user' => $_SESSION['user_id']];
 

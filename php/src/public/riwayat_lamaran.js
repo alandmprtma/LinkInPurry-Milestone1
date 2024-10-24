@@ -70,7 +70,6 @@ function getcount(filter){
         var failsafe = 0;
         xmlh.onreadystatechange = function () {
             if (xmlh.readyState == 4 && xmlh.status == 200) {
-                console.log("Count",xmlh.response);
                 resolve(xmlh.response);
             }
             else{
@@ -107,6 +106,7 @@ function getdata(limit, skip, filter){
         var failsafe = 0;
         xmlh.onreadystatechange = function () {
             if (xmlh.readyState == 4 && xmlh.status == 200) {
+                console.log(xmlh.response);
                 resolve(xmlh.response);
             }
             else{
@@ -169,7 +169,6 @@ function populateLamaran(page, entryPerPage, filter) {
         function(response){
             var first = true;
             var data = JSON.parse(response);
-
             //nuke lamarancontainer
             lamaranContainer.innerHTML = "";
 
@@ -177,7 +176,7 @@ function populateLamaran(page, entryPerPage, filter) {
                 const lamaran = data[i];
                 // insert template here
                 const lamaranTemplate = `
-                    <a class="lamaran" href="../detail_lowongan_jobseeker.php?lowongan_id=${lamaran["lamaran_id"]}">            
+                    <a class="lamaran" href="../detail_lowongan_jobseeker.php?lowongan_id=${lamaran["lowongan_id"]}">            
                     <span class="corpname">
                         <b> ${lamaran["company_name"]} </b> ${lamaran["posisi"]}
                     </span>
