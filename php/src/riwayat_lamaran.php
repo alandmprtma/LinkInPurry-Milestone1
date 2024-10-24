@@ -17,7 +17,7 @@ else if ($_SESSION['role'] != 'jobseeker') {
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "GET"){
     // Koneksi ke database
     $host = 'db'; // Atau localhost jika di luar Docker
     $dbname = 'linkinpurry_db';
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         die("Koneksi ke database gagal: " . $e->getMessage());
     }    
 
-    if (!isset($_POST['count'])){
+    if (isset($_GET['data'])){
         // Query untuk mendapatkan detail lamaran
         $query ="WITH deskripsilowongan AS (SELECT lowongan_id, company_id, posisi FROM lowongan),
         namelist AS (SELECT user_id, nama FROM users)
@@ -42,19 +42,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $vars = ['active_user' => $_SESSION['user_id']];
 
-        if (isset($_POST['filter'])) {
+        if (isset($_GET['filter'])) {
             $query .= " AND ll.status = :filter";
-            $vars['filter'] = $_POST['filter'];
+            $vars['filter'] = $_GET['filter'];
         } 
 
-        if (isset($_POST['limit'])) {
+        if (isset($_GET['limit'])) {
             $query .= " LIMIT :limit";
-            $vars['limit'] = $_POST['limit'];
+            $vars['limit'] = $_GET['limit'];
         }
 
-        if (isset($_POST['skip'])) {
+        if (isset($_GET['skip'])) {
             $query .= " OFFSET :skip";
-            $vars['skip'] = $_POST['skip'];
+            $vars['skip'] = $_GET['skip'];
         }
         
         $stmt = $pdo->prepare($query);
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         exit();
     }
-    else{
+    else if (isset($_GET['count'])){
         $query ="WITH deskripsilowongan AS (SELECT lowongan_id, company_id, posisi FROM lowongan),
         namelist AS (SELECT user_id, nama FROM users)
         SELECT COUNT(*) AS count
@@ -72,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $vars = ['active_user' => $_SESSION['user_id']];
 
-        if (isset($_POST['filter'])) {
+        if (isset($_GET['filter'])) {
             $query .= " AND ll.status = :filter";
-            $vars['filter'] = $_POST['filter'];
+            $vars['filter'] = $_GET['filter'];
         } 
 
         $stmt = $pdo->prepare($query);
@@ -83,6 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         echo $count;
         exit();
     }
+    else {
+        echo isset($_GET['data']);
+        echo isset($_GET['count']);
+    }
+}
+else{
+    echo $_SERVER["REQUEST_METHOD"];
 }
 ?>
 
