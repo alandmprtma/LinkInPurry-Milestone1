@@ -2,7 +2,7 @@
 # LinkInPurry - IF3110 Web-Based Development
 
 ## Project Overview
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/LinkInPurry.png" alt="Buat Lowongan Lighthouse After" width="600" />
     <p>Project Overview of LinkedInPurry</p>
 </div>
@@ -74,63 +74,63 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 ## Screenshots
 
 ### 1. Login Page
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/login.png" alt="Login Page" width="400" />
 </div>
 
 ### 2. Register page
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/register1.png" alt="Register Page" width="400" />
 </div>
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/register2.png" alt="Register Page" width="400" />
 </div>
 
 ### 3. Home (Company)
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/home_company.png" alt="Home Page" width="400" />
 </div>
 
 ### 4. Detail Lowongan (Company)
 
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/detail_lowongan_company.png" alt="Detail Lowongan (Company)" width="400" />
 </div>
 
 ### 5. Tambah Lowongan (Company)
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/buat_lowongan.png" alt="Tambah Lowongan (Company)" width="400" />
 </div>
 
 
 ### 6. Detail Pelamar
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/detail_pelamar.png" alt="Detail Pelamar" width="400" />
 </div>
 
 
 ### 7. Home (Jobseeker)
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/home_jobseeker.png" alt="Home (Jobseeker)" width="400" />
 </div>
 
 ### 8. Detail Lowongan (Jobseeker)
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/detail_lowongan_jobseeker.png" alt="Detail Lowongan (Jobseeker)" width="400" />
 </div>
 
 ### 9. Apply Lowongan
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/apply.png" alt="Apply Lowongan" width="400" />
 </div>
 
 ### 10. Guest Mode
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/guest.png" alt="Guest Mode" width="400" />
 </div>
 
 ### 11. Edit Lowongan
-<div style="text-align: center;">
+<div align="center">
     <img src="screenshots/edit_lowongan.png" alt="Edit Lowongan" width="400" />
 </div>
 
@@ -146,87 +146,87 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 
 ## Lighthouse
 ### 1. Login Page
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/buat_lowongan_before.png" alt="Buat Lowongan Lighthouse After" width="400" />
     <p>No Enhancement Needed</p>
 </div>
 
 ### 2. Index Page
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/index.png" alt="Index Lighthouse" width="400" />
     <p>No Enhancement Needed</p>
 </div>
 
 ### 3. 404 Page Not Found
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/404.png" alt="404 Lighthouse" width="400" />
     <p>No Enhancement Needed</p>
 </div>
 
 ### 4. Home Page (Job Seeker)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/home_jobseeker.png" alt="Home Page Job Seeker Lighthouse" width="400" />
     <p>No Enhancement Needed</p>
 </div>
 
 ### 5. Apply (Job Seeker)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/apply.png" alt="Apply Job Seeker Lighthouse" width="400" />
     <p>No Enhancement Needed</p>
 </div>
 
 ### 6. Detail Lowongan (Job Seeker)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/detail_lowongan_jobseeker.png" alt="Apply Job Seeker Lighthouse" width="400" />
     <p>No Enhancement Needed</p>
 </div>
 
 ### 7. Buat Lowongan (Company)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/buat_lowongan_before.png" alt="Buat Lowongan Lighthouse After" width="400" />
     <p>Before Enhancement</p>
 </div>
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/buat_lowongan_after.png" alt="Buat Lowongan Lighthouse Before" width="400" />
     <p>After Enhancement</p>
 </div>
 
 ### 8. Detail Lamaran (Company)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/detail_lamaran_before.png" alt="Detail Lamaran Lighthouse After" width="400" />
     <p>Before Enhancement</p>
 </div>
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/detail_lamaran_after.png" alt="Detail Lamaran Lighthouse Before" width="400" />
     <p>After Enhancement</p>
 </div>
 
 ### 9. Edit Lowongan (Company)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/edit_job_before.png" alt="Edit Job Lighthouse After" width="400" />
     <p>Before Enhancement</p>
 </div>
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/edit_job_after.png" alt="Edit Job Lighthouse Before" width="400" />
     <p>After Enhancement</p>
 </div>
 
 ### 10. Home Page (Company)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/home_company_before.png" alt="Home Company Lighthouse After" width="400" />
     <p>Before Enhancement</p>
 </div>
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/home_company_after.png" alt="Home Company Lighthouse Before" width="400" />
     <p>After Enhancement</p>
 </div>
 
 ### 11. Lowongan Detail (Company)
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/lowongan_detail_before.png" alt="Lowongan Detail Company Lighthouse After" width="400" />
     <p>Before Enhancement</p>
 </div>
-<div style="text-align: center;">
+<div align="center">
     <img src="lighthouse/home_company_after.png" alt="Lowongan Detail Lighthouse Before" width="400" />
     <p>After Enhancement</p>
 </div>
@@ -240,6 +240,14 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 <div style="text-align: center;">
     <img src="lighthouse/lh_profile.png" alt="Apply Job Seeker Lighthouse" width="400" />
 </div>
+
+### Lighthouse Performance Summary
+
+For each page tested using Google Lighthouse, we ensured that the metrics for **Best Practices**, **Performance**, and **Accessibility** were consistently above 90. This was achieved through various optimizations, including:
+
+- **Best Practices:** We ensured that the application adheres to modern web development standards by fixing issues such as insecure links, using HTTPS for all resources, and eliminating unused JavaScript.
+- **Performance:** We optimized page load times by minimizing and compressing CSS, JavaScript, and images. Lazy loading was applied to large images, and caching strategies were improved.
+- **Accessibility:** We improved accessibility by implementing semantic HTML tags, ensuring proper color contrast, providing alt text for images, and optimizing navigation for screen readers.
 
 ## Task Allocation
 | Feature                               | Server-Side (PHP)       | Client-Side (HTML, CSS, JS) |
