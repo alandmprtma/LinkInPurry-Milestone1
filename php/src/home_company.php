@@ -146,14 +146,14 @@ $totalPages = ceil($totalLowongan / $perPage);
 <body>
         <nav class="navbar">
             <img class="logo" src="assets/LinkInPurry-crop.png">
-            <form method="GET" action="home_company.php">
+            <form method="GET" action="home_company.php" id="search-form">
             <div class="search-bar">
                 <div class="icon">
                     <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
                 <div class="search-bar-container">
                 <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['user_id'];?>">
-                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                <input type="text" id="search_keyword"  name="search_keyword" onkeyup="handleSearchInput(event)" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
                 <div id="autocomplete-results" class="autocomplete-results"></div>
                 </div>
             </div>
@@ -161,7 +161,7 @@ $totalPages = ceil($totalLowongan / $perPage);
             <div class="hamburger-menu" id="hamburger-menu">
                 <i class="fas fa-bars"></i>
            </div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
                 <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
             </ul>
@@ -239,6 +239,7 @@ $totalPages = ceil($totalLowongan / $perPage);
     </div>
 
     <ul class="job-cards">
+    <?php if (!empty($lowonganList)): ?>
         <?php foreach ($lowonganList as $index => $lowongan): ?>
             <li class="vacancy-card">
                 <div>
@@ -269,6 +270,13 @@ $totalPages = ceil($totalLowongan / $perPage);
                 <li class="line"><hr class="divider" /></li>
             <?php endif; ?>
         <?php endforeach; ?>
+        <?php else: ?>
+        <!-- Jika lowonganList kosong, tampilkan pesan -->
+        <div class="cactus-placeholder"> 
+            <p>No Jobs Listings posted at the moment.</p>
+            <img src="assets/cactus.png" class="cactus"/>
+        </div>
+    <?php endif; ?>
     </ul>
     </section>
         <!-- Pagination -->
@@ -334,15 +342,7 @@ $totalPages = ceil($totalLowongan / $perPage);
         </aside>
     </main>
     <script src="public/autocomplete_h.js"></script>
+    <script src="public/hamburgermenu.js"></script>
+    <script src="public/searchdebounce.js"></script>
 </body>
 </html>
-
-<script>
-const hamburgerMenu = document.getElementById('hamburger-menu');
-const navLinks = document.querySelector('.nav-links');
-
-hamburgerMenu.addEventListener('click', () => {
-    navLinks.classList.toggle('active'); // Toggle class untuk menampilkan atau menyembunyikan nav links
-});
-
-</script>

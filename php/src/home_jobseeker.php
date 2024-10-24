@@ -329,7 +329,10 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
                  <?php endif; ?>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>No recommendations available at the moment.</p>
+            <div class="cactus-placeholder">
+            <p style="text-align: center;">No recommendations available at the moment.</p>
+            <img src="assets/cactus.png" class="cactus"/>
+            </div>
         <?php endif; ?>
     </ul>
 </section>
@@ -345,8 +348,8 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
         <h2>Job Listings Results</h2>
         <p>Explore job opportunities tailored to your filters and search criteria.</p>
     </div>
-
     <ul class="job-cards">
+    <?php if (!empty($lowonganList)): ?>
         <?php foreach ($lowonganList as $index => $lowongan): ?>
             <li class="job-card">
                 <!-- Tambahkan link di sekitar nama posisi -->
@@ -368,8 +371,14 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
                 <li class="line"><hr class="divider" /></li>
             <?php endif; ?>
         <?php endforeach; ?>
-    </ul>
-
+    <?php else: ?>
+        <!-- Jika lowonganList kosong, tampilkan pesan -->
+        <div class="cactus-placeholder"> 
+            <p>No Jobs Listing at the moment.</p>
+            <img src="assets/cactus.png" class="cactus"/>
+        </div>
+    <?php endif; ?>
+</ul>
 
     </section>
     
@@ -456,7 +465,10 @@ $trendingList = $stmtTrending->fetchAll(PDO::FETCH_ASSOC);
                         <?php endif; ?>
                     <?php endforeach; ?>
                 <?php else: ?>
+                    <div class="cactus-placeholder"> 
                     <p>No trending jobs at the moment.</p>
+                    <img src="assets/cactus.png" class="cactus"/>
+                    </div>
                 <?php endif; ?>
             </ul>
         </section>

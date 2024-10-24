@@ -4,6 +4,6 @@ session_unset();  // Menghapus semua session
 session_destroy(); // Menghancurkan session
 
 // Redirect ke halaman login
-header('Location: login.html');
+header('Location: index.html');
 exit();
 ?>

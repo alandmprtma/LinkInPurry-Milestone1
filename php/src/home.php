@@ -161,13 +161,13 @@ $totalPages = ceil($totalLowongan / $perPage);
     <nav class="navbar">
         <img class="logo" src="assets/LinkInPurry-crop.png">
         
-        <form method="GET" action="home.php" class="search-form">
+        <form method="GET" action="home.php" class="search-form" id="search-form">
             <div class="search-bar">
                 <div class="icon">
                     <img src="assets/search-icon-removebg-preview-mirror.png" alt="Search Icon">
                 </div>
                 <div class="search-bar-container">
-                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="searchAutocomplete()" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
+                    <input type="text" id="search_keyword" name="search_keyword" onkeyup="handleSearchInput(event)" placeholder="Search by position or company" value="<?= isset($_GET['search_keyword']) ? htmlspecialchars($_GET['search_keyword']) : '' ?>">
                     <div id="autocomplete-results" class="autocomplete-results"></div>
                 </div>
             </div>
@@ -261,11 +261,12 @@ $totalPages = ceil($totalLowongan / $perPage);
     </div>
     <section class="job-listings">
     <div class="header">
-        <h2>Top job picks for you</h2>
-        <p>Based on your profile, preferences, and activity like applies, searches, and saves</p>
+        <h2>Job Listings Results</h2>
+        <p>Explore job opportunities tailored to your filters and search criteria.</p>
     </div>
 
     <ul class="job-cards">
+    <?php if (!empty($lowonganList)): ?>
         <?php foreach ($lowonganList as $index => $lowongan): ?>
             <li class="job-card">
                 <!-- Tambahkan link di sekitar nama posisi -->
@@ -287,6 +288,13 @@ $totalPages = ceil($totalLowongan / $perPage);
                 <li class="line"><hr class="divider" /></li>
             <?php endif; ?>
         <?php endforeach; ?>
+    <?php else: ?>
+            <!-- Jika lowonganList kosong, tampilkan pesan -->
+        <div class="cactus-placeholder"> 
+            <p>No Jobs Listing at the moment.</p>
+            <img src="assets/cactus.png" class="cactus"/>
+        </div>
+    <?php endif; ?>
     </ul>
 
 
@@ -296,11 +304,11 @@ $totalPages = ceil($totalLowongan / $perPage);
             <?php if ($totalPages > 1): ?>
                 <?php if ($page > 1): ?>
                     <!-- Tombol << mundur 2 halaman -->
-                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">«</a>
+                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>">«</a>
                 <?php endif; ?>
 
                 <!-- Tombol halaman pertama -->
-                <a href="?page=1&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == 1 ? 'active' : '' ?>">1</a>
+                <a href="?page=1&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $page == 1 ? 'active' : '' ?>">1</a>
 
                 <!-- Jika halaman lebih dari 3, tampilkan ... setelah halaman 1 -->
                 <?php if ($page > 3): ?>
@@ -309,7 +317,7 @@ $totalPages = ceil($totalLowongan / $perPage);
 
                 <!-- Tombol halaman di sekitar halaman saat ini -->
                 <?php for ($i = max(2, $page - 1); $i <= min($totalPages - 1, $page + 1); $i++): ?>
-                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
                 <?php endfor; ?>
 
                 <!-- Jika halaman saat ini lebih dari 3 halaman sebelum halaman terakhir, tampilkan ... sebelum halaman terakhir -->
@@ -318,11 +326,11 @@ $totalPages = ceil($totalLowongan / $perPage);
                 <?php endif; ?>
 
                 <!-- Tombol halaman terakhir -->
-                <a href="?page=<?= $totalPages ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>" class="<?= $page == $totalPages ? 'active' : '' ?>"><?= $totalPages ?></a>
+                <a href="?page=<?= $totalPages ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $page == $totalPages ? 'active' : '' ?>"><?= $totalPages ?></a>
 
                 <!-- Tombol >> lompat 2 halaman -->
                 <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?= min($totalPages, $page + 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>">»</a>
+                    <a href="?page=<?= min($totalPages, $page + 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>">»</a>
                 <?php endif; ?>
             <?php endif; ?>
         </div>
@@ -358,12 +366,7 @@ $totalPages = ceil($totalLowongan / $perPage);
 
 
     <script src="public/autocomplete_js.js"></script>
+    <script src="public/hamburgermenu.js"></script>
+    <script src="public/searchdebounce.js"></script>
 </body>
 </html>
-
-<script>
-    document.getElementById('hamburger-menu').addEventListener('click', function() {
-        const navLinks = document.getElementById('nav-links');
-        navLinks.classList.toggle('active');
-    });
-</script>
