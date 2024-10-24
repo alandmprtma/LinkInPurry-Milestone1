@@ -62,11 +62,15 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 ### 1. Login Page
 ![Login Page](screenshots/login.png)
 
-### 2. Home Page (Job Seeker)
-![Job Seeker Home](screenshots/jobseeker-home.png)
+### 2. Register page
+![Register page](screenshots/register1.png)
+![Register page](screenshots/register2.png)
 
-### 3. Job Listing Page (Company)
-![Company Job Listing](screenshots/company-jobs.png)
+### 3. Home (Company)
+![Home (Company)](screenshots/home_company.png)
+
+### 3. Home (Company)
+![Detail Lowongan (Company)](screenshots/detail_lowongan_company.png)
 
 ## Lighthouse
 
