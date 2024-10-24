@@ -259,5 +259,5 @@ if (!$lowongan) {
 
 
 </body>
-<script src=public/hamburger></script>
+<script src=public/hamburgermenu.js></script>
 </html>
