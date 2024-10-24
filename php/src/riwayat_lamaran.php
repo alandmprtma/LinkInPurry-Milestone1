@@ -123,12 +123,10 @@ else{
 <main class="riwayat-container">
     <div class="container">
         <p>Filter by status</p>
-        <ul>
-            <ul class="button_list">
-                <li><button class="toggle_button" onclick="filter(this, 'accepted')">Accepted</button></li>
-                <li><button class="toggle_button" onclick="filter(this, 'waiting')">Waiting</button></li>
-                <li><button class="toggle_button" onclick="filter(this, 'rejected')">Rejected</button></li>
-            </ul>
+        <ul class="button_list">
+            <li><button class="toggle_button" onclick="filter(this, 'accepted')">Accepted</button></li>
+            <li><button class="toggle_button" onclick="filter(this, 'waiting')">Waiting</button></li>
+            <li><button class="toggle_button" onclick="filter(this, 'rejected')">Rejected</button></li>
         </ul>
     </div>
     <p><strong>Riwayat lamaran:</strong></p>
