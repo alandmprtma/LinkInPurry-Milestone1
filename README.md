@@ -136,12 +136,12 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 
 ### 12. Riwayat Apply
 <div style="text-align: center;">
-    <img src="screenshots/.png" alt="Riwayat Apply" width="400" />
+    <img src="screenshots/riwayat_lamaran.png" alt="Riwayat Apply" width="400" />
 </div>
 
 ### 13. Profil Company
 <div style="text-align: center;">
-    <img src="screenshots/.png" alt="Profil Company" width="400" />
+    <img src="screenshots/profile.png" alt="Profil Company" width="400" />
 </div>
 
 ## Lighthouse
@@ -229,6 +229,16 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 <div style="text-align: center;">
     <img src="lighthouse/home_company_after.png" alt="Lowongan Detail Lighthouse Before" width="400" />
     <p>After Enhancement</p>
+</div>
+
+### 12. Riwayat Apply
+<div style="text-align: center;">
+    <img src="lighthouse/lh_riwayat_lamaran.png" alt="Apply Job Seeker Lighthouse" width="400" />
+</div>
+
+### 13. Profile Company
+<div style="text-align: center;">
+    <img src="lighthouse/lh_profile.png" alt="Apply Job Seeker Lighthouse" width="400" />
 </div>
 
 ## Task Allocation
