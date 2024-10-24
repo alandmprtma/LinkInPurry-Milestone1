@@ -51,6 +51,7 @@ if (!$lamaran) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="See your job applicants details with LinkInPurry, the best platform for job seekers and employers.">
     <title>Buat Lowongan Baru</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -64,7 +65,7 @@ if (!$lamaran) {
 <body>
 
 <nav class="navbar">
-            <img class="logo" src="assets/LinkInPurry-crop.png">
+            <img class="logo" src="assets/LinkInPurry-crop.png" alt="LinkInPurry Logo">
             <form method="GET" action="home_company.php">
             <div class="search-bar">
                 <div class="icon">
@@ -81,8 +82,8 @@ if (!$lamaran) {
                 <i class="fas fa-bars"></i>
            </div>
             <ul class="nav-links" id="nav-links">
-                <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+                <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="Home"> Home</a></li>
+                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="Log Out"> Log Out</a></li>
             </ul>
         </nav>
 <main style='align-content: center;'>
@@ -93,19 +94,31 @@ if (!$lamaran) {
     <h1 class='form-heading'><?php echo htmlspecialchars($lamaran['posisi']); ?></h1>
     <a href="lowongan_detail.php?lowongan_id=<?php echo $lamaran['lowongan_id']; ?>" class="btn btn-secondary">Back</a>
     </div>
-        <h4 style='color: #666;'><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lamaran['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lamaran['jenis_pekerjaan']); ?></h4>
+        <h2 class='custom-heading'><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lamaran['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lamaran['jenis_pekerjaan']); ?></h4>
         <h5 style='color: #666;'>Applied At: <?php echo htmlspecialchars(date('F d, Y H:i', strtotime($lamaran['created_at']))); ?></h5>
-        <li class="line" style="padding-bottom: 8px; padding-top: 12px;"><hr class="divider" /></li>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li class="line" style="padding-bottom: 8px; padding-top: 12px;">
+                <hr class="divider" />
+            </li>
+        </ul>
         <h2  style='font-size: 20px; color: #333;'>Contact Info</h2>
         <h3  style='font-size: 16px; color: #333; margin-top: 5px;'><?php echo htmlspecialchars($lamaran['nama']); ?></h3>
         <h4 style='padding-top: 20px; color: #666';>Email address</h4>
         <p   style='color: #333;'><?php echo htmlspecialchars($lamaran['email']); ?></p>
-        <li class="line" style="padding-top: 10px; padding-bottom: 10px;"><hr class="divider" /></li>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li class="line" style="padding-bottom: 8px; padding-top: 12px;">
+                <hr class="divider" />
+            </li>
+        </ul>
         <h2  style='font-size: 20px; color: #333;'>Resume</h2>
         <div class="embed-pdf-container">
             <embed src="<?php echo htmlspecialchars($lamaran['cv_path']); ?>" type="application/pdf" />
         </div>
-        <li class="line" style="padding-top: 10px; padding-bottom: 10px;"><hr class="divider" /></li>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li class="line" style="padding-bottom: 8px; padding-top: 12px;">
+                <hr class="divider" />
+            </li>
+        </ul>
         <h2  style='font-size: 20px; color: #333;'>Video</h2>
         <p><strong>Introduction Video:</strong></p>
         <?php if (!empty($lamaran['video_path'])): ?>
@@ -114,6 +127,13 @@ if (!$lamaran) {
             <!-- Tampilkan video perkenalan -->
             <video controls>
                 <source src="<?php echo htmlspecialchars($lamaran['video_path']); ?>" type="video/mp4">
+                <track 
+                    src="path/to/captions.vtt" 
+                    kind="captions" 
+                    srclang="en" 
+                    label="English" 
+                    default
+                >
                 Browser Anda tidak mendukung pemutar video.
             </video>
         </div>

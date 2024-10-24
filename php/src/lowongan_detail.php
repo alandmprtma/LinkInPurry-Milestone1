@@ -69,13 +69,13 @@ $lamaranList = $stmtLamaran->fetchAll();
 <body>
 
 <nav class="navbar">
-    <img class="logo" src="assets/LinkInPurry-crop.png" alt=".">
+    <img class="logo" src="assets/LinkInPurry-crop.png" alt="LinkIn Purry Logo">
     <div class="hamburger-menu" id="hamburger-menu">
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="."> Home</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
+        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="Home"> Home</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="Log Out"> Log Out</a></li>
     </ul>
 </nav>
 <main style='align-content: center;'>
@@ -86,7 +86,10 @@ $lamaranList = $stmtLamaran->fetchAll();
         <h1 class="form-heading"> <i class="fas fa-building"></i> <?php echo $_SESSION['nama']; ?></h1>
         <li class="line" style="padding-bottom: 10px"><hr class="divider" /></li>
         <h2 ><?php echo htmlspecialchars($lowongan['posisi']); ?></h2>
-        <h4 style='color: #666;'><i class="fa fa-briefcase" style='margin-right:10px'></i><?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?></h4>
+        <h3 class="custom-heading">
+            <i class="fa fa-briefcase" style="margin-right: 10px;"></i>
+            <?php echo htmlspecialchars($lowongan['jenis_lokasi']); ?> • <?php echo htmlspecialchars($lowongan['jenis_pekerjaan']); ?>
+        </h3>
         <div class="attachments">
             <h3>Job Attachments:</h3>
             <div class="attachment-images">
@@ -125,7 +128,7 @@ $lamaranList = $stmtLamaran->fetchAll();
                  <!-- Jika status lowongan masih terbuka, tampilkan tombol Lock -->
                  <form action="tutup_lowongan.php" method="POST" style="display: inline;">
         <input type="hidden" name="lowongan_id" value="<?php echo $lowongan['lowongan_id']; ?>">
-        <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;" >
+        <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;" aria-label="close job">
             <i class="fas fa-lock delete-icon"></i>
         </button>
     </form>
@@ -133,7 +136,7 @@ $lamaranList = $stmtLamaran->fetchAll();
                 <!-- Jika status lowongan sudah ditutup, tampilkan tombol Unlock -->
             <form action="buka_lowongan.php" method="POST" style="display: inline;">
                 <input type="hidden" name="lowongan_id" value="<?php echo $lowongan['lowongan_id']; ?>">
-                <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;" >
+                <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;" aria-label="open job">
                     <i class="fas fa-unlock delete-icon"></i>
                 </button>
             </form>
@@ -173,7 +176,7 @@ $lamaranList = $stmtLamaran->fetchAll();
                 </table>
                 <form action="export_csv.php" method="post">
                     <input type="hidden" name="lowongan_id" value="<?php echo $lowongan_id; ?>">
-                    <button type="submit" class="btn btn-primary">Export to CSV</button>
+                    <button type="submit" class="btn btn-primary" aria-label="Export to CSV">Export to CSV</button>
                 </form>
             <?php else: ?>
                 <p>Belum ada pelamar untuk lowongan ini.</p>

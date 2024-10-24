@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Post your job with LinkInPurry, the best platform for job seekers and employers.">
     <title>Buat Lowongan Baru</title>
     <link rel="stylesheet" href="css/styles_bl.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
@@ -28,13 +29,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
 <body>
 
 <nav class="navbar">
-    <img class="logo" src="assets/LinkInPurry-crop.png">
+    <img class="logo" src="assets/LinkInPurry-crop.png"  alt="LinkedInPurry Logo">
     <div class="hamburger-menu" id="hamburger-menu">
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png"> Home</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+        <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="Home"> Home</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="Log Out"> Log Out</a></li>
     </ul>
 </nav>
 <main style='align-content: center;'>

@@ -301,6 +301,7 @@ main {
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .profile-card .body {
@@ -322,7 +323,7 @@ main {
 
 .profile-card .body .location {
     font-size: 12px;
-    color: #999;
+    color: #331;
 }
 
 .profile-card .footer {
@@ -450,6 +451,12 @@ main {
     font-size: 0.9rem;
 }
 
+.custom-heading {
+    font-size: 1.1rem; 
+    color: #666; 
+    margin: 0;
+}
+
 .vacancy-card {
     display: flex;
     justify-content: space-between; /* Membuat jarak antara teks dan ikon */
@@ -530,7 +537,7 @@ main {
 
 .guidance-card .recommendation {
     font-size: 12px;
-    color: #888;
+    color: #331;
     margin-bottom: 1rem;
 }
 
