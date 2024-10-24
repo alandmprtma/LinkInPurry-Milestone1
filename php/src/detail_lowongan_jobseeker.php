@@ -61,6 +61,7 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Job details">
     <title>Detail Lowongan - <?php echo htmlspecialchars($lowongan['posisi']); ?></title>
     <link rel="stylesheet" href="css/styles_dlj.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
@@ -69,15 +70,15 @@ if (isset($_SESSION['user_id'])) {
 <body>
 
 <nav class="navbar">
-    <img class="logo" src="assets/LinkInPurry-crop.png">
+    <img class="logo" src="assets/LinkInPurry-crop.png" alt=".">
             <!-- Hamburger menu for mobile -->
     <div class="hamburger-menu" id="hamburger-menu">
         <i class="fas fa-bars"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-        <li><a class="inactive" href="/home.php"> <img src="assets/home_grey.png"> Home</a></li>
-        <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png"> My Jobs</a></li>
-        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+        <li><a class="inactive" href="/home.php"> <img src="assets/home_grey.png" alt="."> Home</a></li>
+        <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png" alt="."> My Jobs</a></li>
+        <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
     </ul>
 </nav>
 
