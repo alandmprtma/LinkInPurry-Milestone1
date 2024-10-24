@@ -1,1 +1,92 @@
-# Tugas Besar IF3110 2024/2025
+
+# LinkInPurry - IF3110 Web-Based Development
+
+## Project Overview
+
+LinkInPurry is a web-based application aimed to assist secret agents, like Purry the Platypus, and other members of O.W.C.A. (Organisasi Warga Cool Abiez) in finding job opportunities. The platform provides features for both job seekers and companies to interact, post job openings, and manage job applications.
+
+## Key Features
+
+- **User Authentication:** Separate authentication for Job Seekers and Companies.
+- **Job Management:** Companies can create, edit, and close job vacancies.
+- **Job Application:** Job Seekers can search, filter, and apply for jobs.
+- **Responsive Design:** The application is responsive and optimized for different screen sizes.
+- **Rich Text Editor:** Implemented using quill.js for job descriptions and other rich text fields.
+- **Pagination and Sorting:** Job listings are paginated and can be sorted based on various criteria.
+- **File Attachments:** Companies can upload related job images, and applicants can attach CVs and videos.
+
+## System Requirements
+
+- **Client-Side:**
+  - JavaScript, HTML, CSS (No frameworks like Bootstrap or Tailwind)
+- **Server-Side:**
+  - PHP (no frameworks like Laravel or CodeIgniter)
+- **Database:**
+  - PostgreSQL
+- **Other Tools:**
+  - Docker for containerization (Dockerfile and docker-compose.yml)
+
+## Installation Instructions
+
+1. **Clone the Repository:**
+   ```
+   git clone https://github.com/Labpro-21/if3110-tubes-2024-k03-03
+   cd linkinpurry
+   ```
+
+2. **Install Dependencies:**
+   No external libraries are required, but make sure to have PHP and PostgreSQL installed.
+
+3. **Running the Application:**
+   - Using Docker:
+     ```
+     docker-compose up --build
+     ```
+   
+4. **Access the Application:**
+   Open your browser and go to `http://localhost:8080`.
+
+## Usage Instructions
+
+### Company Features:
+- Create, edit, and close job listings.
+- View and manage applications, including accepting or rejecting job seekers.
+
+### Job Seeker Features:
+- Search, filter, and apply for job listings.
+- Track job application statuses.
+
+## Screenshots
+
+### 1. Login Page
+![Login Page](screenshots/login.png)
+
+### 2. Home Page (Job Seeker)
+![Job Seeker Home](screenshots/jobseeker-home.png)
+
+### 3. Job Listing Page (Company)
+![Company Job Listing](screenshots/company-jobs.png)
+
+## Task Allocation
+
+- **Server-Side (PHP):**
+  - Login/Logout: [Team Member 1]
+  - Register: [Team Member 2]
+  - Job Posting Management: [Team Member 3]
+
+- **Client-Side (HTML, CSS, JS):**
+  - Login/Register UI: [Team Member 1]
+  - Home Page (Job Seeker): [Team Member 2]
+  - Home Page (Company): [Team Member 3]
+
+## Deliverables
+
+- **Final Submission:** 24th October 2024, 21.00 WIB
+- **Milestones:**
+  - Milestone 1 focuses on completing the core features and ensuring a functional web application.
+  - Further milestones will expand upon this foundation, adding advanced features and optimizations.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
