@@ -138,14 +138,14 @@ $totalPages = ceil($totalLowongan / $perPage);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkInPurry</title>
+    <meta name="description" content="Find your dream job with LinkInPurry, the best platform for job seekers and employers.">
+    <title>LinkInPurry - Home Company</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/styles_js.css">
 </head>
 <body>
-        <nav class="navbar">
-            <img class="logo" src="assets/LinkInPurry-crop.png">
+        <nav class="navbar" role="navigation">
+            <img class="logo" src="assets/LinkInPurry-crop.png" alt="LinkInPurry Logo">
             <form method="GET" action="home_company.php" id="search-form">
             <div class="search-bar">
                 <div class="icon">
@@ -159,20 +159,22 @@ $totalPages = ceil($totalLowongan / $perPage);
             </div>
             </form>
             <div class="hamburger-menu" id="hamburger-menu">
-                <i class="fas fa-bars"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+                <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+            </svg>
            </div>
             <ul class="nav-links" id="nav-links">
-                <li><a class="current" href="/"> <img src="assets/home_black.png"> Home</a></li>
-                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"> Log Out</a></li>
+                <li><a class="current" href="/"> <img src="assets/home_black.png"  alt="Home"> Home</a></li>
+                <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png"  alt="Log Out"> Log Out</a></li>
             </ul>
         </nav>
 
-    <main style='align-content: center;'>
-    <aside class='left-aside'>
+    <main style='align-content: center;' role="main">
+    <aside class='left-aside' role="complementary">
     <div class="profile-card">
         <div class="header">
         <div class="avatar">
-            <img src="assets/company.jpg" alt="Avatar">
+            <img src="assets/company.jpg" alt="Profile Avatar of Company" loading="lazy">
         </div>
         </div>
         <div class="body">
@@ -222,7 +224,7 @@ $totalPages = ceil($totalLowongan / $perPage);
                         <option value="desc" <?= (isset($_GET['sort_order']) && $_GET['sort_order'] == 'desc') ? 'selected' : '' ?>>Descending</option>
                     </select>
                 </div>
-            <button class="apply-filters">Apply Filters</button>
+            <button  type="submit" class="apply-filters">Apply Filters</button>
             </form>
         </aside>
     </aside>
@@ -264,7 +266,11 @@ $totalPages = ceil($totalLowongan / $perPage);
                     ?>
                     <p style="font-size:14px; color:#666666;"> <?= htmlspecialchars($total_applicants); ?> applicants</p>
                 </div>
-                <a href="hapus_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>"><i class="fas fa-trash-alt delete-icon"></i></a>
+                <a href="hapus_lowongan.php?lowongan_id=<?php echo $lowongan['lowongan_id']; ?>">
+                    <svg class="delete-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="currentColor">
+                        <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/>
+                    </svg>
+                </a>
             </li>
             <?php if ($index !== array_key_last($lowonganList)): ?>
                 <li class="line"><hr class="divider" /></li>
@@ -272,9 +278,9 @@ $totalPages = ceil($totalLowongan / $perPage);
         <?php endforeach; ?>
         <?php else: ?>
         <!-- Jika lowonganList kosong, tampilkan pesan -->
-        <div class="cactus-placeholder"> 
+        <div class="cactus-placeholder" role="alert"> 
             <p>No Jobs Listings posted at the moment.</p>
-            <img src="assets/cactus.png" class="cactus"/>
+            <img src="assets/cactus.png" class="cactus"  alt="cactus"/>
         </div>
     <?php endif; ?>
     </ul>
@@ -284,7 +290,7 @@ $totalPages = ceil($totalLowongan / $perPage);
             <?php if ($totalPages > 1): ?>
                 <?php if ($page > 1): ?>
                     <!-- Tombol << mundur 2 halaman -->
-                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>">«</a>
+                    <a href="?page=<?= max(1, $page - 2) ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" aria-label="Previous 2 Page">«</a>
                 <?php endif; ?>
 
                 <!-- Tombol halaman pertama -->
@@ -297,7 +303,7 @@ $totalPages = ceil($totalLowongan / $perPage);
 
                 <!-- Tombol halaman di sekitar halaman saat ini -->
                 <?php for ($i = max(2, $page - 1); $i <= min($totalPages - 1, $page + 1); $i++): ?>
-                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+                    <a href="?page=<?= $i ?>&job_type=<?= $jobType ?>&location_type=<?= $locationType ?>&sort_category=<?= $sortCategory ?>&sort_order=<?= $sortOrder ?>&search_keyword=<?= $searchKeyword ?>" class="<?= $i == $page ? 'active' : '' ?>" aria-label="Next 2 Page"><?= $i ?></a>
                 <?php endfor; ?>
 
                 <!-- Jika halaman saat ini lebih dari 3 halaman sebelum halaman terakhir, tampilkan ... sebelum halaman terakhir -->
@@ -323,26 +329,26 @@ $totalPages = ceil($totalLowongan / $perPage);
                 <div class="guidance-content">
                     <div class="guidance-text">
                         <div class="guidance-headline">
-                            <strong style="margin-top:5px;">Find Your Ideal Candidate Today</strong>
+                            <strong class="guidance-meta">Find Your Ideal Candidate Today</strong>
                             <div class="guidance-image">
                                 <img class="" src="assets/candidate.png" alt="Resume Improvement">
                             </div>
                         </div>
-                        <p style="margin-top:15px; text-align:justify;">Ready to expand your team? Posting a job has never been easier! Share your job listing with a wide audience of qualified candidates looking for opportunities just like yours. With our user-friendly platform, you can customize your job post to attract the best talent, all at no cost to you!</p>
+                        <p class="guidance-description">Ready to expand your team? Posting a job has never been easier! Share your job listing with a wide audience of qualified candidates looking for opportunities just like yours. With our user-friendly platform, you can customize your job post to attract the best talent, all at no cost to you!</p>
                         <a href="buat_lowongan.php" class="show-more">Start Posting Now <span>&#8594;</span></a>
                     </div>
                 </div>
             </div>
-            <div class="footer-section" style="margin-top: 20px; text-align: center;">
-                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" style="height: 25px; vertical-align: middle;">
+            <div class="footer-section">
+                <img src="assets/LinkInPurry-crop.png" alt="LinkedInPurry Logo" ">
                 <span style="font-size: 14px; margin-left: 8px;">
                     LinkedInPurry Corporation © 2024
                 </span>
             </div>
         </aside>
     </main>
-    <script src="public/autocomplete_h.js"></script>
-    <script src="public/hamburgermenu.js"></script>
-    <script src="public/searchdebounce.js"></script>
+    <script src="public/autocomplete_h.js" defer></script>
+    <script src="public/hamburgermenu.js" defer></script>
+    <script src="public/searchdebounce.js" defer></script>
 </body>
 </html>
