@@ -3,6 +3,8 @@
 
 ## Project Overview
 
+![LinkInPurry](screenshots/LinkInPurry.png)
+
 LinkInPurry is a web-based application aimed to assist secret agents, like Purry the Platypus, and other members of O.W.C.A. (Organisasi Warga Cool Abiez) in finding job opportunities. The platform provides features for both job seekers and companies to interact, post job openings, and manage job applications.
 
 ## Key Features
@@ -31,7 +33,6 @@ LinkInPurry is a web-based application aimed to assist secret agents, like Purry
 1. **Clone the Repository:**
    ```
    git clone https://github.com/Labpro-21/if3110-tubes-2024-k03-03
-   cd linkinpurry
    ```
 
 2. **Install Dependencies:**
