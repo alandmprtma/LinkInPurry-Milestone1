@@ -311,38 +311,6 @@ body {
     color: #555;
     line-height: 1.5;
   }
-  
-  /* Form/Checklist styles */
-  .checklist {
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  .checklist h3 {
-    font-size: 18px;
-    color: #0073b1;
-    margin-bottom: 10px;
-  }
-  
-  .checklist ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .checklist li {
-    padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #ffffff;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .checklist li input {
-    margin-right: 10px;
-  }
 
   /* Key Takeaways Section */
 .key-takeaways {
@@ -420,6 +388,23 @@ body {
   
     .main-content {
       margin-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    main {
+      flex-direction: column !important;
+      align-items: center;
+    }
+  
+    .sidebar {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .main-content {
+      width: 100% !important;
+      max-width: 100% !important;
     }
   }
   

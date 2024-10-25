@@ -113,25 +113,13 @@ else if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 <body>
 <nav class="navbar" role="navigation">
             <img class="logo" src="assets/LinkInPurry-crop.png" alt="LinkInPurry Logo">
-            <form method="GET" action="home_company.php" id="search-form">
-            <div class="search-bar">
-                <div class="icon">
-                    <img src="assets\search-icon-removebg-preview-mirror.png" alt="Search Icon">
-                </div>
-                <div class="search-bar-container">
-                <input type="hidden" id="company_id" name="company_id" value="2">
-                <input type="text" id="search_keyword" name="search_keyword" onkeyup="handleSearchInput(event)" placeholder="Search by position or company" value="">
-                <div id="autocomplete-results" class="autocomplete-results"></div>
-                </div>
-            </div>
-            </form>
             <div class="hamburger-menu" id="hamburger-menu">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
                 <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"></path>
             </svg>
            </div>
             <ul class="nav-links" id="nav-links">
-                <li><a class="inactive" href="/"> <img src="assets/home_black.png" alt="Home"> Home</a></li>
+                <li><a class="inactive" href="/"> <img class="home" src="assets/home_grey.png" alt="Home"> Home</a></li>
                 <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="Log Out"> Log Out</a></li>
             </ul>
         </nav>
@@ -181,4 +169,5 @@ else if ($_SERVER['REQUEST_METHOD'] == 'GET'){
     </div>
 </body>
 <script src="public/profile.js"></script>
+<script src="public/hamburgermenu.js"></script>
 </html>

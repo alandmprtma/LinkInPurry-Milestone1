@@ -165,5 +165,6 @@ else{
 </body>
 
 <script src="../public/riwayat_lamaran.js"></script>
+<script src="../public/hamburgermenu.js"></script>
 
 </html>

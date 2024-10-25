@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id'])|| $_SESSION['role'] !== 'jobseeker') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Career Guidance Page</title>
   <link rel="stylesheet" href="css/styles_lm.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -25,7 +26,7 @@ if (!isset($_SESSION['user_id'])|| $_SESSION['role'] !== 'jobseeker') {
 
         <!-- Navigation Links -->
         <ul class="nav-links" id="nav-links">
-            <li><a class="current" href="/"> <img src="assets/home_black.png" alt="."> Home</a></li>
+            <li><a class="inactive" href="/"> <img src="assets/home_grey.png" alt="."> Home</a></li>
             <li><a class="inactive" href="/riwayat_lamaran.php"> <img class="job" src="assets/suitcase-grey.png" alt="."> My Jobs</a></li>
             <li><a class="inactive" href="auth/logout.php"> <img class="logout" src="assets/logout-grey.png" alt="."> Log Out</a></li>
         </ul>
@@ -51,5 +52,6 @@ if (!isset($_SESSION['user_id'])|| $_SESSION['role'] !== 'jobseeker') {
 </main>
 
   <script src="public/learnmore.js"></script>
+  <script src="public/hamburgermenu.js"></script>
 </body>
 </html>
