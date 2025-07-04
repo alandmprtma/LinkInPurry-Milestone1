@@ -2,6 +2,7 @@
     <img src="php/src/assets/LinkInPurry-crop.png" alt="Logo" width="200" />
     <p>LinkedInPurry Logo</p>
 </div>
+
 # LinkInPurry - IF3110 Web-Based Development
 
 ## 🖥️ Project Overview
